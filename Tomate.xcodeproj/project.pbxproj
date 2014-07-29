@@ -7,9 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F20425231961F91100A132D6 /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20425221961F91100A132D6 /* Int+Extensions.swift */; };
+		F2042553196498D100A132D6 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2042552196498D100A132D6 /* DataManager.swift */; };
+		F204255719649B6500A132D6 /* Tomate.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F204255519649B6500A132D6 /* Tomate.xcdatamodeld */; };
+		F234623B1960798900AB11A5 /* FocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23462381960798900AB11A5 /* FocusView.swift */; };
+		F234623C1960798900AB11A5 /* FocusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23462391960798900AB11A5 /* FocusViewController.swift */; };
+		F234623D1960798900AB11A5 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F234623A1960798900AB11A5 /* TimerView.swift */; };
 		F2AB30B819600A4000D8D989 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB30B719600A4000D8D989 /* AppDelegate.swift */; };
 		F2AB30BA19600A4000D8D989 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2AB30B919600A4000D8D989 /* Images.xcassets */; };
 		F2AB30C619600A4000D8D989 /* TomateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB30C519600A4000D8D989 /* TomateTests.swift */; };
+		F2AB30D4196016B800D8D989 /* TimerStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB30D3196016B800D8D989 /* TimerStyleKit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,6 +30,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F20425221961F91100A132D6 /* Int+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
+		F2042552196498D100A132D6 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataManager.swift; path = Model/DataManager.swift; sourceTree = "<group>"; };
+		F204255619649B6500A132D6 /* Tomate.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tomate.xcdatamodel; sourceTree = "<group>"; };
+		F23462381960798900AB11A5 /* FocusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusView.swift; sourceTree = "<group>"; };
+		F23462391960798900AB11A5 /* FocusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusViewController.swift; sourceTree = "<group>"; };
+		F234623A1960798900AB11A5 /* TimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		F2AB30B219600A4000D8D989 /* Tomate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tomate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2AB30B619600A4000D8D989 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2AB30B719600A4000D8D989 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -30,6 +43,7 @@
 		F2AB30BF19600A4000D8D989 /* TomateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TomateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2AB30C419600A4000D8D989 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2AB30C519600A4000D8D989 /* TomateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomateTests.swift; sourceTree = "<group>"; };
+		F2AB30D3196016B800D8D989 /* TimerStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerStyleKit.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +64,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F204255419649B4900A132D6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F2042552196498D100A132D6 /* DataManager.swift */,
+				F204255519649B6500A132D6 /* Tomate.xcdatamodeld */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		F23462371960798900AB11A5 /* Focus */ = {
+			isa = PBXGroup;
+			children = (
+				F23462391960798900AB11A5 /* FocusViewController.swift */,
+				F23462381960798900AB11A5 /* FocusView.swift */,
+				F234623A1960798900AB11A5 /* TimerView.swift */,
+			);
+			path = Focus;
+			sourceTree = "<group>";
+		};
 		F2AB30A919600A4000D8D989 = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +105,10 @@
 			isa = PBXGroup;
 			children = (
 				F2AB30B719600A4000D8D989 /* AppDelegate.swift */,
+				F20425221961F91100A132D6 /* Int+Extensions.swift */,
+				F204255419649B4900A132D6 /* Model */,
+				F23462371960798900AB11A5 /* Focus */,
+				F2AB30D5196016E100D8D989 /* StyleKit */,
 				F2AB30B919600A4000D8D989 /* Images.xcassets */,
 				F2AB30B519600A4000D8D989 /* Supporting Files */,
 			);
@@ -101,6 +138,14 @@
 				F2AB30C419600A4000D8D989 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F2AB30D5196016E100D8D989 /* StyleKit */ = {
+			isa = PBXGroup;
+			children = (
+				F2AB30D3196016B800D8D989 /* TimerStyleKit.swift */,
+			);
+			name = StyleKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,7 +245,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F234623D1960798900AB11A5 /* TimerView.swift in Sources */,
 				F2AB30B819600A4000D8D989 /* AppDelegate.swift in Sources */,
+				F2AB30D4196016B800D8D989 /* TimerStyleKit.swift in Sources */,
+				F2042553196498D100A132D6 /* DataManager.swift in Sources */,
+				F20425231961F91100A132D6 /* Int+Extensions.swift in Sources */,
+				F204255719649B6500A132D6 /* Tomate.xcdatamodeld in Sources */,
+				F234623B1960798900AB11A5 /* FocusView.swift in Sources */,
+				F234623C1960798900AB11A5 /* FocusViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,6 +429,7 @@
 				F2AB30CB19600A4000D8D989 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F2AB30CC19600A4000D8D989 /* Build configuration list for PBXNativeTarget "TomateTests" */ = {
 			isa = XCConfigurationList;
@@ -385,8 +438,23 @@
 				F2AB30CE19600A4000D8D989 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F204255519649B6500A132D6 /* Tomate.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F204255619649B6500A132D6 /* Tomate.xcdatamodel */,
+			);
+			currentVersion = F204255619649B6500A132D6 /* Tomate.xcdatamodel */;
+			name = Tomate.xcdatamodeld;
+			path = Model/Tomate.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = F2AB30AA19600A4000D8D989 /* Project object */;
 }

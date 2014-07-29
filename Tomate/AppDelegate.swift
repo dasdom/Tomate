@@ -12,14 +12,59 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
                             
     var window: UIWindow?
-
+    var focusViewController: FocusViewController?
+    
+    let kAlreadyStartedKey = "alreadyStarted"
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        // Override point for customization after application launch.
+
+        if !NSUserDefaults.standardUserDefaults().boolForKey(kAlreadyStartedKey) {
+            let restAction = UIMutableUserNotificationAction()
+            restAction.identifier = "BREAK_ACTION"
+            restAction.title = "Start Break"
+            restAction.activationMode = .Background
+            
+            let workAction = UIMutableUserNotificationAction()
+            workAction.identifier = "WORK_ACTION"
+            workAction.title = "Start Work"
+            workAction.activationMode = .Background
+            
+            
+            let category = UIMutableUserNotificationCategory()
+            category.setActions([workAction, restAction], forContext: .Default)
+            category.identifier = "START_CATEGORY"
+            
+            let notificationSettings = UIUserNotificationSettings(forTypes: .Alert | .Sound, categories: NSSet(object: category))
+            UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
+            
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: kAlreadyStartedKey)
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+        
+        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
+        
+        focusViewController = FocusViewController(nibName: nil, bundle: nil)
+        self.window!.rootViewController = focusViewController
         self.window!.backgroundColor = UIColor.whiteColor()
         self.window!.makeKeyAndVisible()
         return true
+    }
+    
+    func application(application: UIApplication!, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings!) {
+        println("\(notificationSettings)")
+    }
+    
+    func application(application: UIApplication!, handleActionWithIdentifier identifier: String!, forLocalNotification notification: UILocalNotification!, completionHandler: (() -> Void)!) {
+        println(identifier)
+        
+        if identifier == "BREAK_ACTION" {
+            focusViewController!.startBreak(nil)
+        } else if identifier == "WORK_ACTION" {
+            focusViewController!.startWork(nil)
+        }
+        
+        completionHandler()
     }
 
     func applicationWillResignActive(application: UIApplication) {
