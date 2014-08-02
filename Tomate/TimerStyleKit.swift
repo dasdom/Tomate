@@ -74,16 +74,16 @@ class TimerStyleKit : NSObject {
         CGContextSaveGState(context)
         CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, shadow.CGColor)
         TimerStyleKit.timerColor.setStroke()
-        fullRingPath.lineWidth = 0.5
+        fullRingPath.lineWidth = 1.0
         fullRingPath.stroke()
         
         var timerRingPath = UIBezierPath()
-        timerRingPath.addArcWithCenter(CGPointMake(timerRingRect.midX, timerRingRect.midY), radius: timerRingRect.width / 2, startAngle: 3 * CGFloat(M_PI)/2, endAngle: -endAngle, clockwise: true)
+        timerRingPath.addArcWithCenter(CGPointMake(timerRingRect.midX, timerRingRect.midY), radius: timerRingRect.width / 2 - 1, startAngle: 3 * CGFloat(M_PI)/2, endAngle: -endAngle, clockwise: true)
 
         CGContextSaveGState(context)
         CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, shadow.CGColor)
         TimerStyleKit.timerColor.setStroke()
-        timerRingPath.lineWidth = 2
+        timerRingPath.lineWidth = 3
         timerRingPath.stroke()
         CGContextRestoreGState(context)
 
@@ -95,7 +95,7 @@ class TimerStyleKit : NSObject {
         let textStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as NSMutableParagraphStyle
         textStyle.alignment = NSTextAlignment.Center;
 
-        let textFontAttributes = [NSFontAttributeName: UIFont(name: "Helvetica", size: 80), NSForegroundColorAttributeName: TimerStyleKit.timerColor, NSParagraphStyleAttributeName: textStyle]
+        let textFontAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue", size: 80), NSForegroundColorAttributeName: TimerStyleKit.timerColor, NSParagraphStyleAttributeName: textStyle]
 
         NSString(string: labelText).drawInRect(CGRectOffset(textRect, 0, (textRect.height - NSString(string: labelText).boundingRectWithSize(textRect.size, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: textFontAttributes, context: nil).size.height) / 2), withAttributes: textFontAttributes);
         CGContextRestoreGState(context)

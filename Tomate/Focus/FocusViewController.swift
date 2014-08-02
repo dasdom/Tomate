@@ -15,19 +15,20 @@ class FocusViewController: UIViewController {
     private var endDate: NSDate?
     private var localNotification: UILocalNotification?
     private var currentType = TimerType.Idle
-
+    private var workPeriods = [NSDate]()
+    
     //MARK: - view cycle
     override func loadView() {
         view = FocusView(frame: CGRectZero)
         
-        let startValue = CGFloat(TimerType.Work.toRaw())
-        focusView.setDuration(startValue, maxValue: startValue)
+//        let startValue = CGFloat(TimerType.Work.toRaw())
+//        focusView.setDuration(startValue, maxValue: startValue)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        focusView.button.addTarget(self, action: "startWork:", forControlEvents: .TouchUpInside)
+        focusView.workButton.addTarget(self, action: "startWork:", forControlEvents: .TouchUpInside)
         focusView.breakButton.addTarget(self, action: "startBreak:", forControlEvents: .TouchUpInside)
     }
     
@@ -62,17 +63,17 @@ class FocusViewController: UIViewController {
         UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: nil, animations: {
             switch timerType {
             case .Work:
-                self.focusView.button.alpha = 1.0
+                self.focusView.workButton.alpha = 1.0
                 self.focusView.breakButton.alpha = 0.3
                 self.focusView.breakButton.enabled = false
             case .Break:
-                self.focusView.button.alpha = 0.3
+                self.focusView.workButton.alpha = 0.3
                 self.focusView.breakButton.alpha = 1.0
-                self.focusView.button.enabled = false
+                self.focusView.workButton.enabled = false
             default:
-                self.focusView.button.alpha = 1.0
+                self.focusView.workButton.alpha = 1.0
                 self.focusView.breakButton.alpha = 1.0
-                self.focusView.button.enabled = true
+                self.focusView.workButton.enabled = true
                 self.focusView.breakButton.enabled = true
             }
             
@@ -85,11 +86,13 @@ class FocusViewController: UIViewController {
 extension FocusViewController {
     
     private func startTimerWithType(timerType: TimerType) {
+//        focusView.setDuration(0, maxValue: 1)
         var typeName: String
         switch timerType {
         case .Work:
             typeName = "Work"
             currentType = .Work
+            workPeriods.append(NSDate())
         case .Break:
             typeName = "Break"
             currentType = .Break
@@ -97,10 +100,15 @@ extension FocusViewController {
             typeName = "None"
             currentType = .Idle
             resetTimer()
+            focusView.numberOfWorkPeriodsLabel.text = "\(workPeriods.count)"
+            if localNotification {
+                UIApplication.sharedApplication().cancelLocalNotification(localNotification)
+            }
             return
         }
         setUIModeForTimerType(currentType)
 
+        focusView.numberOfWorkPeriodsLabel.text = "\(workPeriods.count)"
         
         let seconds = timerType.toRaw()
         endDate = NSDate(timeIntervalSinceNow: Double(seconds))
@@ -140,7 +148,7 @@ extension FocusViewController {
 
             return
         }
-        
+
         focusView.setDuration(timeInterval, maxValue: totalNumberOfSeconds)
     }
     
@@ -153,9 +161,10 @@ extension FocusViewController {
     }
     
     enum TimerType : Int {
-        case Work = 1500 //25*60
-        //    case Work = 10 //only for testing
-        case Break = 300  // 5*60
+        case Work = 1501 //25*60
+//            case Work = 10 //only for testing
+//        case Break = 301  // 5*60
+        case Break = 5  //only for testing
         case Idle = 0
     }
 }
@@ -183,6 +192,9 @@ private extension FocusViewController {
         
         let stopAction = UIAlertAction(title: "Stop", style: .Default, handler: { action in
             println("\(action)")
+            if self.currentType == .Work || self.workPeriods.count > 0 {
+                self.workPeriods.removeLast()
+            }
             self.startTimerWithType(.Idle)
             })
         alertController.addAction(stopAction)
