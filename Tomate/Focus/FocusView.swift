@@ -17,7 +17,7 @@ class FocusView: UIView {
 //    let stepper: UIStepper
     let settingsButton: UIButton
     
-    init(frame: CGRect) {
+    override init(frame: CGRect) {
         timerView = TimerView(frame: CGRectZero)
         timerView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
@@ -68,13 +68,13 @@ class FocusView: UIView {
         backgroundColor = TimerStyleKit.backgroundColor
         tintColor = UIColor.yellowColor()
 
-        addSubview(settingsButton)
         addSubview(timerView)
         addSubview(numberOfWorkPeriodsLabel)
 //        addSubview(stepper)
         addSubview(workButton)
         addSubview(breakButton)
         addSubview(centerView)
+        addSubview(settingsButton)
         
         let viewsDictionary = ["settingsButton" : settingsButton, "timerView" : timerView, "numberOfWorkPeriodsLabel" : numberOfWorkPeriodsLabel, "workButton" : workButton, "breakButton" : breakButton, "centerView" : centerView]
         
@@ -97,6 +97,10 @@ class FocusView: UIView {
 //        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[numberOfWorkPeriodsLabel]-10-[stepper]", options: .AlignAllCenterX, metrics: nil, views: viewsDictionary))
 
 
+    }
+    
+    required convenience init(coder aDecoder: NSCoder!) {
+        self.init(frame: CGRectZero)
     }
     
     func setDuration(duration: CGFloat, maxValue: CGFloat) {

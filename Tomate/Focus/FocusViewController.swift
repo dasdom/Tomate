@@ -16,6 +16,8 @@ class FocusViewController: UIViewController {
     private var localNotification: UILocalNotification?
     private var currentType = TimerType.Idle
     private var workPeriods = [NSDate]()
+    private var numberOfWorkPeriods = 10
+    private var totalMinutes = 0
     
     //MARK: - view cycle
     override func loadView() {
@@ -30,14 +32,21 @@ class FocusViewController: UIViewController {
 
         focusView.workButton.addTarget(self, action: "startWork:", forControlEvents: .TouchUpInside)
         focusView.breakButton.addTarget(self, action: "startBreak:", forControlEvents: .TouchUpInside)
+        focusView.settingsButton.addTarget(self, action: "showSettings", forControlEvents: .TouchUpInside)
+        
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "showSettings")
+        focusView.addGestureRecognizer(longPressRecognizer)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        if !timer {
-            focusView.setDuration(0, maxValue: CGFloat(currentType.toRaw()))
+        if timer == nil {
+            focusView.setDuration(0, maxValue: 1)
         }
+        
+        let duration = NSUserDefaults.standardUserDefaults().integerForKey(TimerType.Work.toRaw())
+        println("duration: \(duration)")
     }
     
     //MARK: - button actions
@@ -57,6 +66,10 @@ class FocusViewController: UIViewController {
         }
         
         startTimerWithType(.Break)
+    }
+    
+    func showSettings() {
+        presentViewController(UINavigationController(rootViewController: SettingsViewController()), animated: true, completion: nil)
     }
     
     func setUIModeForTimerType(timerType: TimerType) {
@@ -86,7 +99,7 @@ class FocusViewController: UIViewController {
 extension FocusViewController {
     
     private func startTimerWithType(timerType: TimerType) {
-//        focusView.setDuration(0, maxValue: 1)
+        focusView.setDuration(0, maxValue: 1)
         var typeName: String
         switch timerType {
         case .Work:
@@ -100,28 +113,30 @@ extension FocusViewController {
             typeName = "None"
             currentType = .Idle
             resetTimer()
-            focusView.numberOfWorkPeriodsLabel.text = "\(workPeriods.count)"
-            if localNotification {
-                UIApplication.sharedApplication().cancelLocalNotification(localNotification)
-            }
+            focusView.numberOfWorkPeriodsLabel.text = "\(workPeriods.count)/\(numberOfWorkPeriods)"
+            UIApplication.sharedApplication().cancelAllLocalNotifications()
             return
         }
         setUIModeForTimerType(currentType)
 
-        focusView.numberOfWorkPeriodsLabel.text = "\(workPeriods.count)"
+        focusView.numberOfWorkPeriodsLabel.text = "\(workPeriods.count)/\(numberOfWorkPeriods)"
         
-        let seconds = timerType.toRaw()
+        let seconds = NSUserDefaults.standardUserDefaults().integerForKey(timerType.toRaw())
         endDate = NSDate(timeIntervalSinceNow: Double(seconds))
         
+        let sharedDefaults = NSUserDefaults(suiteName: "de.dasdom.Tomate.shared")
+        sharedDefaults.setObject(endDate, forKey: "date")
+        sharedDefaults.synchronize()
+        
+//        focusView.setDuration(CGFloat(seconds), maxValue: CGFloat(seconds))
+        
         timer?.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "updateTimeLabel:", userInfo: ["timerType" : seconds], repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "updateTimeLabel:", userInfo: ["timerType" : seconds], repeats: true)
         
         //        displayLink = CADisplayLink(target: self, selector: "updateTimeLabel")
         //        displayLink!.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
         
-        if localNotification {
-            UIApplication.sharedApplication().cancelLocalNotification(localNotification)
-        }
+        UIApplication.sharedApplication().cancelAllLocalNotifications()
         
         localNotification = UILocalNotification()
         localNotification!.fireDate = endDate
@@ -143,6 +158,7 @@ extension FocusViewController {
         }
         
         let timeInterval = CGFloat(endDate!.timeIntervalSinceNow)
+//        println("timeInterval: \(timeInterval)")
         if timeInterval < 0 {
             resetTimer()
 
@@ -159,14 +175,12 @@ extension FocusViewController {
         currentType = .Idle
         setUIModeForTimerType(.Idle)
     }
-    
-    enum TimerType : Int {
-        case Work = 1501 //25*60
-//            case Work = 10 //only for testing
-//        case Break = 301  // 5*60
-        case Break = 5  //only for testing
-        case Idle = 0
-    }
+}
+
+enum TimerType : String {
+    case Work = "Work" //25*60
+    case Break = "Break"  //only for testing
+    case Idle = "Idle"
 }
 
 

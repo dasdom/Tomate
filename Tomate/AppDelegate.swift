@@ -15,11 +15,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var focusViewController: FocusViewController?
     
     let kAlreadyStartedKey = "alreadyStarted"
+    let kRegisterNotificationSettings = "kRegisterNotificationSettings"
+    let kWorkDuration = TimerType.Work.toRaw()
+    let kBreakDuration = TimerType.Break.toRaw()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 
-        if !NSUserDefaults.standardUserDefaults().boolForKey(kAlreadyStartedKey) {
+        let defaultPreferences = [kRegisterNotificationSettings : true, kWorkDuration : 1501, kBreakDuration : 301]
+        NSUserDefaults.standardUserDefaults().registerDefaults(defaultPreferences)
+        NSUserDefaults.standardUserDefaults().synchronize()
+        
+        if NSUserDefaults.standardUserDefaults().boolForKey(kRegisterNotificationSettings) {
             let restAction = UIMutableUserNotificationAction()
             restAction.identifier = "BREAK_ACTION"
             restAction.title = "Start Break"
@@ -30,7 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             workAction.title = "Start Work"
             workAction.activationMode = .Background
             
-            
             let category = UIMutableUserNotificationCategory()
             category.setActions([workAction, restAction], forContext: .Default)
             category.identifier = "START_CATEGORY"
@@ -38,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let notificationSettings = UIUserNotificationSettings(forTypes: .Alert | .Sound, categories: NSSet(object: category))
             UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
             
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: kAlreadyStartedKey)
+            NSUserDefaults.standardUserDefaults().setBool(false, forKey: kRegisterNotificationSettings)
             NSUserDefaults.standardUserDefaults().synchronize()
         }
         

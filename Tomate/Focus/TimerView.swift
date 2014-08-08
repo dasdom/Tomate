@@ -18,7 +18,7 @@ class TimerView: UIView {
     let fullShapeLayer: CAShapeLayer
     let timeLabel: UILabel
     
-    init(frame: CGRect) {
+    override init(frame: CGRect) {
         
         timerShapeLayer = CAShapeLayer()
         fullShapeLayer = CAShapeLayer()
@@ -42,6 +42,10 @@ class TimerView: UIView {
         addConstraint(NSLayoutConstraint(item: timeLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1.0, constant: 0.0))
         addConstraint(NSLayoutConstraint(item: timeLabel, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0))
     }
+    
+    convenience required init(coder aDecoder: NSCoder!) {
+        self.init(frame: CGRectZero)
+    }
 
     
     // Only override drawRect: if you perform custom drawing.
@@ -51,19 +55,24 @@ class TimerView: UIView {
 //        TimerStyleKit.drawTimer(durationInSeconds, maxValue: maxValue, showRemaining: showRemaining)
         
         var percentage: CGFloat
+        var dummyInt: Int
         if !showRemaining {
-            percentage = 1 - durationInSeconds / maxValue
+            dummyInt = Int(100000.0*(1 - durationInSeconds / maxValue))
+//            percentage = 1 - durationInSeconds / maxValue
         } else {
-            percentage = durationInSeconds / maxValue
+            dummyInt = Int(100000.0*durationInSeconds / maxValue)
+//            percentage = durationInSeconds / maxValue
         }
+        percentage = CGFloat(dummyInt)/100000.0
         
         let timerCenter = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect))
         let radius = rect.size.width / 2 - 10
         let startAngle = 3 * CGFloat(M_PI)/2
         
-        var timerRingPath = UIBezierPath()
-        timerRingPath.addArcWithCenter(timerCenter, radius: radius, startAngle: startAngle, endAngle: startAngle - 0.001, clockwise: true)
-
+        var timerRingPath = UIBezierPath(arcCenter: timerCenter, radius: radius, startAngle: startAngle, endAngle: startAngle-0.001, clockwise: true)
+//        timerRingPath.addArcWithCenter(timerCenter, radius: radius, startAngle: startAngle, endAngle: startAngle - 0.001, clockwise: true)
+        
+//        println("percentage: \(percentage)")
         timerShapeLayer.fillColor = UIColor.clearColor().CGColor
         timerShapeLayer.strokeColor = TimerStyleKit.timerColor.CGColor
         timerShapeLayer.lineWidth = 3
@@ -73,6 +82,12 @@ class TimerView: UIView {
         timerShapeLayer.shadowOffset = CGSizeMake(0.1, -0.1)
         timerShapeLayer.shadowRadius = 3
         timerShapeLayer.shadowOpacity = 1.0
+        
+        let totalMinutes = maxValue / 60
+        let dashLength = 2*radius*CGFloat(M_PI)/totalMinutes;
+        timerShapeLayer.lineDashPattern = [dashLength-2.0, 2.0]
+        
+//        println("timerShapeLayer \(timerShapeLayer)")
         
         let fullRingPath = UIBezierPath(arcCenter: timerCenter, radius: radius+2, startAngle: startAngle, endAngle: startAngle - 0.001, clockwise: true)
         
