@@ -130,8 +130,8 @@ extension FocusViewController {
 
         focusView.numberOfWorkPeriodsLabel.text = "\(workPeriods.count)/\(numberOfWorkPeriods)"
         
-//        let seconds = NSUserDefaults.standardUserDefaults().integerForKey(timerType.toRaw())
-        let seconds = 10
+        let seconds = NSUserDefaults.standardUserDefaults().integerForKey(timerType.toRaw())
+//        let seconds = 10
         endDate = NSDate(timeIntervalSinceNow: Double(seconds))
         
 //        let workPeriod = WorkPeriod()
@@ -218,7 +218,7 @@ private extension FocusViewController {
         default:
             break
         }
-        let alertController = UIAlertController(title: nil, message: alertMessage, preferredStyle: .Alert)
+        let alertController = UIAlertController(title: "Stop?", message: alertMessage, preferredStyle: .Alert)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: { action in
             println("\(action)")
