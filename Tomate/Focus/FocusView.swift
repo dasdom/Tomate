@@ -82,7 +82,8 @@ class FocusView: UIView {
         addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[settingsButton(44)]-13-|", options: nil, metrics: nil, views: viewsDictionary))
         addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-30-[settingsButton(44)]", options: nil, metrics: nil, views: viewsDictionary))
         
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-10-[timerView]-10-|", options: nil, metrics: nil, views: viewsDictionary))
+        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[timerView(300)]", options: nil, metrics: nil, views: viewsDictionary))
+        addConstraint(NSLayoutConstraint(item: timerView, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1.0, constant: 0.0))
         addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[timerView(300)]-30-[workButton(80,==breakButton)]", options: nil, metrics: nil, views: viewsDictionary))
         
         addConstraint(NSLayoutConstraint(item: timerView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: -50))

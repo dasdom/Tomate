@@ -17,6 +17,7 @@
 		F2AB30BA19600A4000D8D989 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2AB30B919600A4000D8D989 /* Images.xcassets */; };
 		F2AB30C619600A4000D8D989 /* TomateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB30C519600A4000D8D989 /* TomateTests.swift */; };
 		F2AB30D4196016B800D8D989 /* TimerStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB30D3196016B800D8D989 /* TimerStyleKit.swift */; };
+		F2BB35F319F38FB700CD9CA5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2BB35F219F38FB700CD9CA5 /* LaunchScreen.storyboard */; };
 		F2FA794419950BB800CB2760 /* WorkPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FA794319950BB800CB2760 /* WorkPeriod.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,7 @@
 		F2AB30C419600A4000D8D989 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2AB30C519600A4000D8D989 /* TomateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomateTests.swift; sourceTree = "<group>"; };
 		F2AB30D3196016B800D8D989 /* TimerStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerStyleKit.swift; sourceTree = "<group>"; };
+		F2BB35F219F38FB700CD9CA5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F2FA794319950BB800CB2760 /* WorkPeriod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkPeriod.swift; path = Model/WorkPeriod.swift; sourceTree = "<group>"; };
 		F2FB4E1A198D0BD000B5474E /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		F2FB4E1E198D0BD000B5474E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				F2AB30D5196016E100D8D989 /* StyleKit */,
 				F2AB30B919600A4000D8D989 /* Images.xcassets */,
 				F2AB30B519600A4000D8D989 /* Supporting Files */,
+				F2BB35F219F38FB700CD9CA5 /* LaunchScreen.storyboard */,
 			);
 			path = Tomate;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2AB30BA19600A4000D8D989 /* Images.xcassets in Resources */,
+				F2BB35F319F38FB700CD9CA5 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
