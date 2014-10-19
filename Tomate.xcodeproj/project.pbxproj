@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		F20425231961F91100A132D6 /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20425221961F91100A132D6 /* Int+Extensions.swift */; };
-		F2042553196498D100A132D6 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2042552196498D100A132D6 /* DataManager.swift */; };
-		F204255719649B6500A132D6 /* Tomate.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F204255519649B6500A132D6 /* Tomate.xcdatamodeld */; };
 		F21D3F4D198D4BB30036D4BA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21D3F4C198D4BB30036D4BA /* SettingsViewController.swift */; };
 		F21D3F50198D4BE30036D4BA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21D3F4F198D4BE30036D4BA /* SettingsView.swift */; };
 		F234623B1960798900AB11A5 /* FocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23462381960798900AB11A5 /* FocusView.swift */; };
@@ -19,10 +17,7 @@
 		F2AB30BA19600A4000D8D989 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2AB30B919600A4000D8D989 /* Images.xcassets */; };
 		F2AB30C619600A4000D8D989 /* TomateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB30C519600A4000D8D989 /* TomateTests.swift */; };
 		F2AB30D4196016B800D8D989 /* TimerStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB30D3196016B800D8D989 /* TimerStyleKit.swift */; };
-		F2FB4E1B198D0BD000B5474E /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2FB4E1A198D0BD000B5474E /* NotificationCenter.framework */; };
-		F2FB4E20198D0BD000B5474E /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FB4E1F198D0BD000B5474E /* TodayViewController.swift */; };
-		F2FB4E22198D0BD000B5474E /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2FB4E21198D0BD000B5474E /* MainInterface.storyboard */; };
-		F2FB4E25198D0BD000B5474E /* Focused.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F2FB4E18198D0BD000B5474E /* Focused.appex */; };
+		F2FA794419950BB800CB2760 /* WorkPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FA794319950BB800CB2760 /* WorkPeriod.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,20 +28,6 @@
 			remoteGlobalIDString = F2AB30B119600A4000D8D989;
 			remoteInfo = Tomate;
 		};
-		F2FB4E23198D0BD000B5474E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F2AB30AA19600A4000D8D989 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F2FB4E17198D0BD000B5474E;
-			remoteInfo = Remaining;
-		};
-		F2FB4E26198D0BD000B5474E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F2AB30AA19600A4000D8D989 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F2FB4E17198D0BD000B5474E;
-			remoteInfo = Remaining;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -56,7 +37,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				F2FB4E25198D0BD000B5474E /* Focused.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,14 +45,12 @@
 
 /* Begin PBXFileReference section */
 		F20425221961F91100A132D6 /* Int+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
-		F2042552196498D100A132D6 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataManager.swift; path = Model/DataManager.swift; sourceTree = "<group>"; };
-		F204255619649B6500A132D6 /* Tomate.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tomate.xcdatamodel; sourceTree = "<group>"; };
 		F21D3F4C198D4BB30036D4BA /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = Tomate/Settings/SettingsViewController.swift; sourceTree = SOURCE_ROOT; };
 		F21D3F4F198D4BE30036D4BA /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = Settings/SettingsView.swift; sourceTree = "<group>"; };
 		F23462381960798900AB11A5 /* FocusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusView.swift; sourceTree = "<group>"; };
 		F23462391960798900AB11A5 /* FocusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusViewController.swift; sourceTree = "<group>"; };
 		F234623A1960798900AB11A5 /* TimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
-		F2AB30B219600A4000D8D989 /* Focused.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Focused.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2AB30B219600A4000D8D989 /* Fojusi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fojusi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2AB30B619600A4000D8D989 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2AB30B719600A4000D8D989 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2AB30B919600A4000D8D989 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -80,7 +58,7 @@
 		F2AB30C419600A4000D8D989 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2AB30C519600A4000D8D989 /* TomateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomateTests.swift; sourceTree = "<group>"; };
 		F2AB30D3196016B800D8D989 /* TimerStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerStyleKit.swift; sourceTree = "<group>"; };
-		F2FB4E18198D0BD000B5474E /* Focused.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Focused.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2FA794319950BB800CB2760 /* WorkPeriod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkPeriod.swift; path = Model/WorkPeriod.swift; sourceTree = "<group>"; };
 		F2FB4E1A198D0BD000B5474E /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		F2FB4E1E198D0BD000B5474E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2FB4E1F198D0BD000B5474E /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -102,26 +80,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F2FB4E15198D0BD000B5474E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F2FB4E1B198D0BD000B5474E /* NotificationCenter.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F204255419649B4900A132D6 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				F2042552196498D100A132D6 /* DataManager.swift */,
-				F204255519649B6500A132D6 /* Tomate.xcdatamodeld */,
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
 		F21D3F4E198D4BC50036D4BA /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,9 +116,8 @@
 		F2AB30B319600A4000D8D989 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F2AB30B219600A4000D8D989 /* Focused.app */,
+				F2AB30B219600A4000D8D989 /* Fojusi.app */,
 				F2AB30BF19600A4000D8D989 /* TomateTests.xctest */,
-				F2FB4E18198D0BD000B5474E /* Focused.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -167,7 +127,7 @@
 			children = (
 				F2AB30B719600A4000D8D989 /* AppDelegate.swift */,
 				F20425221961F91100A132D6 /* Int+Extensions.swift */,
-				F204255419649B4900A132D6 /* Model */,
+				F2FA794519950BC000CB2760 /* Model */,
 				F23462371960798900AB11A5 /* Focus */,
 				F21D3F4E198D4BC50036D4BA /* Settings */,
 				F2AB30D5196016E100D8D989 /* StyleKit */,
@@ -208,6 +168,14 @@
 				F2AB30D3196016B800D8D989 /* TimerStyleKit.swift */,
 			);
 			name = StyleKit;
+			sourceTree = "<group>";
+		};
+		F2FA794519950BC000CB2760 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F2FA794319950BB800CB2760 /* WorkPeriod.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		F2FB4E19198D0BD000B5474E /* Frameworks */ = {
@@ -251,12 +219,10 @@
 			buildRules = (
 			);
 			dependencies = (
-				F2FB4E24198D0BD000B5474E /* PBXTargetDependency */,
-				F2FB4E27198D0BD000B5474E /* PBXTargetDependency */,
 			);
 			name = Tomate;
 			productName = Tomate;
-			productReference = F2AB30B219600A4000D8D989 /* Focused.app */;
+			productReference = F2AB30B219600A4000D8D989 /* Fojusi.app */;
 			productType = "com.apple.product-type.application";
 		};
 		F2AB30BE19600A4000D8D989 /* TomateTests */ = {
@@ -277,23 +243,6 @@
 			productReference = F2AB30BF19600A4000D8D989 /* TomateTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		F2FB4E17198D0BD000B5474E /* Remaining */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F2FB4E2A198D0BD000B5474E /* Build configuration list for PBXNativeTarget "Remaining" */;
-			buildPhases = (
-				F2FB4E14198D0BD000B5474E /* Sources */,
-				F2FB4E15198D0BD000B5474E /* Frameworks */,
-				F2FB4E16198D0BD000B5474E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Remaining;
-			productName = Remaining;
-			productReference = F2FB4E18198D0BD000B5474E /* Focused.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -309,9 +258,6 @@
 					F2AB30BE19600A4000D8D989 = {
 						CreatedOnToolsVersion = 6.0;
 						TestTargetID = F2AB30B119600A4000D8D989;
-					};
-					F2FB4E17198D0BD000B5474E = {
-						CreatedOnToolsVersion = 6.0;
 					};
 				};
 			};
@@ -329,7 +275,6 @@
 			targets = (
 				F2AB30B119600A4000D8D989 /* Tomate */,
 				F2AB30BE19600A4000D8D989 /* TomateTests */,
-				F2FB4E17198D0BD000B5474E /* Remaining */,
 			);
 		};
 /* End PBXProject section */
@@ -350,14 +295,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F2FB4E16198D0BD000B5474E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F2FB4E22198D0BD000B5474E /* MainInterface.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -368,11 +305,10 @@
 				F234623D1960798900AB11A5 /* TimerView.swift in Sources */,
 				F2AB30B819600A4000D8D989 /* AppDelegate.swift in Sources */,
 				F2AB30D4196016B800D8D989 /* TimerStyleKit.swift in Sources */,
-				F2042553196498D100A132D6 /* DataManager.swift in Sources */,
 				F20425231961F91100A132D6 /* Int+Extensions.swift in Sources */,
 				F21D3F50198D4BE30036D4BA /* SettingsView.swift in Sources */,
-				F204255719649B6500A132D6 /* Tomate.xcdatamodeld in Sources */,
 				F234623B1960798900AB11A5 /* FocusView.swift in Sources */,
+				F2FA794419950BB800CB2760 /* WorkPeriod.swift in Sources */,
 				F234623C1960798900AB11A5 /* FocusViewController.swift in Sources */,
 				F21D3F4D198D4BB30036D4BA /* SettingsViewController.swift in Sources */,
 			);
@@ -386,14 +322,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F2FB4E14198D0BD000B5474E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F2FB4E20198D0BD000B5474E /* TodayViewController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -401,16 +329,6 @@
 			isa = PBXTargetDependency;
 			target = F2AB30B119600A4000D8D989 /* Tomate */;
 			targetProxy = F2AB30C019600A4000D8D989 /* PBXContainerItemProxy */;
-		};
-		F2FB4E24198D0BD000B5474E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F2FB4E17198D0BD000B5474E /* Remaining */;
-			targetProxy = F2FB4E23198D0BD000B5474E /* PBXContainerItemProxy */;
-		};
-		F2FB4E27198D0BD000B5474E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F2FB4E17198D0BD000B5474E /* Remaining */;
-			targetProxy = F2FB4E26198D0BD000B5474E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -497,9 +415,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = NO;
 				INFOPLIST_FILE = Tomate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = Focused;
+				PRODUCT_NAME = Fojusi;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -508,9 +430,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = NO;
 				INFOPLIST_FILE = Tomate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = Focused;
+				PRODUCT_NAME = Fojusi;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Release;
 		};
@@ -550,32 +475,6 @@
 			};
 			name = Release;
 		};
-		F2FB4E28198D0BD000B5474E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = Remaining/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = Focused;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		F2FB4E29198D0BD000B5474E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = Remaining/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = Focused;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -606,30 +505,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F2FB4E2A198D0BD000B5474E /* Build configuration list for PBXNativeTarget "Remaining" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F2FB4E28198D0BD000B5474E /* Debug */,
-				F2FB4E29198D0BD000B5474E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		F204255519649B6500A132D6 /* Tomate.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				F204255619649B6500A132D6 /* Tomate.xcdatamodel */,
-			);
-			currentVersion = F204255619649B6500A132D6 /* Tomate.xcdatamodel */;
-			name = Tomate.xcdatamodeld;
-			path = Model/Tomate.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = F2AB30AA19600A4000D8D989 /* Project object */;
 }

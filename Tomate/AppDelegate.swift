@@ -64,10 +64,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication!, handleActionWithIdentifier identifier: String!, forLocalNotification notification: UILocalNotification!, completionHandler: (() -> Void)!) {
         println(identifier)
         
-        if identifier == "BREAK_ACTION" {
-            focusViewController!.startBreak(nil)
-        } else if identifier == "WORK_ACTION" {
-            focusViewController!.startWork(nil)
+        if let identifier = identifier {
+            if identifier == "BREAK_ACTION" {
+                focusViewController!.startBreak(nil)
+            } else if identifier == "WORK_ACTION" {
+                focusViewController!.startWork(nil)
+            }
         }
         
         completionHandler()

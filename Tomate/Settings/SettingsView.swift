@@ -7,20 +7,24 @@
 //
 
 import UIKit
+import QuartzCore
 
 class SettingsView: UIView {
 
     let markerView: UIView
     let workInputHostView: InputHostView
     let breakInputHostView: InputHostView
+//    let longBreakInputHostView: InputHostView
     let workPeriodsLabel: UILabel
     let workPeriodsStepper: UIStepper
     let pickerView: UIPickerView
+    var selectedTimerType: TimerType
     
     override init(frame: CGRect) {
         
         markerView = {
             let view = UIView()
+            view.layer.cornerRadius = 5
             return view
         }()
         
@@ -50,8 +54,12 @@ class SettingsView: UIView {
         workInputHostView.tag = 0
         
         breakInputHostView = InputHostView(frame: CGRectZero)
-        breakInputHostView.nameLabel.text = NSLocalizedString("Break duration", comment: "Settings name for the work duration")
+        breakInputHostView.nameLabel.text = NSLocalizedString("Break duration", comment: "Settings name for the break duration")
         breakInputHostView.tag = 1
+        
+//        longBreakInputHostView = InputHostView(frame: CGRectZero)
+//        longBreakInputHostView.nameLabel.text = NSLocalizedString("Long break duration", comment: "Settings name for the long break duration")
+//        longBreakInputHostView.tag = 2
         
         pickerView = {
             let pickerView = UIPickerView()
@@ -59,7 +67,9 @@ class SettingsView: UIView {
             pickerView.showsSelectionIndicator = true
             return pickerView
             }()
-            
+        
+        selectedTimerType = TimerType.Work
+        
         super.init(frame: frame)
         
         backgroundColor = TimerStyleKit.backgroundColor
@@ -68,20 +78,23 @@ class SettingsView: UIView {
         addSubview(markerView)
         addSubview(workInputHostView)
         addSubview(breakInputHostView)
+//        addSubview(longBreakInputHostView)
         addSubview(pickerView)
         
-        let metrics = ["hostViewHeight" : 50, "hostViewGap" : 10]
+        let metrics = ["hostViewHeight" : 40, "hostViewGap" : 10]
         
-        let views = ["markerView" : markerView, "workInputHostView" : workInputHostView, "breakInputHostView" : breakInputHostView, "pickerView" : pickerView]
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-[workInputHostView(breakInputHostView)]-|", options: nil, metrics: nil, views: views))
+        let views = ["markerView" : markerView, "workInputHostView" : workInputHostView, "breakInputHostView" : breakInputHostView,
+//            "longBreakInputHostView" : longBreakInputHostView,
+        "pickerView" : pickerView]
+        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-5-[workInputHostView(breakInputHostView)]-5-|", options: nil, metrics: nil, views: views))
         addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[workInputHostView(hostViewHeight,breakInputHostView)]-hostViewGap-[breakInputHostView]", options: .AlignAllLeft, metrics: metrics, views: views))
         
         addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[pickerView]|", options: nil, metrics: nil, views: views))
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[breakInputHostView]-[pickerView]", options: nil, metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[breakInputHostView][pickerView]", options: nil, metrics: nil, views: views))
 
     }
     
-    convenience required init(coder aDecoder: NSCoder!) {
+    convenience required init(coder aDecoder: NSCoder) {
         self.init(frame: CGRectZero)
     }
 
@@ -122,6 +135,12 @@ class SettingsView: UIView {
     
     
     func moveMarkerToView(view: UIView) {
+        if CGRectContainsPoint(workInputHostView.frame, view.center) {
+            selectedTimerType = .Work
+        } else {
+            selectedTimerType = .Break
+        }
+        
         UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 5.0, options: nil, animations: {
             self.markerView.frame = CGRectInset(view.frame, -3, -3)
             }, completion: nil)
@@ -148,6 +167,7 @@ class SettingsView: UIView {
             
             setTranslatesAutoresizingMaskIntoConstraints(false)
             backgroundColor = TimerStyleKit.backgroundColor
+            layer.cornerRadius = 5
             
             addSubview(nameLabel)
             addSubview(durationLabel)
@@ -158,7 +178,7 @@ class SettingsView: UIView {
 
         }
         
-        required convenience init(coder aDecoder: NSCoder!) {
+        required convenience init(coder aDecoder: NSCoder) {
             self.init(frame: CGRectZero)
         }
     }

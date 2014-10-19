@@ -15,7 +15,7 @@ class TodayViewController: UIViewController {
     var timer: NSTimer?
     var endDate: NSDate?
     
-    required init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
     }
@@ -37,9 +37,9 @@ class TodayViewController: UIViewController {
         endDate = sharedDefaults.objectForKey("date") as? NSDate
 
         timer?.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "updateTimeLabel", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(20, target: self, selector: "updateTimeLabel", userInfo: nil, repeats: true)
         
-        println("viewWillAppear")
+        println("viewWillAppear, endDate: \(endDate)")
     }
     
     func updateTimeLabel() {
@@ -52,10 +52,9 @@ class TodayViewController: UIViewController {
             }
             
             let minutes = Int(remainingSeconds) / 60
-            let seconds = Int(remainingSeconds) % 60
             let twoDigitsFormat = "02"
             //        let remainingTimeString = "\(minutes.format(twoDigitsFormat)):\(seconds.format(twoDigitsFormat))"
-            let remainingTimeString = "\(minutes):\(seconds)"
+            let remainingTimeString = "\(minutes) min"
             label.text = remainingTimeString
         }
     }

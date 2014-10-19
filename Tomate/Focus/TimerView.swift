@@ -43,7 +43,7 @@ class TimerView: UIView {
         addConstraint(NSLayoutConstraint(item: timeLabel, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0))
     }
     
-    convenience required init(coder aDecoder: NSCoder!) {
+    convenience required init(coder aDecoder: NSCoder) {
         self.init(frame: CGRectZero)
     }
 
@@ -109,7 +109,7 @@ class TimerView: UIView {
         timeLabel.text = labelText
     }
     
-    override func touchesEnded(touches: NSSet!, withEvent event: UIEvent!) {
+    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
         showRemaining = !showRemaining
         setNeedsDisplay()
     }

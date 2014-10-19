@@ -7,6 +7,8 @@
 //
 
 import UIKit
+//import Realm
+import AudioToolbox
 
 class FocusViewController: UIViewController {
 
@@ -18,6 +20,9 @@ class FocusViewController: UIViewController {
     private var workPeriods = [NSDate]()
     private var numberOfWorkPeriods = 10
     private var totalMinutes = 0
+    
+    private let kLastDurationKey = "kLastDurationKey"
+    private let kLastEndDateKey = "kLastEndDateKey"
     
     //MARK: - view cycle
     override func loadView() {
@@ -99,6 +104,10 @@ class FocusViewController: UIViewController {
 extension FocusViewController {
     
     private func startTimerWithType(timerType: TimerType) {
+
+//        let unfinisedWorkPeriod = WorkPeriod.objectsWhere("temporary = true")
+//        println("\(unfinisedWorkPeriod)")
+        
         focusView.setDuration(0, maxValue: 1)
         var typeName: String
         switch timerType {
@@ -121,8 +130,18 @@ extension FocusViewController {
 
         focusView.numberOfWorkPeriodsLabel.text = "\(workPeriods.count)/\(numberOfWorkPeriods)"
         
-        let seconds = NSUserDefaults.standardUserDefaults().integerForKey(timerType.toRaw())
+//        let seconds = NSUserDefaults.standardUserDefaults().integerForKey(timerType.toRaw())
+        let seconds = 10
         endDate = NSDate(timeIntervalSinceNow: Double(seconds))
+        
+//        let workPeriod = WorkPeriod()
+//        workPeriod.durationInSeconds = seconds
+//        workPeriod.endDate = endDate!
+
+//        let realm = RLMRealm.defaultRealm()
+//        realm.beginWriteTransaction()
+//        realm.addObject(workPeriod)
+//        realm.commitWriteTransaction()
         
         let sharedDefaults = NSUserDefaults(suiteName: "de.dasdom.Tomate.shared")
         sharedDefaults.setObject(endDate, forKey: "date")
@@ -143,7 +162,7 @@ extension FocusViewController {
         localNotification!.alertBody = "Time for " + typeName + " is up!";
         localNotification!.soundName = UILocalNotificationDefaultSoundName
         localNotification!.category = "START_CATEGORY"
-        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+        UIApplication.sharedApplication().scheduleLocalNotification(localNotification!)
         
     }
     
@@ -158,10 +177,12 @@ extension FocusViewController {
         }
         
         let timeInterval = CGFloat(endDate!.timeIntervalSinceNow)
-//        println("timeInterval: \(timeInterval)")
+        println("timeInterval: \(timeInterval)")
         if timeInterval < 0 {
             resetTimer()
-
+            if timeInterval > -1 {
+                AudioServicesPlaySystemSound(1007)
+            }
             return
         }
 

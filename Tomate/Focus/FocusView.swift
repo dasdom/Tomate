@@ -38,6 +38,7 @@ class FocusView: UIView {
             label.textColor = TimerStyleKit.timerColor
             label.font = UIFont.systemFontOfSize(25)
             label.text = "0/0"
+            label.hidden = true
 //            label.backgroundColor = UIColor.yellowColor()
             return label
         }()
@@ -99,7 +100,7 @@ class FocusView: UIView {
 
     }
     
-    required convenience init(coder aDecoder: NSCoder!) {
+    required convenience init(coder aDecoder: NSCoder) {
         self.init(frame: CGRectZero)
     }
     
