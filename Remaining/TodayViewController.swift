@@ -2,27 +2,24 @@
 //  TodayViewController.swift
 //  Remaining
 //
-//  Created by dasdom on 02.08.14.
-//  Copyright (c) 2014 Dominik Hauser. All rights reserved.
+//  Created by dasdom on 11.03.15.
+//  Copyright (c) 2015 Dominik Hauser. All rights reserved.
 //
 
 import UIKit
 import NotificationCenter
 
-class TodayViewController: UIViewController {
-        
-    @IBOutlet weak var label: UILabel!
-    var timer: NSTimer?
-    var endDate: NSDate?
+class TodayViewController: UIViewController, NCWidgetProviding {
     
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-    }
+    var endDate: NSDate?
+    var timer: NSTimer?
+
+    @IBOutlet weak var label: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view from its nib.
+       
+        preferredContentSize = CGSize(width: view.frame.size.width, height: 37)
     }
     
     override func didReceiveMemoryWarning() {
@@ -33,40 +30,57 @@ class TodayViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        let sharedDefaults = NSUserDefaults(suiteName: "de.dasdom.Tomate.shared")
-        endDate = sharedDefaults.objectForKey("date") as? NSDate
-
-        timer?.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(20, target: self, selector: "updateTimeLabel", userInfo: nil, repeats: true)
-        
-        println("viewWillAppear, endDate: \(endDate)")
-    }
-    
-    func updateTimeLabel() {
-        if let remainingSeconds = endDate?.timeIntervalSinceNow {
-            
-            println("remainingSeconds: \(remainingSeconds)")
-            
-            if remainingSeconds < 1 {
-                timer?.invalidate()
-            }
-            
-            let minutes = Int(remainingSeconds) / 60
-            let twoDigitsFormat = "02"
-            //        let remainingTimeString = "\(minutes.format(twoDigitsFormat)):\(seconds.format(twoDigitsFormat))"
-            let remainingTimeString = "\(minutes) min"
-            label.text = remainingTimeString
-        }
+//        if let defaults = NSUserDefaults(suiteName: "group.de.dasdom.Tomate") {
+//            let startDateAsTimeStamp = defaults.doubleForKey("date")
+//            println("startDate: \(startDateAsTimeStamp)")
+//            endDate = NSDate(timeIntervalSince1970: startDateAsTimeStamp)
+//        }
+//        println("endDate \(endDate)")
+//        
+//        timer?.invalidate()
+//        timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "updateLabel", userInfo: nil, repeats: true)
     }
     
     func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)!) {
         // Perform any setup necessary in order to update the view.
 
-        // If an error is encoutered, use NCUpdateResult.Failed
+        // If an error is encountered, use NCUpdateResult.Failed
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
 
+        if let defaults = NSUserDefaults(suiteName: "group.de.dasdom.Tomate") {
+            let startDateAsTimeStamp = defaults.doubleForKey("date")
+            println("startDate: \(startDateAsTimeStamp)")
+            endDate = NSDate(timeIntervalSince1970: startDateAsTimeStamp)
+        }
+//        println("endDate \(endDate)")
+        
+        timer?.invalidate()
+        if endDate != nil {
+            timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "updateLabel", userInfo: nil, repeats: true)
+        }
+        
         completionHandler(NCUpdateResult.NewData)
     }
     
+    func updateLabel() {
+        let durationInSeconds = endDate!.timeIntervalSinceNow
+        if durationInSeconds > 0 {
+            let seconds = Int(durationInSeconds % 60)
+            let minutes = Int(durationInSeconds / 60.0)
+            let format = "02"
+            let labelText = "\(minutes.format(format))" + ":" + "\(seconds.format(format)) min"
+        
+            label.text = labelText
+        } else {
+            timer?.invalidate()
+            label.text = "-"
+        }
+    }
+}
+
+extension Int {
+    func format(f: String) -> String {
+        return NSString(format: "%\(f)d", self)
+    }
 }

@@ -37,6 +37,7 @@ class FocusViewController: UIViewController {
 
         focusView.workButton.addTarget(self, action: "startWork:", forControlEvents: .TouchUpInside)
         focusView.breakButton.addTarget(self, action: "startBreak:", forControlEvents: .TouchUpInside)
+        focusView.procrastinateButton.addTarget(self, action: "startProcrastination:", forControlEvents: .TouchUpInside)
         focusView.settingsButton.addTarget(self, action: "showSettings", forControlEvents: .TouchUpInside)
         
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "showSettings")
@@ -50,7 +51,7 @@ class FocusViewController: UIViewController {
             focusView.setDuration(0, maxValue: 1)
         }
         
-        let duration = NSUserDefaults.standardUserDefaults().integerForKey(TimerType.Work.toRaw())
+        let duration = NSUserDefaults.standardUserDefaults().integerForKey(TimerType.Work.rawValue)
         println("duration: \(duration)")
     }
     
@@ -73,8 +74,18 @@ class FocusViewController: UIViewController {
         startTimerWithType(.Break)
     }
     
+    func startProcrastination(sender: UIButton) {
+        if currentType == .Procrastination {
+            showAlert()
+            return
+        }
+        
+        startTimerWithType(.Procrastination)
+    }
+    
     func showSettings() {
         presentViewController(UINavigationController(rootViewController: SettingsViewController()), animated: true, completion: nil)
+//        presentViewController(SettingsViewController(), animated: true, completion: nil)
     }
     
     func setUIModeForTimerType(timerType: TimerType) {
@@ -84,15 +95,27 @@ class FocusViewController: UIViewController {
                 self.focusView.workButton.alpha = 1.0
                 self.focusView.breakButton.alpha = 0.3
                 self.focusView.breakButton.enabled = false
+                self.focusView.procrastinateButton.alpha = 0.3
+                self.focusView.procrastinateButton.enabled = false
             case .Break:
-                self.focusView.workButton.alpha = 0.3
                 self.focusView.breakButton.alpha = 1.0
+                self.focusView.workButton.alpha = 0.3
                 self.focusView.workButton.enabled = false
+                self.focusView.procrastinateButton.alpha = 0.3
+                self.focusView.procrastinateButton.enabled = false
+            case .Procrastination:
+                self.focusView.procrastinateButton.alpha = 1.0
+                self.focusView.workButton.alpha = 0.3
+                self.focusView.workButton.enabled = false
+                self.focusView.breakButton.alpha = 0.3
+                self.focusView.breakButton.enabled = false
             default:
                 self.focusView.workButton.alpha = 1.0
                 self.focusView.breakButton.alpha = 1.0
                 self.focusView.workButton.enabled = true
                 self.focusView.breakButton.enabled = true
+                self.focusView.procrastinateButton.alpha = 1.0
+                self.focusView.procrastinateButton.enabled = true
             }
             
             }, completion: nil)
@@ -118,6 +141,9 @@ extension FocusViewController {
         case .Break:
             typeName = "Break"
             currentType = .Break
+        case .Procrastination:
+            typeName = "Procrastination"
+            currentType = .Procrastination
         default:
             typeName = "None"
             currentType = .Idle
@@ -130,7 +156,7 @@ extension FocusViewController {
 
         focusView.numberOfWorkPeriodsLabel.text = "\(workPeriods.count)/\(numberOfWorkPeriods)"
         
-        let seconds = NSUserDefaults.standardUserDefaults().integerForKey(timerType.toRaw())
+        let seconds = NSUserDefaults.standardUserDefaults().integerForKey(timerType.rawValue)
 //        let seconds = 10
         endDate = NSDate(timeIntervalSinceNow: Double(seconds))
         
@@ -143,10 +169,10 @@ extension FocusViewController {
 //        realm.addObject(workPeriod)
 //        realm.commitWriteTransaction()
         
-        let sharedDefaults = NSUserDefaults(suiteName: "de.dasdom.Tomate.shared")
-        sharedDefaults.setObject(endDate, forKey: "date")
-        sharedDefaults.synchronize()
-        
+        if let sharedDefaults = NSUserDefaults(suiteName: "group.de.dasdom.Tomate") {
+            sharedDefaults.setDouble(endDate!.timeIntervalSince1970, forKey: "date")
+            sharedDefaults.synchronize()
+        }
 //        focusView.setDuration(CGFloat(seconds), maxValue: CGFloat(seconds))
         
         timer?.invalidate()
@@ -177,12 +203,12 @@ extension FocusViewController {
         }
         
         let timeInterval = CGFloat(endDate!.timeIntervalSinceNow)
-        println("timeInterval: \(timeInterval)")
         if timeInterval < 0 {
             resetTimer()
             if timeInterval > -1 {
                 AudioServicesPlaySystemSound(1007)
             }
+            focusView.setDuration(0, maxValue: 1)
             return
         }
 
@@ -195,12 +221,18 @@ extension FocusViewController {
         
         currentType = .Idle
         setUIModeForTimerType(.Idle)
+        
+        if let sharedDefaults = NSUserDefaults(suiteName: "group.de.dasdom.Tomate") {
+            sharedDefaults.removeObjectForKey("date")
+            sharedDefaults.synchronize()
+        }
     }
 }
 
 enum TimerType : String {
     case Work = "Work" //25*60
     case Break = "Break"  //only for testing
+    case Procrastination = "Procrastination"
     case Idle = "Idle"
 }
 
@@ -215,6 +247,8 @@ private extension FocusViewController {
             alertMessage += NSLocalizedString("work timer?", comment: "second part of alert message")
         case .Break:
             alertMessage += NSLocalizedString("break timer?", comment: "secont part of alert message")
+        case .Procrastination:
+            alertMessage += NSLocalizedString("procrastination?", comment: "secont part of alert message")
         default:
             break
         }

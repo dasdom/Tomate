@@ -16,8 +16,8 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     var workTimes = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
     var breakTimes = [1, 2, 5, 10]
     
-    private var currentWorkDurationInMinutes = NSUserDefaults.standardUserDefaults().integerForKey(TimerType.Work.toRaw()) / 60
-    private var currentBreakDurationInMinutes = NSUserDefaults.standardUserDefaults().integerForKey(TimerType.Break.toRaw()) / 60
+    private var currentWorkDurationInMinutes = NSUserDefaults.standardUserDefaults().integerForKey(TimerType.Work.rawValue) / 60
+    private var currentBreakDurationInMinutes = NSUserDefaults.standardUserDefaults().integerForKey(TimerType.Break.rawValue) / 60
     
     override func loadView() {
         view = SettingsView(frame: CGRectZero)
@@ -129,7 +129,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         let timerType = settingsView.setDurationString("\(minutes) min")
         let seconds = minutes*60+1
-        NSUserDefaults.standardUserDefaults().setInteger(seconds, forKey: timerType.toRaw())
+        NSUserDefaults.standardUserDefaults().setInteger(seconds, forKey: timerType.rawValue)
         NSUserDefaults.standardUserDefaults().synchronize()
     }
     
