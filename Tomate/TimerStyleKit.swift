@@ -64,7 +64,7 @@ public class TimerStyleKit : NSObject {
         let textRect = CGRectMake(156, 338, 713, 292)
         CGContextSaveGState(context)
         CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, (shadow as UIColor).CGColor)
-        let textStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as NSMutableParagraphStyle
+        let textStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
         textStyle.alignment = NSTextAlignment.Center
 
         let textFontAttributes = [NSFontAttributeName: UIFont(name: "Helvetica-Light", size: 250)!, NSForegroundColorAttributeName: TimerStyleKit.timerColor, NSParagraphStyleAttributeName: textStyle]

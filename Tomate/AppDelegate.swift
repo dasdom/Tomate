@@ -17,7 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   let kAlreadyStartedKey = "alreadyStarted"
   let kRegisterNotificationSettings = "kRegisterNotificationSettings"
   
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
+  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
+    
     self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
     
     customizeAppearance()
@@ -41,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       category.setActions([workAction, restAction], forContext: .Default)
       category.identifier = "START_CATEGORY"
       
-      let notificationSettings = UIUserNotificationSettings(forTypes: .Alert | .Sound, categories: NSSet(object: category))
+      let notificationSettings = UIUserNotificationSettings(forTypes: .Alert | .Sound, categories: NSSet(object: category) as Set<NSObject>)
       UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
       
       NSUserDefaults.standardUserDefaults().setBool(false, forKey: kRegisterNotificationSettings)

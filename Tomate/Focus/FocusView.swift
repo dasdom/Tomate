@@ -23,7 +23,7 @@ class FocusView: UIView {
         timerView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         let makeButton = { (title: String) -> UIButton in
-            let button = UIButton.buttonWithType(.System) as UIButton
+            let button = UIButton.buttonWithType(.System) as! UIButton
             button.setTranslatesAutoresizingMaskIntoConstraints(false)
             button.layer.cornerRadius = 40
             button.layer.borderWidth = 1.0
@@ -52,7 +52,7 @@ class FocusView: UIView {
 //        }()
         
         settingsButton = {
-            let button = UIButton.buttonWithType(.System) as UIButton
+            let button = UIButton.buttonWithType(.System) as! UIButton
             button.setTranslatesAutoresizingMaskIntoConstraints(false)
 //            button.backgroundColor = UIColor.blueColor()
             let templateImage = UIImage(named: "settings")!.imageWithRenderingMode(.AlwaysTemplate)

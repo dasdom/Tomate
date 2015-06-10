@@ -12,7 +12,7 @@ let kNumberOfWorkPeriodsKey = "kNumberOfWorkPeriodsKey"
 
 class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
-    var settingsView: SettingsView {return view as SettingsView}
+    var settingsView: SettingsView {return view as! SettingsView}
     var workTimes = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
     var breakTimes = [1, 2, 5, 10]
     
@@ -41,7 +41,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         super.viewWillAppear(animated)
         
         let views = ["topLayoutGuide" : topLayoutGuide, "workInputHostView" : settingsView.workInputHostView]
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[topLayoutGuide]-10-[workInputHostView]", options: nil, metrics: nil, views: views))
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[topLayoutGuide]-10-[workInputHostView]", options: nil, metrics: nil, views: views as [NSObject : AnyObject]))
         
         let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "dismissSettings")
         navigationItem.rightBarButtonItem = doneButton
@@ -104,7 +104,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
 //        label.text = "\(workTimes[row]) min"
 //        return label
 //    }
-    func pickerView(pickerView: UIPickerView!, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString! {
+    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         var minutes = 0
         switch settingsView.selectedTimerType {
         case .Work:
@@ -116,7 +116,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         return attributedTitle
     }
     
-    func pickerView(pickerView: UIPickerView!, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         var minutes = 0
         switch settingsView.selectedTimerType {
         case .Work:

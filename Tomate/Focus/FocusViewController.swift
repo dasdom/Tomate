@@ -12,7 +12,7 @@ import AudioToolbox
 
 class FocusViewController: UIViewController {
 
-    private var focusView: FocusView! { return self.view as FocusView }
+    private var focusView: FocusView! { return self.view as! FocusView }
     private var timer: NSTimer?
     private var endDate: NSDate?
     private var localNotification: UILocalNotification?
@@ -195,7 +195,7 @@ extension FocusViewController {
     func updateTimeLabel(sender: NSTimer) {
         
         var totalNumberOfSeconds: CGFloat
-        if let type = (sender.userInfo as NSDictionary!)["timerType"] as? Int {
+        if let type = (sender.userInfo as! NSDictionary!)["timerType"] as? Int {
             totalNumberOfSeconds = CGFloat(type)
         } else {
             assert(false, "This should not happen")

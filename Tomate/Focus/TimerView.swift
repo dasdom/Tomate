@@ -140,10 +140,10 @@ class TimerView: UIView {
         
         timeLabel.text = labelText
     }
-    
-    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
-        showRemaining = !showRemaining
-        setNeedsDisplay()
-    }
+  
+  override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    showRemaining = !showRemaining
+    setNeedsDisplay()
+  }
 
 }
