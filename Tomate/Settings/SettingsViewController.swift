@@ -40,8 +40,8 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        let views = ["topLayoutGuide" : topLayoutGuide, "workInputHostView" : settingsView.workInputHostView]
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[topLayoutGuide]-10-[workInputHostView]", options: nil, metrics: nil, views: views as [NSObject : AnyObject]))
+      let views = ["topLayoutGuide" : topLayoutGuide, "workInputHostView" : settingsView.workInputHostView] as [String: AnyObject]
+      view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[topLayoutGuide]-10-[workInputHostView]", options: [], metrics: nil, views: views))
         
         let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "dismissSettings")
         navigationItem.rightBarButtonItem = doneButton
@@ -53,7 +53,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         settingsView.setBreakDurationString("\(currentBreakDurationInMinutes) min")
         
         var row = 0
-        for (index, minutes) in enumerate(workTimes) {
+        for (index, minutes) in workTimes.enumerate() {
             if minutes == currentWorkDurationInMinutes {
                 row = index
                 break
@@ -149,7 +149,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         }
         
         var row = 0
-        for (index, minutes) in enumerate(times) {
+        for (index, minutes) in times.enumerate() {
             if minutes == currentDuration {
                 row = index
                 break

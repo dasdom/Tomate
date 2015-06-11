@@ -28,7 +28,7 @@ public class TimerStyleKit : NSObject {
 
     //// Drawing Methods
 
-    public class func drawTimerAppIcon(#durationInSeconds: CGFloat, maxValue: CGFloat) {
+    public class func drawTimerAppIcon(durationInSeconds durationInSeconds: CGFloat, maxValue: CGFloat) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -45,8 +45,8 @@ public class TimerStyleKit : NSObject {
         let endAngle: CGFloat = 90 - durationInSeconds * 360 / maxValue
 
         //// TimerRing Drawing
-        var timerRingRect = CGRectMake(62, 62, 900, 900)
-        var timerRingPath = UIBezierPath()
+        let timerRingRect = CGRectMake(62, 62, 900, 900)
+        let timerRingPath = UIBezierPath()
         timerRingPath.addArcWithCenter(CGPointMake(timerRingRect.midX, timerRingRect.midY), radius: timerRingRect.width / 2, startAngle: -90 * CGFloat(M_PI)/180, endAngle: -endAngle * CGFloat(M_PI)/180, clockwise: true)
 
         CGContextSaveGState(context)

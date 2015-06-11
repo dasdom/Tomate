@@ -30,20 +30,20 @@ class SettingsView: UIView {
         
         let workPeriodsSettingsHostView: UIView = {
             let view = UIView()
-            view.setTranslatesAutoresizingMaskIntoConstraints(false)
+            view.translatesAutoresizingMaskIntoConstraints = false
             return view
         }()
         
         workPeriodsLabel = {
             let label = UILabel()
-            label.setTranslatesAutoresizingMaskIntoConstraints(false)
+            label.translatesAutoresizingMaskIntoConstraints = false
             return label
         }()
         workPeriodsSettingsHostView.addSubview(workPeriodsLabel)
         
         workPeriodsStepper = {
             let stepper = UIStepper()
-            stepper.setTranslatesAutoresizingMaskIntoConstraints(false)
+            stepper.translatesAutoresizingMaskIntoConstraints = false
             return stepper
         }()
         workPeriodsSettingsHostView.addSubview(workPeriodsStepper)
@@ -63,7 +63,7 @@ class SettingsView: UIView {
         
         pickerView = {
             let pickerView = UIPickerView()
-            pickerView.setTranslatesAutoresizingMaskIntoConstraints(false)
+            pickerView.translatesAutoresizingMaskIntoConstraints = false
             pickerView.showsSelectionIndicator = true
             return pickerView
             }()
@@ -86,11 +86,11 @@ class SettingsView: UIView {
         let views = ["markerView" : markerView, "workInputHostView" : workInputHostView, "breakInputHostView" : breakInputHostView,
 //            "longBreakInputHostView" : longBreakInputHostView,
         "pickerView" : pickerView]
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-5-[workInputHostView(breakInputHostView)]-5-|", options: nil, metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-5-[workInputHostView(breakInputHostView)]-5-|", options: [], metrics: nil, views: views))
         addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[workInputHostView(hostViewHeight,breakInputHostView)]-hostViewGap-[breakInputHostView]", options: .AlignAllLeft, metrics: metrics, views: views))
         
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[pickerView]|", options: nil, metrics: nil, views: views))
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[breakInputHostView][pickerView]", options: nil, metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[pickerView]|", options: [], metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[breakInputHostView][pickerView]", options: [], metrics: nil, views: views))
 
     }
     
@@ -141,7 +141,7 @@ class SettingsView: UIView {
             selectedTimerType = .Break
         }
         
-        UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 5.0, options: nil, animations: {
+        UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 5.0, options: [], animations: {
             self.markerView.frame = CGRectInset(view.frame, -3, -3)
             }, completion: nil)
     }
@@ -153,7 +153,7 @@ class SettingsView: UIView {
         override init(frame: CGRect) {
             let makeLabel = { () -> UILabel in
                 let label = UILabel()
-                label.setTranslatesAutoresizingMaskIntoConstraints(false)
+                label.translatesAutoresizingMaskIntoConstraints = false
 //                label.backgroundColor = UIColor.whiteColor()
                 label.textColor = TimerStyleKit.timerColor
                 label.text = "-"
@@ -165,7 +165,7 @@ class SettingsView: UIView {
             
             super.init(frame: frame)
             
-            setTranslatesAutoresizingMaskIntoConstraints(false)
+            translatesAutoresizingMaskIntoConstraints = false
             backgroundColor = TimerStyleKit.backgroundColor
             layer.cornerRadius = 5
             

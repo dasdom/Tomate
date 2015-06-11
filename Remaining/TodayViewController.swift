@@ -41,7 +41,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 //        timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "updateLabel", userInfo: nil, repeats: true)
     }
     
-    func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)!) {
+    func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
         // Perform any setup necessary in order to update the view.
 
         // If an error is encountered, use NCUpdateResult.Failed
@@ -50,7 +50,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
         if let defaults = NSUserDefaults(suiteName: "group.de.dasdom.Tomate") {
             let startDateAsTimeStamp = defaults.doubleForKey("date")
-            println("startDate: \(startDateAsTimeStamp)")
+            print("startDate: \(startDateAsTimeStamp)")
             endDate = NSDate(timeIntervalSince1970: startDateAsTimeStamp)
         }
 //        println("endDate \(endDate)")

@@ -7,279 +7,241 @@
 //
 
 import UIKit
-//import Realm
 import AudioToolbox
 
 class FocusViewController: UIViewController {
-
-    private var focusView: FocusView! { return self.view as! FocusView }
-    private var timer: NSTimer?
-    private var endDate: NSDate?
-    private var localNotification: UILocalNotification?
-    private var currentType = TimerType.Idle
-    private var workPeriods = [NSDate]()
-    private var numberOfWorkPeriods = 10
-    private var totalMinutes = 0
+  
+  private var focusView: FocusView! { return self.view as! FocusView }
+  private var timer: NSTimer?
+  private var endDate: NSDate?
+  private var localNotification: UILocalNotification?
+  private var currentType = TimerType.Idle
+//  private var workPeriods = [NSDate]()
+//  private var numberOfWorkPeriods = 10
+  private var totalMinutes = 0
+  
+  private let kLastDurationKey = "kLastDurationKey"
+  private let kLastEndDateKey = "kLastEndDateKey"
+  
+  //MARK: - view cycle
+  override func loadView() {
+    view = FocusView(frame: CGRectZero)
+  }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
     
-    private let kLastDurationKey = "kLastDurationKey"
-    private let kLastEndDateKey = "kLastEndDateKey"
+    focusView.workButton.addTarget(self, action: "startWork:", forControlEvents: .TouchUpInside)
+    focusView.breakButton.addTarget(self, action: "startBreak:", forControlEvents: .TouchUpInside)
+    focusView.procrastinateButton.addTarget(self, action: "startProcrastination:", forControlEvents: .TouchUpInside)
+    focusView.settingsButton.addTarget(self, action: "showSettings", forControlEvents: .TouchUpInside)
     
-    //MARK: - view cycle
-    override func loadView() {
-        view = FocusView(frame: CGRectZero)
-        
-//        let startValue = CGFloat(TimerType.Work.toRaw())
-//        focusView.setDuration(startValue, maxValue: startValue)
+    let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "showSettings")
+    focusView.addGestureRecognizer(longPressRecognizer)
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    if timer == nil {
+      focusView.setDuration(0, maxValue: 1)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        focusView.workButton.addTarget(self, action: "startWork:", forControlEvents: .TouchUpInside)
-        focusView.breakButton.addTarget(self, action: "startBreak:", forControlEvents: .TouchUpInside)
-        focusView.procrastinateButton.addTarget(self, action: "startProcrastination:", forControlEvents: .TouchUpInside)
-        focusView.settingsButton.addTarget(self, action: "showSettings", forControlEvents: .TouchUpInside)
-        
-        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "showSettings")
-        focusView.addGestureRecognizer(longPressRecognizer)
+    let duration = NSUserDefaults.standardUserDefaults().integerForKey(TimerType.Work.rawValue)
+    print("duration: \(duration)")
+  }
+  
+  //MARK: - button actions
+  func startWork(sender: UIButton?) {
+    if currentType == .Work {
+      showAlert()
+      return
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        if timer == nil {
-            focusView.setDuration(0, maxValue: 1)
-        }
-        
-        let duration = NSUserDefaults.standardUserDefaults().integerForKey(TimerType.Work.rawValue)
-        println("duration: \(duration)")
+    startTimerWithType(.Work)
+  }
+  
+  func startBreak(sender: UIButton?) {
+    if currentType == .Break {
+      showAlert()
+      return
     }
     
-    //MARK: - button actions
-    func startWork(sender: UIButton?) {
-        if currentType == .Work {
-            showAlert()
-            return
-        }
-        
-        startTimerWithType(.Work)
+    startTimerWithType(.Break)
+  }
+  
+  func startProcrastination(sender: UIButton) {
+    if currentType == .Procrastination {
+      showAlert()
+      return
     }
     
-    func startBreak(sender: UIButton?) {
-        if currentType == .Break {
-            showAlert()
-            return
-        }
-        
-        startTimerWithType(.Break)
+    startTimerWithType(.Procrastination)
+  }
+  
+  func showSettings() {
+    presentViewController(UINavigationController(rootViewController: SettingsViewController()), animated: true, completion: nil)
+  }
+  
+  func setUIModeForTimerType(timerType: TimerType) {
+    UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: [], animations: {
+      switch timerType {
+      case .Work:
+        self.set(self.focusView.workButton, enabled: true)
+        self.set(self.focusView.breakButton, enabled: false)
+        self.set(self.focusView.procrastinateButton, enabled: false)
+      case .Break:
+        self.set(self.focusView.workButton, enabled: false)
+        self.set(self.focusView.breakButton, enabled: true)
+        self.set(self.focusView.procrastinateButton, enabled: false)
+      case .Procrastination:
+        self.set(self.focusView.workButton, enabled: false)
+        self.set(self.focusView.breakButton, enabled: false)
+        self.set(self.focusView.procrastinateButton, enabled: true)
+      default:
+        self.set(self.focusView.workButton, enabled: true)
+        self.set(self.focusView.breakButton, enabled: true)
+        self.set(self.focusView.procrastinateButton, enabled: true)
+      }
+      
+      }, completion: nil)
+  }
+  
+  func set(button: UIButton, enabled: Bool) {
+    if enabled {
+      button.enabled = true
+      button.alpha = 1.0
+    } else {
+      button.enabled = false
+      button.alpha = 0.3
     }
-    
-    func startProcrastination(sender: UIButton) {
-        if currentType == .Procrastination {
-            showAlert()
-            return
-        }
-        
-        startTimerWithType(.Procrastination)
-    }
-    
-    func showSettings() {
-        presentViewController(UINavigationController(rootViewController: SettingsViewController()), animated: true, completion: nil)
-//        presentViewController(SettingsViewController(), animated: true, completion: nil)
-    }
-    
-    func setUIModeForTimerType(timerType: TimerType) {
-        UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: nil, animations: {
-            switch timerType {
-            case .Work:
-                self.focusView.workButton.alpha = 1.0
-                self.focusView.breakButton.alpha = 0.3
-                self.focusView.breakButton.enabled = false
-                self.focusView.procrastinateButton.alpha = 0.3
-                self.focusView.procrastinateButton.enabled = false
-            case .Break:
-                self.focusView.breakButton.alpha = 1.0
-                self.focusView.workButton.alpha = 0.3
-                self.focusView.workButton.enabled = false
-                self.focusView.procrastinateButton.alpha = 0.3
-                self.focusView.procrastinateButton.enabled = false
-            case .Procrastination:
-                self.focusView.procrastinateButton.alpha = 1.0
-                self.focusView.workButton.alpha = 0.3
-                self.focusView.workButton.enabled = false
-                self.focusView.breakButton.alpha = 0.3
-                self.focusView.breakButton.enabled = false
-            default:
-                self.focusView.workButton.alpha = 1.0
-                self.focusView.breakButton.alpha = 1.0
-                self.focusView.workButton.enabled = true
-                self.focusView.breakButton.enabled = true
-                self.focusView.procrastinateButton.alpha = 1.0
-                self.focusView.procrastinateButton.enabled = true
-            }
-            
-            }, completion: nil)
-    }
-    
+  }
+  
 }
 
 //MARK: - timer methods
 extension FocusViewController {
+  
+  private func startTimerWithType(timerType: TimerType) {
     
-    private func startTimerWithType(timerType: TimerType) {
-
-//        let unfinisedWorkPeriod = WorkPeriod.objectsWhere("temporary = true")
-//        println("\(unfinisedWorkPeriod)")
-        
-        focusView.setDuration(0, maxValue: 1)
-        var typeName: String
-        switch timerType {
-        case .Work:
-            typeName = "Work"
-            currentType = .Work
-            workPeriods.append(NSDate())
-        case .Break:
-            typeName = "Break"
-            currentType = .Break
-        case .Procrastination:
-            typeName = "Procrastination"
-            currentType = .Procrastination
-        default:
-            typeName = "None"
-            currentType = .Idle
-            resetTimer()
-            focusView.numberOfWorkPeriodsLabel.text = "\(workPeriods.count)/\(numberOfWorkPeriods)"
-            UIApplication.sharedApplication().cancelAllLocalNotifications()
-            return
-        }
-        setUIModeForTimerType(currentType)
-
-        focusView.numberOfWorkPeriodsLabel.text = "\(workPeriods.count)/\(numberOfWorkPeriods)"
-        
-        let seconds = NSUserDefaults.standardUserDefaults().integerForKey(timerType.rawValue)
-//        let seconds = 10
-        endDate = NSDate(timeIntervalSinceNow: Double(seconds))
-        
-//        let workPeriod = WorkPeriod()
-//        workPeriod.durationInSeconds = seconds
-//        workPeriod.endDate = endDate!
-
-//        let realm = RLMRealm.defaultRealm()
-//        realm.beginWriteTransaction()
-//        realm.addObject(workPeriod)
-//        realm.commitWriteTransaction()
-        
-        if let sharedDefaults = NSUserDefaults(suiteName: "group.de.dasdom.Tomate") {
-            sharedDefaults.setDouble(endDate!.timeIntervalSince1970, forKey: "date")
-            sharedDefaults.synchronize()
-        }
-//        focusView.setDuration(CGFloat(seconds), maxValue: CGFloat(seconds))
-        
-        timer?.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "updateTimeLabel:", userInfo: ["timerType" : seconds], repeats: true)
-        
-        //        displayLink = CADisplayLink(target: self, selector: "updateTimeLabel")
-        //        displayLink!.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
-        
-        UIApplication.sharedApplication().cancelAllLocalNotifications()
-        
-        localNotification = UILocalNotification()
-        localNotification!.fireDate = endDate
-        localNotification!.alertBody = "Time for " + typeName + " is up!";
-        localNotification!.soundName = UILocalNotificationDefaultSoundName
-        localNotification!.category = "START_CATEGORY"
-        UIApplication.sharedApplication().scheduleLocalNotification(localNotification!)
-        
+    focusView.setDuration(0, maxValue: 1)
+    var typeName: String
+    switch timerType {
+    case .Work:
+      typeName = "Work"
+      currentType = .Work
+//      workPeriods.append(NSDate())
+    case .Break:
+      typeName = "Break"
+      currentType = .Break
+    case .Procrastination:
+      typeName = "Procrastination"
+      currentType = .Procrastination
+    default:
+      typeName = "None"
+      currentType = .Idle
+      resetTimer()
+//      focusView.numberOfWorkPeriodsLabel.text = "\(workPeriods.count)/\(numberOfWorkPeriods)"
+      UIApplication.sharedApplication().cancelAllLocalNotifications()
+      return
+    }
+    setUIModeForTimerType(currentType)
+    
+//    focusView.numberOfWorkPeriodsLabel.text = "\(workPeriods.count)/\(numberOfWorkPeriods)"
+    
+    let seconds = NSUserDefaults.standardUserDefaults().integerForKey(timerType.rawValue)
+    endDate = NSDate(timeIntervalSinceNow: Double(seconds))
+    
+    if let sharedDefaults = NSUserDefaults(suiteName: "group.de.dasdom.Tomate") {
+      sharedDefaults.setDouble(endDate!.timeIntervalSince1970, forKey: "date")
+      sharedDefaults.synchronize()
     }
     
-    func updateTimeLabel(sender: NSTimer) {
-        
-        var totalNumberOfSeconds: CGFloat
-        if let type = (sender.userInfo as! NSDictionary!)["timerType"] as? Int {
-            totalNumberOfSeconds = CGFloat(type)
-        } else {
-            assert(false, "This should not happen")
-            totalNumberOfSeconds = -1.0
-        }
-        
-        let timeInterval = CGFloat(endDate!.timeIntervalSinceNow)
-        if timeInterval < 0 {
-            resetTimer()
-            if timeInterval > -1 {
-                AudioServicesPlaySystemSound(1007)
-            }
-            focusView.setDuration(0, maxValue: 1)
-            return
-        }
-
-        focusView.setDuration(timeInterval, maxValue: totalNumberOfSeconds)
+    timer?.invalidate()
+    timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "updateTimeLabel:", userInfo: ["timerType" : seconds], repeats: true)
+    
+    UIApplication.sharedApplication().cancelAllLocalNotifications()
+    
+    localNotification = UILocalNotification()
+    localNotification!.fireDate = endDate
+    localNotification!.alertBody = "Time for " + typeName + " is up!";
+    localNotification!.soundName = UILocalNotificationDefaultSoundName
+    localNotification!.category = "START_CATEGORY"
+    UIApplication.sharedApplication().scheduleLocalNotification(localNotification!)
+    
+  }
+  
+  func updateTimeLabel(sender: NSTimer) {
+    
+    var totalNumberOfSeconds: CGFloat
+    if let type = (sender.userInfo as! NSDictionary!)["timerType"] as? Int {
+      totalNumberOfSeconds = CGFloat(type)
+    } else {
+      assert(false, "This should not happen")
+      totalNumberOfSeconds = -1.0
     }
     
-    private func resetTimer() {
-        timer?.invalidate()
-        timer = nil
-        
-        currentType = .Idle
-        setUIModeForTimerType(.Idle)
-        
-        if let sharedDefaults = NSUserDefaults(suiteName: "group.de.dasdom.Tomate") {
-            sharedDefaults.removeObjectForKey("date")
-            sharedDefaults.synchronize()
-        }
+    let timeInterval = CGFloat(endDate!.timeIntervalSinceNow)
+    if timeInterval < 0 {
+      resetTimer()
+      if timeInterval > -1 {
+        AudioServicesPlaySystemSound(1007)
+      }
+      focusView.setDuration(0, maxValue: 1)
+      return
     }
-}
-
-enum TimerType : String {
-    case Work = "Work" //25*60
-    case Break = "Break"  //only for testing
-    case Procrastination = "Procrastination"
-    case Idle = "Idle"
+    
+    focusView.setDuration(timeInterval, maxValue: totalNumberOfSeconds)
+  }
+  
+  private func resetTimer() {
+    timer?.invalidate()
+    timer = nil
+    
+    currentType = .Idle
+    setUIModeForTimerType(.Idle)
+    
+    if let sharedDefaults = NSUserDefaults(suiteName: "group.de.dasdom.Tomate") {
+      sharedDefaults.removeObjectForKey("date")
+      sharedDefaults.synchronize()
+    }
+  }
 }
 
 
 //MARK: - alert
 private extension FocusViewController {
-    
-    func showAlert() {
-        var alertMessage = NSLocalizedString("Do you want to stop this ", comment: "first part of alert message")
-        switch currentType {
-        case .Work:
-            alertMessage += NSLocalizedString("work timer?", comment: "second part of alert message")
-        case .Break:
-            alertMessage += NSLocalizedString("break timer?", comment: "secont part of alert message")
-        case .Procrastination:
-            alertMessage += NSLocalizedString("procrastination?", comment: "secont part of alert message")
-        default:
-            break
-        }
-        let alertController = UIAlertController(title: "Stop?", message: alertMessage, preferredStyle: .Alert)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: { action in
-            println("\(action)")
-            })
-        alertController.addAction(cancelAction)
-        
-        let stopAction = UIAlertAction(title: "Stop", style: .Default, handler: { action in
-            println("\(action)")
-            if self.currentType == .Work || self.workPeriods.count > 0 {
-                self.workPeriods.removeLast()
-            }
-            self.startTimerWithType(.Idle)
-            })
-        alertController.addAction(stopAction)
-        
-        presentViewController(alertController, animated: true, completion: nil)
+  
+  func showAlert() {
+    var alertMessage = NSLocalizedString("Do you want to stop this ", comment: "first part of alert message")
+    switch currentType {
+    case .Work:
+      alertMessage += NSLocalizedString("work timer?", comment: "second part of alert message")
+    case .Break:
+      alertMessage += NSLocalizedString("break timer?", comment: "secont part of alert message")
+    case .Procrastination:
+      alertMessage += NSLocalizedString("procrastination?", comment: "secont part of alert message")
+    default:
+      break
     }
+    let alertController = UIAlertController(title: "Stop?", message: alertMessage, preferredStyle: .Alert)
     
-    /*
-    // #pragma mark - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue?, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: { action in
+      print("\(action)")
+    })
+    alertController.addAction(cancelAction)
+    
+    let stopAction = UIAlertAction(title: "Stop", style: .Default, handler: { action in
+      print("\(action)")
+//      if self.currentType == .Work || self.workPeriods.count > 0 {
+//        self.workPeriods.removeLast()
+//      }
+      self.startTimerWithType(.Idle)
+    })
+    alertController.addAction(stopAction)
+    
+    presentViewController(alertController, animated: true, completion: nil)
+  }
+  
 }
 

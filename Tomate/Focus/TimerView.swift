@@ -27,7 +27,7 @@ class TimerView: UIView {
         
         timeLabel = {
             let label = UILabel()
-            label.setTranslatesAutoresizingMaskIntoConstraints(false)
+            label.translatesAutoresizingMaskIntoConstraints = false
 //            label.font = UIFont.systemFontOfSize(80)
 //            label.font = UIFont(name: "HiraKakuProN-W3", size: 80)
             label.font = UIFont(name: "HelveticaNeue-Thin", size: 80)
@@ -75,7 +75,7 @@ class TimerView: UIView {
         let radius = rect.size.width / 2 - 10
         let startAngle = 3 * CGFloat(M_PI)/2
         
-        var timerRingPath = UIBezierPath(arcCenter: timerCenter, radius: radius, startAngle: startAngle, endAngle: startAngle-0.001, clockwise: true)
+        let timerRingPath = UIBezierPath(arcCenter: timerCenter, radius: radius, startAngle: startAngle, endAngle: startAngle-0.001, clockwise: true)
 //        timerRingPath.addArcWithCenter(timerCenter, radius: radius, startAngle: startAngle, endAngle: startAngle - 0.001, clockwise: true)
         
 //        println("percentage: \(percentage)")
@@ -100,7 +100,7 @@ class TimerView: UIView {
             secondsPercentage = 60.0 - (durationInSeconds-1) % 60.0
 
         }
-        var secondsRingPath = UIBezierPath(arcCenter: timerCenter, radius: radius-4, startAngle: startAngle, endAngle: startAngle-0.001, clockwise: true)
+        let secondsRingPath = UIBezierPath(arcCenter: timerCenter, radius: radius-4, startAngle: startAngle, endAngle: startAngle-0.001, clockwise: true)
 
         secondsShapeLayer.fillColor = UIColor.clearColor().CGColor
         secondsShapeLayer.strokeColor = TimerStyleKit.timerColor.CGColor
@@ -141,7 +141,7 @@ class TimerView: UIView {
         timeLabel.text = labelText
     }
   
-  override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+  override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
     showRemaining = !showRemaining
     setNeedsDisplay()
   }

@@ -19,7 +19,7 @@
 		F2AB30C619600A4000D8D989 /* TomateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB30C519600A4000D8D989 /* TomateTests.swift */; };
 		F2AB30D4196016B800D8D989 /* TimerStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB30D3196016B800D8D989 /* TimerStyleKit.swift */; };
 		F2BB35F319F38FB700CD9CA5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2BB35F219F38FB700CD9CA5 /* LaunchScreen.storyboard */; };
-		F2FA794419950BB800CB2760 /* WorkPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FA794319950BB800CB2760 /* WorkPeriod.swift */; };
+		F2EB866B1B2A1E4D009EF689 /* TimerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EB866A1B2A1E4D009EF689 /* TimerType.swift */; };
 		F2FF2C761AB0A4C50017BF04 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2FB4E1A198D0BD000B5474E /* NotificationCenter.framework */; };
 		F2FF2C7B1AB0A4C50017BF04 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF2C7A1AB0A4C50017BF04 /* TodayViewController.swift */; };
 		F2FF2C7D1AB0A4C50017BF04 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2FF2C7C1AB0A4C50017BF04 /* MainInterface.storyboard */; };
@@ -74,7 +74,7 @@
 		F2AB30C519600A4000D8D989 /* TomateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomateTests.swift; sourceTree = "<group>"; };
 		F2AB30D3196016B800D8D989 /* TimerStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerStyleKit.swift; sourceTree = "<group>"; };
 		F2BB35F219F38FB700CD9CA5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		F2FA794319950BB800CB2760 /* WorkPeriod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkPeriod.swift; path = Model/WorkPeriod.swift; sourceTree = "<group>"; };
+		F2EB866A1B2A1E4D009EF689 /* TimerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerType.swift; sourceTree = "<group>"; };
 		F2FB4E1A198D0BD000B5474E /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		F2FF2C751AB0A4C50017BF04 /* Remaining.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Remaining.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2FF2C791AB0A4C50017BF04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -123,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				F23462391960798900AB11A5 /* FocusViewController.swift */,
+				F2EB866A1B2A1E4D009EF689 /* TimerType.swift */,
 				F23462381960798900AB11A5 /* FocusView.swift */,
 				F234623A1960798900AB11A5 /* TimerView.swift */,
 			);
@@ -156,7 +157,6 @@
 				F2FF2C841AB0A4D90017BF04 /* Fojusi.entitlements */,
 				F2AB30B719600A4000D8D989 /* AppDelegate.swift */,
 				F20425221961F91100A132D6 /* Int+Extensions.swift */,
-				F2FA794519950BC000CB2760 /* Model */,
 				F23462371960798900AB11A5 /* Focus */,
 				F21D3F4E198D4BC50036D4BA /* Settings */,
 				F2AB30D5196016E100D8D989 /* StyleKit */,
@@ -199,14 +199,6 @@
 				F2AB30D3196016B800D8D989 /* TimerStyleKit.swift */,
 			);
 			name = StyleKit;
-			sourceTree = "<group>";
-		};
-		F2FA794519950BC000CB2760 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				F2FA794319950BB800CB2760 /* WorkPeriod.swift */,
-			);
-			name = Model;
 			sourceTree = "<group>";
 		};
 		F2FB4E19198D0BD000B5474E /* Frameworks */ = {
@@ -300,7 +292,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Dominik Hauser";
 				TargetAttributes = {
 					F2AB30B119600A4000D8D989 = {
@@ -385,7 +377,7 @@
 				F20425231961F91100A132D6 /* Int+Extensions.swift in Sources */,
 				F21D3F50198D4BE30036D4BA /* SettingsView.swift in Sources */,
 				F234623B1960798900AB11A5 /* FocusView.swift in Sources */,
-				F2FA794419950BB800CB2760 /* WorkPeriod.swift in Sources */,
+				F2EB866B1B2A1E4D009EF689 /* TimerType.swift in Sources */,
 				F234623C1960798900AB11A5 /* FocusViewController.swift in Sources */,
 				F21D3F4D198D4BB30036D4BA /* SettingsViewController.swift in Sources */,
 			);
@@ -443,6 +435,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -512,7 +505,9 @@
 				DEFINES_MODULE = NO;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Tomate/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.dasdom.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Fojusi;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -532,7 +527,9 @@
 				DEFINES_MODULE = NO;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Tomate/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.dasdom.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Fojusi;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -554,6 +551,7 @@
 				INFOPLIST_FILE = TomateTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				METAL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.dasdom.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
@@ -570,6 +568,7 @@
 				INFOPLIST_FILE = TomateTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				METAL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.dasdom.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
@@ -589,6 +588,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.dasdom.Fojusi.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -606,6 +606,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.dasdom.Fojusi.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
