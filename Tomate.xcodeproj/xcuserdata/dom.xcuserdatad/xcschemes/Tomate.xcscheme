@@ -38,6 +38,16 @@
                ReferencedContainer = "container:Tomate.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F2FC43FE1B2CCCCC00851923"
+               BuildableName = "Fojusi UI Tests.xctest"
+               BlueprintName = "Fojusi UI Tests"
+               ReferencedContainer = "container:Tomate.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

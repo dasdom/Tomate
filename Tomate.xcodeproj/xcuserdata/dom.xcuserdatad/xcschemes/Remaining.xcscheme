@@ -43,13 +43,23 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F2FC43FE1B2CCCCC00851923"
+               BuildableName = "Fojusi UI Tests.xctest"
+               BlueprintName = "Fojusi UI Tests"
+               ReferencedContainer = "container:Tomate.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F2FF2C741AB0A4C50017BF04"
-            BuildableName = "Remaining.appex"
-            BlueprintName = "Remaining"
+            BlueprintIdentifier = "F2AB30B119600A4000D8D989"
+            BuildableName = "Fojusi.app"
+            BlueprintName = "Tomate"
             ReferencedContainer = "container:Tomate.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

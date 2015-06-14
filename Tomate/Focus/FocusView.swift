@@ -14,7 +14,7 @@ class FocusView: UIView {
   let workButton: UIButton
   let breakButton: UIButton
   let procrastinateButton: UIButton
-  let numberOfWorkPeriodsLabel: UILabel
+//  let numberOfWorkPeriodsLabel: UILabel
   //    let stepper: UIStepper
   let settingsButton: UIButton
   
@@ -33,16 +33,16 @@ class FocusView: UIView {
       return button
     }
     
-    numberOfWorkPeriodsLabel = {
-      let label = UILabel()
-      label.translatesAutoresizingMaskIntoConstraints = false
-      label.textAlignment = .Center
-      label.textColor = TimerStyleKit.timerColor
-      label.font = UIFont.systemFontOfSize(25)
-      label.text = "0/0"
-      label.hidden = true
-      return label
-      }()
+//    numberOfWorkPeriodsLabel = {
+//      let label = UILabel()
+//      label.translatesAutoresizingMaskIntoConstraints = false
+//      label.textAlignment = .Center
+//      label.textColor = TimerStyleKit.timerColor
+//      label.font = UIFont.systemFontOfSize(25)
+//      label.text = "0/0"
+//      label.hidden = true
+//      return label
+//      }()
     
     settingsButton = {
       let button = UIButton(type: .System)
@@ -67,7 +67,7 @@ class FocusView: UIView {
     tintColor = UIColor.yellowColor()
     
     addSubview(timerView)
-    addSubview(numberOfWorkPeriodsLabel)
+//    addSubview(numberOfWorkPeriodsLabel)
     //        addSubview(stepper)
     addSubview(workButton)
     addSubview(breakButton)
@@ -75,24 +75,27 @@ class FocusView: UIView {
     addSubview(procrastinateButton)
     addSubview(settingsButton)
     
-    let viewsDictionary = ["settingsButton" : settingsButton, "timerView" : timerView, "numberOfWorkPeriodsLabel" : numberOfWorkPeriodsLabel, "workButton" : workButton, "breakButton" : breakButton, "procrastinateButton" : procrastinateButton]
+    let views = ["settingsButton" : settingsButton, "timerView" : timerView, "workButton" : workButton, "breakButton" : breakButton, "procrastinateButton" : procrastinateButton]
     
-    addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[settingsButton(44)]-13-|", options: [], metrics: nil, views: viewsDictionary))
-    addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-30-[settingsButton(44)]", options: [], metrics: nil, views: viewsDictionary))
+    NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[settingsButton(44)]-13-|", options: [], metrics: nil, views: views))
+    NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-30-[settingsButton(44)]", options: [], metrics: nil, views: views))
     
-    addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[timerView(300)]", options: [], metrics: nil, views: viewsDictionary))
-    addConstraint(NSLayoutConstraint(item: timerView, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1.0, constant: 0.0))
-    addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[timerView(300)]-40-[procrastinateButton(80,==breakButton,==workButton)]", options: [], metrics: nil, views: viewsDictionary))
+    timerView.widthAnchor.constraintEqualToConstant(300).active = true
     
-    addConstraint(NSLayoutConstraint(item: timerView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: -50))
+    NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[timerView(300)]-40-[procrastinateButton(80,==breakButton,==workButton)]", options: .AlignAllCenterX, metrics: nil, views: views))
     
-    addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[breakButton(==workButton)]-10-[procrastinateButton(==workButton)]-10-[workButton(80)]", options: [], metrics: nil, views: viewsDictionary))
-    addConstraint(NSLayoutConstraint(item: workButton, attribute: .CenterY, relatedBy: .Equal, toItem: procrastinateButton, attribute: .CenterY, multiplier: 1.0, constant: -20))
-    addConstraint(NSLayoutConstraint(item: breakButton, attribute: .CenterY, relatedBy: .Equal, toItem: procrastinateButton, attribute: .CenterY, multiplier: 1.0, constant: -20))
-    addConstraint(NSLayoutConstraint(item: procrastinateButton, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1.0, constant: 0.0))
+    timerView.centerYAnchor.constraintEqualToAnchor(centerYAnchor, constant: -50).active = true
     
-    addConstraint(NSLayoutConstraint(item: numberOfWorkPeriodsLabel, attribute: .CenterY, relatedBy: .Equal, toItem: timerView, attribute: .CenterY, multiplier: 1.0, constant: 70))
-    addConstraint(NSLayoutConstraint(item: numberOfWorkPeriodsLabel, attribute: .CenterX, relatedBy: .Equal, toItem: timerView, attribute: .CenterX, multiplier: 1.0, constant: 0))
+    NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[breakButton(workButton)]-10-[procrastinateButton(workButton)]-10-[workButton(80)]", options: [], metrics: nil, views: views))
+
+    workButton.centerYAnchor.constraintEqualToAnchor(procrastinateButton.centerYAnchor, constant: -20).active = true
+    breakButton.centerYAnchor.constraintEqualToAnchor(workButton.centerYAnchor).active = true
+
+    procrastinateButton.centerXAnchor.constraintEqualToAnchor(centerXAnchor).active = true
+    
+//    addConstraint(NSLayoutConstraint(item: numberOfWorkPeriodsLabel, attribute: .CenterY, relatedBy: .Equal, toItem: timerView, attribute: .CenterY, multiplier: 1.0, constant: 70))
+//    
+//    addConstraint(NSLayoutConstraint(item: numberOfWorkPeriodsLabel, attribute: .CenterX, relatedBy: .Equal, toItem: timerView, attribute: .CenterX, multiplier: 1.0, constant: 0))
     
   }
   

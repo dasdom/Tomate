@@ -16,10 +16,10 @@
 		F2813AE21AB3860A00BFC5EE /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2813AE11AB3860A00BFC5EE /* AppIcon.xcassets */; };
 		F2AB30B819600A4000D8D989 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB30B719600A4000D8D989 /* AppDelegate.swift */; };
 		F2AB30BA19600A4000D8D989 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2AB30B919600A4000D8D989 /* Images.xcassets */; };
-		F2AB30C619600A4000D8D989 /* TomateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB30C519600A4000D8D989 /* TomateTests.swift */; };
 		F2AB30D4196016B800D8D989 /* TimerStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB30D3196016B800D8D989 /* TimerStyleKit.swift */; };
 		F2BB35F319F38FB700CD9CA5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2BB35F219F38FB700CD9CA5 /* LaunchScreen.storyboard */; };
 		F2EB866B1B2A1E4D009EF689 /* TimerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EB866A1B2A1E4D009EF689 /* TimerType.swift */; };
+		F2FC44021B2CCCCC00851923 /* Fojusi_UI_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FC44011B2CCCCC00851923 /* Fojusi_UI_Tests.swift */; };
 		F2FF2C761AB0A4C50017BF04 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2FB4E1A198D0BD000B5474E /* NotificationCenter.framework */; };
 		F2FF2C7B1AB0A4C50017BF04 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF2C7A1AB0A4C50017BF04 /* TodayViewController.swift */; };
 		F2FF2C7D1AB0A4C50017BF04 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2FF2C7C1AB0A4C50017BF04 /* MainInterface.storyboard */; };
@@ -28,6 +28,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		F2AB30C019600A4000D8D989 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F2AB30AA19600A4000D8D989 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F2AB30B119600A4000D8D989;
+			remoteInfo = Tomate;
+		};
+		F2FC44041B2CCCCC00851923 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F2AB30AA19600A4000D8D989 /* Project object */;
 			proxyType = 1;
@@ -71,11 +78,13 @@
 		F2AB30B919600A4000D8D989 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F2AB30BF19600A4000D8D989 /* TomateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TomateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2AB30C419600A4000D8D989 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F2AB30C519600A4000D8D989 /* TomateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomateTests.swift; sourceTree = "<group>"; };
 		F2AB30D3196016B800D8D989 /* TimerStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerStyleKit.swift; sourceTree = "<group>"; };
 		F2BB35F219F38FB700CD9CA5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F2EB866A1B2A1E4D009EF689 /* TimerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerType.swift; sourceTree = "<group>"; };
 		F2FB4E1A198D0BD000B5474E /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		F2FC43FF1B2CCCCC00851923 /* Fojusi UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fojusi UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2FC44011B2CCCCC00851923 /* Fojusi_UI_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fojusi_UI_Tests.swift; sourceTree = "<group>"; };
+		F2FC44031B2CCCCC00851923 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2FF2C751AB0A4C50017BF04 /* Remaining.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Remaining.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2FF2C791AB0A4C50017BF04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2FF2C7A1AB0A4C50017BF04 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +102,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F2AB30BC19600A4000D8D989 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2FC43FC1B2CCCCC00851923 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -134,8 +150,9 @@
 			isa = PBXGroup;
 			children = (
 				F2AB30B419600A4000D8D989 /* Tomate */,
-				F2AB30C219600A4000D8D989 /* TomateTests */,
 				F2FF2C771AB0A4C50017BF04 /* Remaining */,
+				F2AB30C219600A4000D8D989 /* TomateTests */,
+				F2FC44001B2CCCCC00851923 /* Fojusi UI Tests */,
 				F2FB4E19198D0BD000B5474E /* Frameworks */,
 				F2AB30B319600A4000D8D989 /* Products */,
 			);
@@ -147,6 +164,7 @@
 				F2AB30B219600A4000D8D989 /* Fojusi.app */,
 				F2AB30BF19600A4000D8D989 /* TomateTests.xctest */,
 				F2FF2C751AB0A4C50017BF04 /* Remaining.appex */,
+				F2FC43FF1B2CCCCC00851923 /* Fojusi UI Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -179,7 +197,6 @@
 		F2AB30C219600A4000D8D989 /* TomateTests */ = {
 			isa = PBXGroup;
 			children = (
-				F2AB30C519600A4000D8D989 /* TomateTests.swift */,
 				F2AB30C319600A4000D8D989 /* Supporting Files */,
 			);
 			path = TomateTests;
@@ -207,6 +224,15 @@
 				F2FB4E1A198D0BD000B5474E /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F2FC44001B2CCCCC00851923 /* Fojusi UI Tests */ = {
+			isa = PBXGroup;
+			children = (
+				F2FC44011B2CCCCC00851923 /* Fojusi_UI_Tests.swift */,
+				F2FC44031B2CCCCC00851923 /* Info.plist */,
+			);
+			path = "Fojusi UI Tests";
 			sourceTree = "<group>";
 		};
 		F2FF2C771AB0A4C50017BF04 /* Remaining */ = {
@@ -268,6 +294,24 @@
 			productReference = F2AB30BF19600A4000D8D989 /* TomateTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		F2FC43FE1B2CCCCC00851923 /* Fojusi UI Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2FC44081B2CCCCC00851923 /* Build configuration list for PBXNativeTarget "Fojusi UI Tests" */;
+			buildPhases = (
+				F2FC43FB1B2CCCCC00851923 /* Sources */,
+				F2FC43FC1B2CCCCC00851923 /* Frameworks */,
+				F2FC43FD1B2CCCCC00851923 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F2FC44051B2CCCCC00851923 /* PBXTargetDependency */,
+			);
+			name = "Fojusi UI Tests";
+			productName = "Fojusi UI Tests";
+			productReference = F2FC43FF1B2CCCCC00851923 /* Fojusi UI Tests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		F2FF2C741AB0A4C50017BF04 /* Remaining */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F2FF2C811AB0A4C50017BF04 /* Build configuration list for PBXNativeTarget "Remaining" */;
@@ -308,6 +352,10 @@
 						CreatedOnToolsVersion = 6.0;
 						TestTargetID = F2AB30B119600A4000D8D989;
 					};
+					F2FC43FE1B2CCCCC00851923 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = F2AB30B119600A4000D8D989;
+					};
 					F2FF2C741AB0A4C50017BF04 = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = Q6PD97MRX4;
@@ -334,6 +382,7 @@
 				F2AB30B119600A4000D8D989 /* Tomate */,
 				F2AB30BE19600A4000D8D989 /* TomateTests */,
 				F2FF2C741AB0A4C50017BF04 /* Remaining */,
+				F2FC43FE1B2CCCCC00851923 /* Fojusi UI Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -350,6 +399,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F2AB30BD19600A4000D8D989 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2FC43FD1B2CCCCC00851923 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -387,7 +443,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2AB30C619600A4000D8D989 /* TomateTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2FC43FB1B2CCCCC00851923 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2FC44021B2CCCCC00851923 /* Fojusi_UI_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +469,11 @@
 			isa = PBXTargetDependency;
 			target = F2AB30B119600A4000D8D989 /* Tomate */;
 			targetProxy = F2AB30C019600A4000D8D989 /* PBXContainerItemProxy */;
+		};
+		F2FC44051B2CCCCC00851923 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F2AB30B119600A4000D8D989 /* Tomate */;
+			targetProxy = F2FC44041B2CCCCC00851923 /* PBXContainerItemProxy */;
 		};
 		F2FF2C7F1AB0A4C50017BF04 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -574,6 +642,39 @@
 			};
 			name = Release;
 		};
+		F2FC44061B2CCCCC00851923 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Fojusi UI Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.dasdom.Fojusi-UI-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Tomate;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		F2FC44071B2CCCCC00851923 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Fojusi UI Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.dasdom.Fojusi-UI-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Tomate;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
 		F2FF2C821AB0A4C50017BF04 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -642,6 +743,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		F2FC44081B2CCCCC00851923 /* Build configuration list for PBXNativeTarget "Fojusi UI Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2FC44061B2CCCCC00851923 /* Debug */,
+				F2FC44071B2CCCCC00851923 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		F2FF2C811AB0A4C50017BF04 /* Build configuration list for PBXNativeTarget "Remaining" */ = {
 			isa = XCConfigurationList;
