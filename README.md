@@ -1,6 +1,8 @@
 # Tomate
 This is in the App Store as Fojusi
 
+![](https://raw.githubusercontent.com/dasdom/Tomate/master/what.gif)
+
 ## Author
 
 Dominik Hauser
