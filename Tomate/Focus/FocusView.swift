@@ -76,17 +76,18 @@ class FocusView: UIView {
     addSubview(settingsButton)
     
     let views = ["settingsButton" : settingsButton, "timerView" : timerView, "workButton" : workButton, "breakButton" : breakButton, "procrastinateButton" : procrastinateButton]
+    let metrics = ["timerWidth": 300, "timerHeight": 300, "workWidth": 80, "settingsWidth": 44]
     
-    NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[settingsButton(44)]-13-|", options: [], metrics: nil, views: views))
-    NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-30-[settingsButton(44)]", options: [], metrics: nil, views: views))
+    NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[settingsButton(settingsWidth)]-13-|", options: [], metrics: metrics, views: views))
+    NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-30-[settingsButton(settingsWidth)]", options: [], metrics: metrics, views: views))
     
-    timerView.widthAnchor.constraintEqualToConstant(300).active = true
+    timerView.widthAnchor.constraintEqualToConstant(CGFloat(metrics["timerWidth"]!)).active = true
     
-    NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[timerView(300)]-40-[procrastinateButton(80,==breakButton,==workButton)]", options: .AlignAllCenterX, metrics: nil, views: views))
+    NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[timerView(timerHeight)]-40-[procrastinateButton(workWidth,breakButton,workButton)]", options: .AlignAllCenterX, metrics: metrics, views: views))
     
     timerView.centerYAnchor.constraintEqualToAnchor(centerYAnchor, constant: -50).active = true
     
-    NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[breakButton(workButton)]-10-[procrastinateButton(workButton)]-10-[workButton(80)]", options: [], metrics: nil, views: views))
+    NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[breakButton]-10-[procrastinateButton]-10-[workButton(workWidth,breakButton,procrastinateButton)]", options: [], metrics: metrics, views: views))
 
     workButton.centerYAnchor.constraintEqualToAnchor(procrastinateButton.centerYAnchor, constant: -20).active = true
     breakButton.centerYAnchor.constraintEqualToAnchor(workButton.centerYAnchor).active = true
