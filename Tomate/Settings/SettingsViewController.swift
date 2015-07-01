@@ -10,7 +10,7 @@ import UIKit
 
 let kNumberOfWorkPeriodsKey = "kNumberOfWorkPeriodsKey"
 
-class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class SettingsViewController: UIViewController {
   
   var settingsView: SettingsView {return view as! SettingsView}
   var workTimes = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
@@ -71,6 +71,10 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
   }
   
   //MARK: - UIPickerViewDelegate, UIPickerViewDataSource
+}
+
+extension SettingsViewController : UIPickerViewDelegate, UIPickerViewDataSource {
+
   func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
     return 1
   }
@@ -84,18 +88,6 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
   }
   
-  //    func pickerView(pickerView: UIPickerView!, titleForRow row: Int, forComponent component: Int) -> String! {
-  //        return "\(workTimes[row]) min"
-  //    }
-  //    func pickerView(pickerView: UIPickerView!, viewForRow row: Int, forComponent component: Int, reusingView view: UIView!) -> UIView! {
-  //
-  //        let label = UILabel()
-  //        label.textColor = TimerStyleKit.timerColor
-  //        label.textAlignment = .Center
-  //
-  //        label.text = "\(workTimes[row]) min"
-  //        return label
-  //    }
   func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
     var minutes = 0
     switch settingsView.selectedTimerType {

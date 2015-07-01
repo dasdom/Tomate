@@ -53,29 +53,17 @@ class FocusViewController: UIViewController {
   
   //MARK: - button actions
   func startWork(sender: UIButton?) {
-    if currentType == .Work {
-      showAlert()
-      return
-    }
-    
+    guard currentType != .Work else { showAlert(); return }
     startTimerWithType(.Work)
   }
   
   func startBreak(sender: UIButton?) {
-    if currentType == .Break {
-      showAlert()
-      return
-    }
-    
+    guard currentType != .Break else { showAlert(); return }
     startTimerWithType(.Break)
   }
   
   func startProcrastination(sender: UIButton) {
-    if currentType == .Procrastination {
-      showAlert()
-      return
-    }
-    
+    guard currentType != .Procrastination else { showAlert(); return }
     startTimerWithType(.Procrastination)
   }
   
@@ -186,6 +174,7 @@ extension FocusViewController {
       resetTimer()
       if timeInterval > -1 {
         AudioServicesPlaySystemSound(1007)
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
       }
       focusView.setDuration(0, maxValue: 1)
       return

@@ -16,7 +16,6 @@ class TimerView: UIView {
     var showRemaining = true
     let timerShapeLayer: CAShapeLayer
     let secondsShapeLayer: CAShapeLayer
-//    let fullShapeLayer: CAShapeLayer
     let timeLabel: UILabel
     
     override init(frame: CGRect) {
@@ -88,7 +87,7 @@ class TimerView: UIView {
 //        timerShapeLayer.shadowOffset = CGSizeMake(0.1, -0.1)
 //        timerShapeLayer.shadowRadius = 3
 //        timerShapeLayer.shadowOpacity = 1.0
-        
+      
         let totalMinutes = (maxValue-1) / 60
         let dashLength = 2*radius*CGFloat(M_PI)/totalMinutes;
         timerShapeLayer.lineDashPattern = [dashLength-4, 4]
