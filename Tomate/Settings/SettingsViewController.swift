@@ -23,6 +23,10 @@ class SettingsViewController: UIViewController {
     view = SettingsView(frame: CGRectZero)
   }
   
+  override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    return UIStatusBarStyle.LightContent
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -70,9 +74,9 @@ class SettingsViewController: UIViewController {
     dismissViewControllerAnimated(true, completion: nil)
   }
   
-  //MARK: - UIPickerViewDelegate, UIPickerViewDataSource
 }
 
+//MARK: - UIPickerViewDelegate, UIPickerViewDataSource
 extension SettingsViewController : UIPickerViewDelegate, UIPickerViewDataSource {
 
   func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {

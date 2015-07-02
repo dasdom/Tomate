@@ -22,9 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     customizeAppearance()
     
     registerDefaultUserDefaults()
-    
-    UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
-    
+        
     focusViewController = FocusViewController(nibName: nil, bundle: nil)
     window!.rootViewController = focusViewController
     window!.makeKeyAndVisible()

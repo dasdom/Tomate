@@ -28,6 +28,10 @@ class FocusViewController: UIViewController {
     view = FocusView(frame: CGRectZero)
   }
   
+  override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    return UIStatusBarStyle.LightContent
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     

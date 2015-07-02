@@ -751,6 +751,7 @@
 				F2FC44071B2CCCCC00851923 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F2FF2C811AB0A4C50017BF04 /* Build configuration list for PBXNativeTarget "Remaining" */ = {
 			isa = XCConfigurationList;

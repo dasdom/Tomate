@@ -11,12 +11,11 @@ import QuartzCore
 
 class SettingsView: UIView {
   
-  let markerView: UIView
+  private let markerView: UIView
   let workInputHostView: InputHostView
   let breakInputHostView: InputHostView
-  //    let longBreakInputHostView: InputHostView
-  let workPeriodsLabel: UILabel
-  let workPeriodsStepper: UIStepper
+  private let workPeriodsLabel: UILabel
+  private let workPeriodsStepper: UIStepper
   let pickerView: UIPickerView
   var selectedTimerType: TimerType
   
@@ -57,10 +56,6 @@ class SettingsView: UIView {
     breakInputHostView.nameLabel.text = NSLocalizedString("Break duration", comment: "Settings name for the break duration")
     breakInputHostView.tag = 1
     
-    //        longBreakInputHostView = InputHostView(frame: CGRectZero)
-    //        longBreakInputHostView.nameLabel.text = NSLocalizedString("Long break duration", comment: "Settings name for the long break duration")
-    //        longBreakInputHostView.tag = 2
-    
     pickerView = {
       let pickerView = UIPickerView()
       pickerView.translatesAutoresizingMaskIntoConstraints = false
@@ -78,20 +73,19 @@ class SettingsView: UIView {
     addSubview(markerView)
     addSubview(workInputHostView)
     addSubview(breakInputHostView)
-    //        addSubview(longBreakInputHostView)
     addSubview(pickerView)
     
-    let metrics = ["hostViewHeight" : 40, "hostViewGap" : 10]
+    let metrics = ["hostHeight" : 40, "hostViewGap" : 10]
+    let views = ["markerView" : markerView, "workHostView" : workInputHostView, "breakHostView" : breakInputHostView, "picker" : pickerView]
+    var constraints = [NSLayoutConstraint]()
     
-    let views = ["markerView" : markerView, "workInputHostView" : workInputHostView, "breakInputHostView" : breakInputHostView,
-      //            "longBreakInputHostView" : longBreakInputHostView,
-      "pickerView" : pickerView]
-    NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-5-[workInputHostView(breakInputHostView)]-5-|", options: [], metrics: nil, views: views))
-    NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[workInputHostView(hostViewHeight,breakInputHostView)]-hostViewGap-[breakInputHostView]", options: .AlignAllLeft, metrics: metrics, views: views))
+    constraints += NSLayoutConstraint.constraintsWithVisualFormat("|-5-[workHostView]-5-|", options: [], metrics: nil, views: views)
+    constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:[workHostView(hostHeight,breakHostView)]-hostViewGap-[breakHostView]", options: [.AlignAllLeft, .AlignAllRight], metrics: metrics, views: views)
     
-    NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[pickerView]|", options: [], metrics: nil, views: views))
-    NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[breakInputHostView][pickerView]", options: [], metrics: nil, views: views))
+    constraints += NSLayoutConstraint.constraintsWithVisualFormat("|[picker]|", options: [], metrics: nil, views: views)
+    constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:[breakHostView][picker]", options: [], metrics: nil, views: views)
     
+    NSLayoutConstraint.activateConstraints(constraints)
   }
   
   convenience required init(coder aDecoder: NSCoder) {
@@ -158,8 +152,12 @@ class SettingsView: UIView {
       addSubview(durationLabel)
       
       let views = ["nameLabel" : nameLabel, "durationLabel" : durationLabel]
-      NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-[nameLabel]-(>=10)-[durationLabel]-|", options: .AlignAllBaseline, metrics: nil, views: views))
-      NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[nameLabel(durationLabel)]-|", options: .AlignAllBaseline, metrics: nil, views: views))
+      var constraints = [NSLayoutConstraint]()
+      
+      constraints += NSLayoutConstraint.constraintsWithVisualFormat("|-[nameLabel]-(>=10)-[durationLabel]-|", options: .AlignAllBaseline, metrics: nil, views: views)
+      constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:|-[nameLabel(durationLabel)]-|", options: .AlignAllBaseline, metrics: nil, views: views)
+      
+      NSLayoutConstraint.activateConstraints(constraints)
       
     }
     
