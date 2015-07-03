@@ -14,6 +14,8 @@
 		F234623C1960798900AB11A5 /* FocusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23462391960798900AB11A5 /* FocusViewController.swift */; };
 		F234623D1960798900AB11A5 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F234623A1960798900AB11A5 /* TimerView.swift */; };
 		F2813AE21AB3860A00BFC5EE /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2813AE11AB3860A00BFC5EE /* AppIcon.xcassets */; };
+		F292E2991B45CE2600DFC991 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F234623A1960798900AB11A5 /* TimerView.swift */; };
+		F292E29A1B45CEAF00DFC991 /* TimerStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB30D3196016B800D8D989 /* TimerStyleKit.swift */; };
 		F2AB30B819600A4000D8D989 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB30B719600A4000D8D989 /* AppDelegate.swift */; };
 		F2AB30BA19600A4000D8D989 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2AB30B919600A4000D8D989 /* Images.xcassets */; };
 		F2AB30D4196016B800D8D989 /* TimerStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB30D3196016B800D8D989 /* TimerStyleKit.swift */; };
@@ -458,7 +460,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F292E2991B45CE2600DFC991 /* TimerView.swift in Sources */,
 				F2FF2C7B1AB0A4C50017BF04 /* TodayViewController.swift in Sources */,
+				F292E29A1B45CEAF00DFC991 /* TimerStyleKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -686,7 +690,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Remaining/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.dasdom.Fojusi.$(PRODUCT_NAME:rfc1034identifier)";
@@ -704,7 +708,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = Remaining/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.dasdom.Fojusi.$(PRODUCT_NAME:rfc1034identifier)";

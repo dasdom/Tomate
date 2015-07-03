@@ -97,6 +97,8 @@ class FocusView: UIView {
     
     NSLayoutConstraint.activateConstraints(constraints)
     
+    timerView.timeLabel.font = timerView.timeLabel.font.fontWithSize(CGFloat(metrics["timerHeight"]!)*0.9/3.0-10.0)
+    
 //    addConstraint(NSLayoutConstraint(item: numberOfWorkPeriodsLabel, attribute: .CenterY, relatedBy: .Equal, toItem: timerView, attribute: .CenterY, multiplier: 1.0, constant: 70))
 //    
 //    addConstraint(NSLayoutConstraint(item: numberOfWorkPeriodsLabel, attribute: .CenterX, relatedBy: .Equal, toItem: timerView, attribute: .CenterX, multiplier: 1.0, constant: 0))

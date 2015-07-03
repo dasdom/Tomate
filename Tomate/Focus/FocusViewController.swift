@@ -40,7 +40,7 @@ class FocusViewController: UIViewController {
     focusView.procrastinateButton.addTarget(self, action: "startProcrastination:", forControlEvents: .TouchUpInside)
     focusView.settingsButton.addTarget(self, action: "showSettings", forControlEvents: .TouchUpInside)
     
-    let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "showSettings")
+    let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "showSettingsFromLongPross:")
     focusView.addGestureRecognizer(longPressRecognizer)
   }
   
@@ -73,6 +73,12 @@ class FocusViewController: UIViewController {
   
   func showSettings() {
     presentViewController(UINavigationController(rootViewController: SettingsViewController()), animated: true, completion: nil)
+  }
+  
+  func showSettingsFromLongPross(sender: UILongPressGestureRecognizer) {
+    if sender.state == .Began {
+      showSettings()
+    }
   }
   
   func setUIModeForTimerType(timerType: TimerType) {
@@ -146,6 +152,7 @@ extension FocusViewController {
     
     if let sharedDefaults = NSUserDefaults(suiteName: "group.de.dasdom.Tomate") {
       sharedDefaults.setDouble(endDate!.timeIntervalSince1970, forKey: "date")
+      sharedDefaults.setInteger(seconds, forKey: "maxValue")
       sharedDefaults.synchronize()
     }
     
@@ -177,8 +184,7 @@ extension FocusViewController {
     if timeInterval < 0 {
       resetTimer()
       if timeInterval > -1 {
-        AudioServicesPlaySystemSound(1007)
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
       }
       focusView.setDuration(0, maxValue: 1)
       return
