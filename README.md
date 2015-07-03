@@ -3,6 +3,10 @@ This is in the App Store as Fojusi (https://itunes.apple.com/de/app/fojusi/id923
 
 ![](https://raw.githubusercontent.com/dasdom/Tomate/master/what.gif)
 
+## Today Widget
+
+![](https://raw.githubusercontent.com/dasdom/Tomate/master/todaywidget.png)
+
 ## Author
 
 Dominik Hauser
