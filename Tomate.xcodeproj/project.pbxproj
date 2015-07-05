@@ -13,6 +13,15 @@
 		F234623B1960798900AB11A5 /* FocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23462381960798900AB11A5 /* FocusView.swift */; };
 		F234623C1960798900AB11A5 /* FocusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23462391960798900AB11A5 /* FocusViewController.swift */; };
 		F234623D1960798900AB11A5 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F234623A1960798900AB11A5 /* TimerView.swift */; };
+		F25CD2701B481DFE009495B6 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F25CD26E1B481DFE009495B6 /* Interface.storyboard */; };
+		F25CD2791B481DFE009495B6 /* Fojusi Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F25CD2781B481DFE009495B6 /* Fojusi Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F25CD27E1B481DFE009495B6 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25CD27D1B481DFE009495B6 /* InterfaceController.swift */; };
+		F25CD2801B481DFE009495B6 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25CD27F1B481DFE009495B6 /* ExtensionDelegate.swift */; };
+		F25CD2821B481DFE009495B6 /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25CD2811B481DFE009495B6 /* GlanceController.swift */; };
+		F25CD2841B481DFE009495B6 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25CD2831B481DFE009495B6 /* ComplicationController.swift */; };
+		F25CD2861B481DFE009495B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F25CD2851B481DFE009495B6 /* Assets.xcassets */; };
+		F25CD28A1B481DFE009495B6 /* Fojusi Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = F25CD26C1B481DFE009495B6 /* Fojusi Watch.app */; };
+		F25CD2931B4828EC009495B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F25CD2921B4828EC009495B6 /* Assets.xcassets */; };
 		F2813AE21AB3860A00BFC5EE /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2813AE11AB3860A00BFC5EE /* AppIcon.xcassets */; };
 		F292E2991B45CE2600DFC991 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F234623A1960798900AB11A5 /* TimerView.swift */; };
 		F292E29A1B45CEAF00DFC991 /* TimerStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB30D3196016B800D8D989 /* TimerStyleKit.swift */; };
@@ -29,6 +38,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		F25CD27A1B481DFE009495B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F2AB30AA19600A4000D8D989 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F25CD2771B481DFE009495B6;
+			remoteInfo = "Fojusi Watch Extension";
+		};
+		F25CD2881B481DFE009495B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F2AB30AA19600A4000D8D989 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F25CD26B1B481DFE009495B6;
+			remoteInfo = "Fojusi Watch";
+		};
 		F2AB30C019600A4000D8D989 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F2AB30AA19600A4000D8D989 /* Project object */;
@@ -53,6 +76,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		F25CD2691B481DC8009495B6 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				F25CD28A1B481DFE009495B6 /* Fojusi Watch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F25CD28E1B481DFE009495B6 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F25CD2791B481DFE009495B6 /* Fojusi Watch Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F2FB4E2B198D0BD000B5474E /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -73,6 +118,19 @@
 		F23462381960798900AB11A5 /* FocusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusView.swift; sourceTree = "<group>"; };
 		F23462391960798900AB11A5 /* FocusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusViewController.swift; sourceTree = "<group>"; };
 		F234623A1960798900AB11A5 /* TimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		F25CD26C1B481DFE009495B6 /* Fojusi Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fojusi Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F25CD26F1B481DFE009495B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		F25CD2731B481DFE009495B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F25CD2781B481DFE009495B6 /* Fojusi Watch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Fojusi Watch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F25CD27D1B481DFE009495B6 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		F25CD27F1B481DFE009495B6 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		F25CD2811B481DFE009495B6 /* GlanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
+		F25CD2831B481DFE009495B6 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
+		F25CD2851B481DFE009495B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F25CD2871B481DFE009495B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F25CD2921B4828EC009495B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F25CD2941B482B3E009495B6 /* Fojusi Watch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Fojusi Watch Extension.entitlements"; sourceTree = "<group>"; };
+		F25CD2951B482C41009495B6 /* Fojusi Watch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Fojusi Watch.entitlements"; sourceTree = "<group>"; };
 		F2813AE11AB3860A00BFC5EE /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = SOURCE_ROOT; };
 		F2AB30B219600A4000D8D989 /* Fojusi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fojusi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2AB30B619600A4000D8D989 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -96,6 +154,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F25CD2751B481DFE009495B6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F2AB30AF19600A4000D8D989 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -148,6 +213,31 @@
 			path = Focus;
 			sourceTree = "<group>";
 		};
+		F25CD26D1B481DFE009495B6 /* Fojusi Watch */ = {
+			isa = PBXGroup;
+			children = (
+				F25CD2951B482C41009495B6 /* Fojusi Watch.entitlements */,
+				F25CD26E1B481DFE009495B6 /* Interface.storyboard */,
+				F25CD2921B4828EC009495B6 /* Assets.xcassets */,
+				F25CD2731B481DFE009495B6 /* Info.plist */,
+			);
+			path = "Fojusi Watch";
+			sourceTree = "<group>";
+		};
+		F25CD27C1B481DFE009495B6 /* Fojusi Watch Extension */ = {
+			isa = PBXGroup;
+			children = (
+				F25CD2941B482B3E009495B6 /* Fojusi Watch Extension.entitlements */,
+				F25CD27D1B481DFE009495B6 /* InterfaceController.swift */,
+				F25CD27F1B481DFE009495B6 /* ExtensionDelegate.swift */,
+				F25CD2811B481DFE009495B6 /* GlanceController.swift */,
+				F25CD2831B481DFE009495B6 /* ComplicationController.swift */,
+				F25CD2851B481DFE009495B6 /* Assets.xcassets */,
+				F25CD2871B481DFE009495B6 /* Info.plist */,
+			);
+			path = "Fojusi Watch Extension";
+			sourceTree = "<group>";
+		};
 		F2AB30A919600A4000D8D989 = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +245,8 @@
 				F2FF2C771AB0A4C50017BF04 /* Remaining */,
 				F2AB30C219600A4000D8D989 /* TomateTests */,
 				F2FC44001B2CCCCC00851923 /* Fojusi UI Tests */,
+				F25CD26D1B481DFE009495B6 /* Fojusi Watch */,
+				F25CD27C1B481DFE009495B6 /* Fojusi Watch Extension */,
 				F2FB4E19198D0BD000B5474E /* Frameworks */,
 				F2AB30B319600A4000D8D989 /* Products */,
 			);
@@ -167,6 +259,8 @@
 				F2AB30BF19600A4000D8D989 /* TomateTests.xctest */,
 				F2FF2C751AB0A4C50017BF04 /* Remaining.appex */,
 				F2FC43FF1B2CCCCC00851923 /* Fojusi UI Tests.xctest */,
+				F25CD26C1B481DFE009495B6 /* Fojusi Watch.app */,
+				F25CD2781B481DFE009495B6 /* Fojusi Watch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -259,6 +353,40 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F25CD26B1B481DFE009495B6 /* Fojusi Watch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F25CD28F1B481DFE009495B6 /* Build configuration list for PBXNativeTarget "Fojusi Watch" */;
+			buildPhases = (
+				F25CD26A1B481DFE009495B6 /* Resources */,
+				F25CD28E1B481DFE009495B6 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F25CD27B1B481DFE009495B6 /* PBXTargetDependency */,
+			);
+			name = "Fojusi Watch";
+			productName = "Fojusi Watch";
+			productReference = F25CD26C1B481DFE009495B6 /* Fojusi Watch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		F25CD2771B481DFE009495B6 /* Fojusi Watch Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F25CD28B1B481DFE009495B6 /* Build configuration list for PBXNativeTarget "Fojusi Watch Extension" */;
+			buildPhases = (
+				F25CD2741B481DFE009495B6 /* Sources */,
+				F25CD2751B481DFE009495B6 /* Frameworks */,
+				F25CD2761B481DFE009495B6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Fojusi Watch Extension";
+			productName = "Fojusi Watch Extension";
+			productReference = F25CD2781B481DFE009495B6 /* Fojusi Watch Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 		F2AB30B119600A4000D8D989 /* Tomate */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F2AB30C919600A4000D8D989 /* Build configuration list for PBXNativeTarget "Tomate" */;
@@ -267,11 +395,13 @@
 				F2AB30AF19600A4000D8D989 /* Frameworks */,
 				F2AB30B019600A4000D8D989 /* Resources */,
 				F2FB4E2B198D0BD000B5474E /* Embed App Extensions */,
+				F25CD2691B481DC8009495B6 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				F2FF2C7F1AB0A4C50017BF04 /* PBXTargetDependency */,
+				F25CD2891B481DFE009495B6 /* PBXTargetDependency */,
 			);
 			name = Tomate;
 			productName = Tomate;
@@ -341,6 +471,24 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Dominik Hauser";
 				TargetAttributes = {
+					F25CD26B1B481DFE009495B6 = {
+						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = Q6PD97MRX4;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+						};
+					};
+					F25CD2771B481DFE009495B6 = {
+						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = Q6PD97MRX4;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+						};
+					};
 					F2AB30B119600A4000D8D989 = {
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = Q6PD97MRX4;
@@ -375,6 +523,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = F2AB30A919600A4000D8D989;
 			productRefGroup = F2AB30B319600A4000D8D989 /* Products */;
@@ -385,11 +534,30 @@
 				F2AB30BE19600A4000D8D989 /* TomateTests */,
 				F2FF2C741AB0A4C50017BF04 /* Remaining */,
 				F2FC43FE1B2CCCCC00851923 /* Fojusi UI Tests */,
+				F25CD26B1B481DFE009495B6 /* Fojusi Watch */,
+				F25CD2771B481DFE009495B6 /* Fojusi Watch Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F25CD26A1B481DFE009495B6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F25CD2701B481DFE009495B6 /* Interface.storyboard in Resources */,
+				F25CD2931B4828EC009495B6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F25CD2761B481DFE009495B6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F25CD2861B481DFE009495B6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F2AB30B019600A4000D8D989 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -425,6 +593,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F25CD2741B481DFE009495B6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F25CD2801B481DFE009495B6 /* ExtensionDelegate.swift in Sources */,
+				F25CD2841B481DFE009495B6 /* ComplicationController.swift in Sources */,
+				F25CD27E1B481DFE009495B6 /* InterfaceController.swift in Sources */,
+				F25CD2821B481DFE009495B6 /* GlanceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F2AB30AE19600A4000D8D989 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -469,6 +648,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		F25CD27B1B481DFE009495B6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F25CD2771B481DFE009495B6 /* Fojusi Watch Extension */;
+			targetProxy = F25CD27A1B481DFE009495B6 /* PBXContainerItemProxy */;
+		};
+		F25CD2891B481DFE009495B6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F25CD26B1B481DFE009495B6 /* Fojusi Watch */;
+			targetProxy = F25CD2881B481DFE009495B6 /* PBXContainerItemProxy */;
+		};
 		F2AB30C119600A4000D8D989 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F2AB30B119600A4000D8D989 /* Tomate */;
@@ -486,7 +675,108 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		F25CD26E1B481DFE009495B6 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F25CD26F1B481DFE009495B6 /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		F25CD28C1B481DFE009495B6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Fojusi Watch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.Fojusi.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		F25CD28D1B481DFE009495B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Fojusi Watch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.Fojusi.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		F25CD2901B481DFE009495B6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IBSC_MODULE = Fojusi_Watch_Extension;
+				INFOPLIST_FILE = "Fojusi Watch/Info.plist";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.Fojusi.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		F25CD2911B481DFE009495B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IBSC_MODULE = Fojusi_Watch_Extension;
+				INFOPLIST_FILE = "Fojusi Watch/Info.plist";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.Fojusi.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
 		F2AB30C719600A4000D8D989 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -721,6 +1011,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F25CD28B1B481DFE009495B6 /* Build configuration list for PBXNativeTarget "Fojusi Watch Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F25CD28C1B481DFE009495B6 /* Debug */,
+				F25CD28D1B481DFE009495B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F25CD28F1B481DFE009495B6 /* Build configuration list for PBXNativeTarget "Fojusi Watch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F25CD2901B481DFE009495B6 /* Debug */,
+				F25CD2911B481DFE009495B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		F2AB30AD19600A4000D8D989 /* Build configuration list for PBXProject "Tomate" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

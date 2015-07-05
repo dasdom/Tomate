@@ -4,6 +4,21 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Complication - Fojusi Watch.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+		<key>Fojusi Watch.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>Glance - Fojusi Watch.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 		<key>Remaining.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -17,6 +32,21 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>F25CD2421B481DC8009495B6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F25CD26B1B481DFE009495B6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F25CD2771B481DFE009495B6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>F2AB30B119600A4000D8D989</key>
 		<dict>
 			<key>primary</key>

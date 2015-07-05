@@ -8,6 +8,7 @@
 
 import UIKit
 import AudioToolbox
+import WatchConnectivity
 
 class FocusViewController: UIViewController {
   
@@ -156,6 +157,11 @@ extension FocusViewController {
       sharedDefaults.synchronize()
     }
     
+    let session = WCSession.defaultSession()
+    session.delegate = self
+    session.activateSession()
+    session.transferUserInfo(["date": endDate!.timeIntervalSince1970, "maxValue": seconds])
+    
     timer?.invalidate()
     timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "updateTimeLabel:", userInfo: ["timerType" : seconds], repeats: true)
     
@@ -207,6 +213,9 @@ extension FocusViewController {
   }
 }
 
+extension FocusViewController: WCSessionDelegate {
+  
+}
 
 //MARK: - alert
 private extension FocusViewController {

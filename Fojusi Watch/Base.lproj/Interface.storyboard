@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="8121.20" systemVersion="14E46" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc" defaultGlanceController="Sv0-Ai-Zie">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="8066.14"/>
+    </dependencies>
+    <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Fojusi_Watch" customModuleProvider="target">
+                    <items>
+                        <group width="136" height="136" alignment="center" verticalAlignment="center" backgroundImage="fiveMin100" id="atV-kx-BSB">
+                            <items>
+                                <group alignment="center" verticalAlignment="center" id="Kc8-O8-X7Z">
+                                    <items>
+                                        <timer alignment="left" id="Jew-ZC-ffh">
+                                            <color key="textColor" red="0.40784313725490196" green="0.73333333333333328" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="font" type="system" pointSize="40"/>
+                                            <calendarUnit key="units" minute="YES" second="YES"/>
+                                        </timer>
+                                    </items>
+                                </group>
+                            </items>
+                        </group>
+                    </items>
+                    <menu key="menu" id="HYs-eC-C9y">
+                        <items>
+                            <menuItem title="Menu Item" icon="decline" id="2Tb-RN-Lhg"/>
+                        </items>
+                    </menu>
+                    <connections>
+                        <outlet property="backgroundGroup" destination="atV-kx-BSB" id="y9U-ra-RXK"/>
+                        <outlet property="timerInterface" destination="Jew-ZC-ffh" id="215-oB-PmN"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="164" y="217"/>
+        </scene>
+        <!--Glance Interface Controller-->
+        <scene sceneID="rjY-Ar-IMT">
+            <objects>
+                <glanceController spacing="0.0" id="Sv0-Ai-Zie" customClass="GlanceController" customModule="Fojusi_Watch" customModuleProvider="target">
+                    <items>
+                        <group alignment="left" id="gv7-I2-MZq"/>
+                        <group alignment="left" id="eew-Gs-W6Y"/>
+                    </items>
+                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="14"/>
+                </glanceController>
+            </objects>
+            <point key="canvasLocation" x="164" y="514"/>
+        </scene>
+    </scenes>
+</document>
