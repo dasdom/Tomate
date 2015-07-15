@@ -70,7 +70,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     if let defaults = NSUserDefaults(suiteName: "group.de.dasdom.Tomate") {
       let startDateAsTimeStamp = defaults.doubleForKey("date")
-      print("startDate: \(startDateAsTimeStamp)")
+      print("startDate: \(startDateAsTimeStamp)", appendNewline: false)
       endDate = NSDate(timeIntervalSince1970: startDateAsTimeStamp)
       maxValue = defaults.integerForKey("maxValue")
     }

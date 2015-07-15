@@ -22,6 +22,8 @@
 		F25CD2861B481DFE009495B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F25CD2851B481DFE009495B6 /* Assets.xcassets */; };
 		F25CD28A1B481DFE009495B6 /* Fojusi Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = F25CD26C1B481DFE009495B6 /* Fojusi Watch.app */; };
 		F25CD2931B4828EC009495B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F25CD2921B4828EC009495B6 /* Assets.xcassets */; };
+		F273B4C61B56233400CDF081 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F273B4C51B56233400CDF081 /* AboutViewController.swift */; };
+		F273B4C91B56235600CDF081 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F273B4C81B56235600CDF081 /* AboutView.swift */; };
 		F2813AE21AB3860A00BFC5EE /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2813AE11AB3860A00BFC5EE /* AppIcon.xcassets */; };
 		F292E2991B45CE2600DFC991 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F234623A1960798900AB11A5 /* TimerView.swift */; };
 		F292E29A1B45CEAF00DFC991 /* TimerStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB30D3196016B800D8D989 /* TimerStyleKit.swift */; };
@@ -131,6 +133,8 @@
 		F25CD2921B4828EC009495B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F25CD2941B482B3E009495B6 /* Fojusi Watch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Fojusi Watch Extension.entitlements"; sourceTree = "<group>"; };
 		F25CD2951B482C41009495B6 /* Fojusi Watch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Fojusi Watch.entitlements"; sourceTree = "<group>"; };
+		F273B4C51B56233400CDF081 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AboutViewController.swift; path = About/AboutViewController.swift; sourceTree = "<group>"; };
+		F273B4C81B56235600CDF081 /* AboutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		F2813AE11AB3860A00BFC5EE /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = SOURCE_ROOT; };
 		F2AB30B219600A4000D8D989 /* Fojusi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fojusi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2AB30B619600A4000D8D989 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -206,9 +210,9 @@
 			isa = PBXGroup;
 			children = (
 				F23462391960798900AB11A5 /* FocusViewController.swift */,
-				F2EB866A1B2A1E4D009EF689 /* TimerType.swift */,
 				F23462381960798900AB11A5 /* FocusView.swift */,
 				F234623A1960798900AB11A5 /* TimerView.swift */,
+				F2EB866A1B2A1E4D009EF689 /* TimerType.swift */,
 			);
 			path = Focus;
 			sourceTree = "<group>";
@@ -236,6 +240,15 @@
 				F25CD2871B481DFE009495B6 /* Info.plist */,
 			);
 			path = "Fojusi Watch Extension";
+			sourceTree = "<group>";
+		};
+		F273B4C71B56233B00CDF081 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				F273B4C51B56233400CDF081 /* AboutViewController.swift */,
+				F273B4C81B56235600CDF081 /* AboutView.swift */,
+			);
+			name = About;
 			sourceTree = "<group>";
 		};
 		F2AB30A919600A4000D8D989 = {
@@ -271,6 +284,7 @@
 				F2FF2C841AB0A4D90017BF04 /* Fojusi.entitlements */,
 				F2AB30B719600A4000D8D989 /* AppDelegate.swift */,
 				F20425221961F91100A132D6 /* Int+Extensions.swift */,
+				F273B4C71B56233B00CDF081 /* About */,
 				F23462371960798900AB11A5 /* Focus */,
 				F21D3F4E198D4BC50036D4BA /* Settings */,
 				F2AB30D5196016E100D8D989 /* StyleKit */,
@@ -467,6 +481,7 @@
 		F2AB30AA19600A4000D8D989 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Dominik Hauser";
@@ -610,12 +625,14 @@
 			files = (
 				F234623D1960798900AB11A5 /* TimerView.swift in Sources */,
 				F2AB30B819600A4000D8D989 /* AppDelegate.swift in Sources */,
+				F273B4C91B56235600CDF081 /* AboutView.swift in Sources */,
 				F2AB30D4196016B800D8D989 /* TimerStyleKit.swift in Sources */,
 				F20425231961F91100A132D6 /* Int+Extensions.swift in Sources */,
 				F21D3F50198D4BE30036D4BA /* SettingsView.swift in Sources */,
 				F234623B1960798900AB11A5 /* FocusView.swift in Sources */,
 				F2EB866B1B2A1E4D009EF689 /* TimerType.swift in Sources */,
 				F234623C1960798900AB11A5 /* FocusViewController.swift in Sources */,
+				F273B4C61B56233400CDF081 /* AboutViewController.swift in Sources */,
 				F21D3F4D198D4BB30036D4BA /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1018,6 +1035,7 @@
 				F25CD28D1B481DFE009495B6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F25CD28F1B481DFE009495B6 /* Build configuration list for PBXNativeTarget "Fojusi Watch" */ = {
 			isa = XCConfigurationList;
@@ -1026,6 +1044,7 @@
 				F25CD2911B481DFE009495B6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F2AB30AD19600A4000D8D989 /* Build configuration list for PBXProject "Tomate" */ = {
 			isa = XCConfigurationList;

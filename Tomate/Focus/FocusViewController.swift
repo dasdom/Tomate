@@ -40,9 +40,10 @@ class FocusViewController: UIViewController {
     focusView.breakButton.addTarget(self, action: "startBreak:", forControlEvents: .TouchUpInside)
     focusView.procrastinateButton.addTarget(self, action: "startProcrastination:", forControlEvents: .TouchUpInside)
     focusView.settingsButton.addTarget(self, action: "showSettings", forControlEvents: .TouchUpInside)
+    focusView.aboutButton.addTarget(self, action: "showAbout", forControlEvents: .TouchUpInside)
     
-    let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "showSettingsFromLongPross:")
-    focusView.addGestureRecognizer(longPressRecognizer)
+//    let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "showSettingsFromLongPross:")
+//    focusView.addGestureRecognizer(longPressRecognizer)
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -58,6 +59,7 @@ class FocusViewController: UIViewController {
   
   //MARK: - button actions
   func startWork(sender: UIButton?) {
+    print("startWork")
     guard currentType != .Work else { showAlert(); return }
     startTimerWithType(.Work)
   }
@@ -80,6 +82,10 @@ class FocusViewController: UIViewController {
     if sender.state == .Began {
       showSettings()
     }
+  }
+  
+  func showAbout() {
+    presentViewController(UINavigationController(rootViewController: AboutViewController()), animated: true, completion: nil)
   }
   
   func setUIModeForTimerType(timerType: TimerType) {

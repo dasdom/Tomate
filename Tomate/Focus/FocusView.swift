@@ -17,6 +17,7 @@ class FocusView: UIView {
 //  let numberOfWorkPeriodsLabel: UILabel
   //    let stepper: UIStepper
   let settingsButton: UIButton
+  let aboutButton: UIButton
   
   override init(frame: CGRect) {
     timerView = TimerView(frame: CGRectZero)
@@ -47,9 +48,22 @@ class FocusView: UIView {
     settingsButton = {
       let button = UIButton(type: .System)
       button.translatesAutoresizingMaskIntoConstraints = false
+//                  button.backgroundColor = UIColor.blueColor()
+//      if let templateImage = UIImage(named: "settings")?.imageWithRenderingMode(.AlwaysTemplate) {
+//        button.setImage(templateImage, forState: .Normal)
+//      }
+      button.setImage(TimerStyleKit.imageOfSettings, forState: .Normal)
+      return button
+      }()
+    
+    aboutButton = {
+      let button = UIButton(type: .System)
+      button.translatesAutoresizingMaskIntoConstraints = false
       //            button.backgroundColor = UIColor.blueColor()
-      let templateImage = UIImage(named: "settings")!.imageWithRenderingMode(.AlwaysTemplate)
-      button.setImage(templateImage, forState: .Normal)
+//      if let templateImage = UIImage(named: "settings")?.imageWithRenderingMode(.AlwaysTemplate) {
+//        button.setImage(templateImage, forState: .Normal)
+//      }
+      button.setImage(TimerStyleKit.imageOfInfo, forState: .Normal)
       return button
       }()
     
@@ -74,12 +88,13 @@ class FocusView: UIView {
     //        addSubview(centerView)
     addSubview(procrastinateButton)
     addSubview(settingsButton)
+    addSubview(aboutButton)
     
-    let views = ["settingsButton" : settingsButton, "timerView" : timerView, "workButton" : workButton, "breakButton" : breakButton, "procrastinateButton" : procrastinateButton]
+    let views = ["aboutButton": aboutButton, "settingsButton" : settingsButton, "timerView" : timerView, "workButton" : workButton, "breakButton" : breakButton, "procrastinateButton" : procrastinateButton]
     let metrics = ["timerWidth": 300, "timerHeight": 300, "workWidth": 80, "settingsWidth": 44]
     
     var constraints = [NSLayoutConstraint]()
-    constraints += NSLayoutConstraint.constraintsWithVisualFormat("[settingsButton(settingsWidth)]-13-|", options: [], metrics: metrics, views: views)
+    constraints += NSLayoutConstraint.constraintsWithVisualFormat("|-13-[aboutButton]-(>=10)-[settingsButton(settingsWidth)]-13-|", options: .AlignAllCenterY, metrics: metrics, views: views)
     constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:|-30-[settingsButton(settingsWidth)]", options: [], metrics: metrics, views: views)
     
     constraints.append(timerView.widthAnchor.constraintEqualToConstant(CGFloat(metrics["timerWidth"]!)))

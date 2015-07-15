@@ -1,15 +1,12 @@
 {
   "images" : [
     {
-      "idiom" : "universal"
-    },
-    {
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "settings@2x.png",
+      "filename" : "avatar.jpg",
       "scale" : "2x"
     },
     {
