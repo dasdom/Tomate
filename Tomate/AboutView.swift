@@ -11,6 +11,9 @@ import UIKit
 class AboutView: UIView {
   
   let twitterButton: UIButton
+//  let adnButton: UIButton
+  let githubButton: UIButton
+  let stackView: UIStackView
   
   override init(frame: CGRect) {
     
@@ -21,16 +24,24 @@ class AboutView: UIView {
     avatarImageView.clipsToBounds = true
     
     let handleLabel = UILabel(frame: CGRect.zeroRect)
-    handleLabel.text = "@dasdom"
-    handleLabel.textColor = UIColor.yellowColor()
+    handleLabel.text = "@fojusi"
+    handleLabel.textColor = TimerStyleKit.timerColor
     
-    twitterButton = UIButton(type: .System)
-    twitterButton.setTitle("Twitter", forState: .Normal)
-    twitterButton.layer.borderWidth = 1
-    twitterButton.layer.borderColor = UIColor.yellowColor().CGColor
-    twitterButton.layer.cornerRadius = 5
+    let buttonWithTitle = { (title: String) -> UIButton in
+      let button = UIButton(type: .System)
+      button.setTitle(title, forState: .Normal)
+      button.layer.borderWidth = 1
+      button.layer.borderColor = UIColor.yellowColor().CGColor
+      button.layer.cornerRadius = 5
+      button.widthAnchor.constraintEqualToConstant(120).active = true
+      return button
+    }
     
-    let stackView = UIStackView(arrangedSubviews: [avatarImageView, handleLabel, twitterButton])
+    twitterButton = buttonWithTitle("Twitter")
+//    adnButton = buttonWithTitle("App.net")
+    githubButton = buttonWithTitle("Github")
+    
+    stackView = UIStackView(arrangedSubviews: [avatarImageView, handleLabel, twitterButton, githubButton])
     stackView.translatesAutoresizingMaskIntoConstraints = false
 //    stackView.distribution = UIStackViewDistribution.EqualSpacing
     stackView.axis = .Vertical
@@ -45,11 +56,11 @@ class AboutView: UIView {
     addSubview(stackView)
     
     var layoutConstraints = [NSLayoutConstraint]()
-    layoutConstraints.append(stackView.topAnchor.constraintEqualToAnchor(topAnchor, constant: 80))
+//    layoutConstraints.append(stackView.topAnchor.constraintEqualToAnchor(topAnchor, constant: 80))
     layoutConstraints.append(stackView.centerXAnchor.constraintEqualToAnchor(centerXAnchor))
     layoutConstraints.append(avatarImageView.widthAnchor.constraintEqualToConstant(avatarWidth))
     layoutConstraints.append(avatarImageView.heightAnchor.constraintEqualToConstant(avatarWidth))
-    layoutConstraints.append(twitterButton.widthAnchor.constraintEqualToConstant(120))
+//    layoutConstraints.append(twitterButton.widthAnchor.constraintEqualToConstant(120))
     NSLayoutConstraint.activateConstraints(layoutConstraints)
   }
 
