@@ -13,6 +13,7 @@ class AboutView: UIView {
   let twitterButton: UIButton
 //  let adnButton: UIButton
   let githubButton: UIButton
+  let rateButton: UIButton
   let stackView: UIStackView
   
   override init(frame: CGRect) {
@@ -24,7 +25,7 @@ class AboutView: UIView {
     avatarImageView.clipsToBounds = true
     
     let handleLabel = UILabel(frame: CGRect.zeroRect)
-    handleLabel.text = "@fojusi"
+    handleLabel.text = "@fojusiapp"
     handleLabel.textColor = TimerStyleKit.timerColor
     
     let buttonWithTitle = { (title: String) -> UIButton in
@@ -40,8 +41,9 @@ class AboutView: UIView {
     twitterButton = buttonWithTitle("Twitter")
 //    adnButton = buttonWithTitle("App.net")
     githubButton = buttonWithTitle("Github")
+    rateButton = buttonWithTitle("Rate me")
     
-    stackView = UIStackView(arrangedSubviews: [avatarImageView, handleLabel, twitterButton, githubButton])
+    stackView = UIStackView(arrangedSubviews: [avatarImageView, handleLabel, twitterButton, githubButton, rateButton])
     stackView.translatesAutoresizingMaskIntoConstraints = false
 //    stackView.distribution = UIStackViewDistribution.EqualSpacing
     stackView.axis = .Vertical

@@ -23,7 +23,8 @@ class AboutViewController: UIViewController {
     
     contentView.twitterButton.addTarget(self, action: "openTwitter", forControlEvents: .TouchUpInside)
 //    contentView.adnButton.addTarget(self, action: "openADN", forControlEvents: .TouchUpInside)
-    contentView.twitterButton.addTarget(self, action: "openGithub", forControlEvents: .TouchUpInside)
+    contentView.githubButton.addTarget(self, action: "openGithub", forControlEvents: .TouchUpInside)
+    contentView.rateButton.addTarget(self, action: "openRating", forControlEvents: .TouchUpInside)
 
     view = contentView
   }
@@ -57,5 +58,11 @@ extension AboutViewController {
   func openGithub() {
     let safariViewController = SFSafariViewController(URL: NSURL(string: "https://github.com/dasdom/Tomate")!)
     navigationController?.pushViewController(safariViewController, animated: true)
+  }
+  
+  func openRating() {
+//    let safariViewController = SFSafariViewController(URL: NSURL(string: "")!)
+//    navigationController?.pushViewController(safariViewController, animated: true)
+    UIApplication.sharedApplication().openURL(NSURL(string: "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=923044693")!)
   }
 }

@@ -46,6 +46,11 @@ class FocusViewController: UIViewController {
 //    focusView.addGestureRecognizer(longPressRecognizer)
   }
   
+  override func viewDidLayoutSubviews() {
+    let minSizeDimension = min(view.frame.size.width, view.frame.size.height)
+    focusView.timerView.timeLabel.font = focusView.timerView.timeLabel.font.fontWithSize((minSizeDimension-2*focusView.sidePadding)*0.9/3.0-10.0)
+  }
+  
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     

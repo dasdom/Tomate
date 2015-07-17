@@ -19,6 +19,8 @@ class FocusView: UIView {
   let settingsButton: UIButton
   let aboutButton: UIButton
   
+  let sidePadding = CGFloat(10)
+  
   override init(frame: CGRect) {
     timerView = TimerView(frame: CGRectZero)
     timerView.translatesAutoresizingMaskIntoConstraints = false
@@ -91,15 +93,22 @@ class FocusView: UIView {
     addSubview(aboutButton)
     
     let views = ["aboutButton": aboutButton, "settingsButton" : settingsButton, "timerView" : timerView, "workButton" : workButton, "breakButton" : breakButton, "procrastinateButton" : procrastinateButton]
-    let metrics = ["timerWidth": 300, "timerHeight": 300, "workWidth": 80, "settingsWidth": 44]
+//    let metrics = ["timerWidth": 400, "timerHeight": 400, "workWidth": 80, "settingsWidth": 44]
+    let metrics = ["workWidth": 80, "settingsWidth": 44, "sidePadding": sidePadding]
     
     var constraints = [NSLayoutConstraint]()
     constraints += NSLayoutConstraint.constraintsWithVisualFormat("|-13-[aboutButton]-(>=10)-[settingsButton(settingsWidth)]-13-|", options: .AlignAllCenterY, metrics: metrics, views: views)
     constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:|-30-[settingsButton(settingsWidth)]", options: [], metrics: metrics, views: views)
     
-    constraints.append(timerView.widthAnchor.constraintEqualToConstant(CGFloat(metrics["timerWidth"]!)))
+//    constraints.append(timerView.widthAnchor.constraintEqualToConstant(CGFloat(metrics["timerWidth"]!)))
     
-    constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:[timerView(timerHeight)]-40-[procrastinateButton(workWidth,breakButton,workButton)]", options: .AlignAllCenterX, metrics: metrics, views: views)
+    constraints += NSLayoutConstraint.constraintsWithVisualFormat("|-(>=sidePadding)-[timerView]-(>=sidePadding)-|", options: [], metrics: metrics, views: views)
+    constraints += NSLayoutConstraint.constraintsWithVisualFormat("|-(==sidePadding@751)-[timerView]-(==sidePadding@751)-|", options: [], metrics: metrics, views: views)
+    constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:|-(>=sidePadding)-[timerView]-(>=sidePadding)-|", options: [], metrics: metrics, views: views)
+    constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:|-(==sidePadding@750)-[timerView]-(==sidePadding@750)-|", options: [], metrics: metrics, views: views)
+    constraints.append(timerView.widthAnchor.constraintEqualToAnchor(timerView.heightAnchor))
+    
+    constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:[timerView]-40-[procrastinateButton(workWidth,breakButton,workButton)]", options: .AlignAllCenterX, metrics: metrics, views: views)
     
     constraints.append(timerView.centerYAnchor.constraintEqualToAnchor(centerYAnchor, constant: -50))
     
@@ -111,13 +120,12 @@ class FocusView: UIView {
     constraints.append(procrastinateButton.centerXAnchor.constraintEqualToAnchor(centerXAnchor))
     
     NSLayoutConstraint.activateConstraints(constraints)
-    
-    timerView.timeLabel.font = timerView.timeLabel.font.fontWithSize(CGFloat(metrics["timerHeight"]!)*0.9/3.0-10.0)
-    
+        
 //    addConstraint(NSLayoutConstraint(item: numberOfWorkPeriodsLabel, attribute: .CenterY, relatedBy: .Equal, toItem: timerView, attribute: .CenterY, multiplier: 1.0, constant: 70))
 //    
 //    addConstraint(NSLayoutConstraint(item: numberOfWorkPeriodsLabel, attribute: .CenterX, relatedBy: .Equal, toItem: timerView, attribute: .CenterX, multiplier: 1.0, constant: 0))
-    
+
+//    timerView.timeLabel.font = timerView.timeLabel.font.fontWithSize((frame.size.width-2*CGFloat(metrics["sidePadding"]!))*0.9/3.0-10.0)
   }
   
   required convenience init(coder aDecoder: NSCoder) {
