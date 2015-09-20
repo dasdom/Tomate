@@ -17,7 +17,6 @@
 		F25CD2791B481DFE009495B6 /* Fojusi Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F25CD2781B481DFE009495B6 /* Fojusi Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F25CD27E1B481DFE009495B6 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25CD27D1B481DFE009495B6 /* InterfaceController.swift */; };
 		F25CD2801B481DFE009495B6 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25CD27F1B481DFE009495B6 /* ExtensionDelegate.swift */; };
-		F25CD2821B481DFE009495B6 /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25CD2811B481DFE009495B6 /* GlanceController.swift */; };
 		F25CD2841B481DFE009495B6 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25CD2831B481DFE009495B6 /* ComplicationController.swift */; };
 		F25CD2861B481DFE009495B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F25CD2851B481DFE009495B6 /* Assets.xcassets */; };
 		F25CD28A1B481DFE009495B6 /* Fojusi Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = F25CD26C1B481DFE009495B6 /* Fojusi Watch.app */; };
@@ -126,7 +125,6 @@
 		F25CD2781B481DFE009495B6 /* Fojusi Watch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Fojusi Watch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F25CD27D1B481DFE009495B6 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
 		F25CD27F1B481DFE009495B6 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
-		F25CD2811B481DFE009495B6 /* GlanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
 		F25CD2831B481DFE009495B6 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		F25CD2851B481DFE009495B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F25CD2871B481DFE009495B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -234,7 +232,6 @@
 				F25CD2941B482B3E009495B6 /* Fojusi Watch Extension.entitlements */,
 				F25CD27D1B481DFE009495B6 /* InterfaceController.swift */,
 				F25CD27F1B481DFE009495B6 /* ExtensionDelegate.swift */,
-				F25CD2811B481DFE009495B6 /* GlanceController.swift */,
 				F25CD2831B481DFE009495B6 /* ComplicationController.swift */,
 				F25CD2851B481DFE009495B6 /* Assets.xcassets */,
 				F25CD2871B481DFE009495B6 /* Info.plist */,
@@ -615,7 +612,6 @@
 				F25CD2801B481DFE009495B6 /* ExtensionDelegate.swift in Sources */,
 				F25CD2841B481DFE009495B6 /* ComplicationController.swift in Sources */,
 				F25CD27E1B481DFE009495B6 /* InterfaceController.swift in Sources */,
-				F25CD2821B481DFE009495B6 /* GlanceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

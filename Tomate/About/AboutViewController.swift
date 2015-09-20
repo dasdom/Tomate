@@ -16,7 +16,7 @@ class AboutViewController: UIViewController {
   }
   
   override func loadView() {
-    let contentView = AboutView(frame: CGRect.zeroRect)
+    let contentView = AboutView(frame: .zero)
     
     title = NSLocalizedString("About", comment: "About")
     UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: TimerStyleKit.timerColor]

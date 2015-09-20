@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WatchConnectivity
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   let kAlreadyStartedKey = "alreadyStarted"
   let kRegisterNotificationSettings = "kRegisterNotificationSettings"
   
+  var session: WCSession?
+  
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
     
     customizeAppearance()
@@ -24,6 +27,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     registerDefaultUserDefaults()
         
     focusViewController = FocusViewController(nibName: nil, bundle: nil)
+    
+    if (WCSession.isSupported()) {
+      session = WCSession.defaultSession()
+      session?.delegate = self
+      session?.activateSession()
+      focusViewController?.session = session
+    }
+
     window!.rootViewController = focusViewController
     window!.makeKeyAndVisible()
     
@@ -45,12 +56,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       }
     }
     
+    if (WCSession.isSupported()) {
+      session = WCSession.defaultSession()
+      session?.delegate = self
+      session?.activateSession()
+      focusViewController?.session = session
+    }
+    
     completionHandler()
   }
   
   func customizeAppearance() {
     UINavigationBar.appearance().tintColor = UIColor.yellowColor()
     UINavigationBar.appearance().barTintColor = TimerStyleKit.backgroundColor
+  }
+}
+
+extension AppDelegate: WCSessionDelegate {
+  func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
+    print(applicationContext)
+    guard let actionString = applicationContext["action"] as? String else { return }
+    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+      switch actionString {
+      case "work":
+        self.focusViewController?.startTimerWithType(.Work)
+      case "break":
+        self.focusViewController?.startTimerWithType(.Break)
+      case "stop":
+        self.focusViewController?.startTimerWithType(.Idle)
+      default:
+        break
+      }
+    })
   }
 }
 

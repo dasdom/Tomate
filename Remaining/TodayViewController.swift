@@ -21,7 +21,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     super.viewDidLoad()
     
 //    preferredContentSize = CGSize(width: view.frame.size.width, height: 120)
-    timerView = TimerView(frame: CGRect.zeroRect)
+    timerView = TimerView(frame: .zero)
     timerView.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(timerView)
     
@@ -70,7 +70,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     if let defaults = NSUserDefaults(suiteName: "group.de.dasdom.Tomate") {
       let startDateAsTimeStamp = defaults.doubleForKey("date")
-      print("startDate: \(startDateAsTimeStamp)", appendNewline: false)
+      print("startDate: \(startDateAsTimeStamp)")
       endDate = NSDate(timeIntervalSince1970: startDateAsTimeStamp)
       maxValue = defaults.integerForKey("maxValue")
     }

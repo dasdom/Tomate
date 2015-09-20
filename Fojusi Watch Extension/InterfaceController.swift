@@ -9,6 +9,7 @@
 import WatchKit
 import Foundation
 import WatchConnectivity
+import ClockKit
 
 class InterfaceController: WKInterfaceController {
   
@@ -87,17 +88,80 @@ class InterfaceController: WKInterfaceController {
 }
 
 extension InterfaceController: WCSessionDelegate {
-  func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
-
+//  func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
+//
+//    dispatch_async(dispatch_get_main_queue()) { () -> Void in
+//      let timeStamp = userInfo["date"]! as! Double
+//      guard timeStamp > 0 else {
+//        self.timer?.invalidate()
+//        self.timerInterface.stop()
+//        self.timerInterface.setDate(NSDate())
+//        self.backgroundGroup.setBackgroundImageNamed(nil)
+//        NSUserDefaults.standardUserDefaults().removeObjectForKey("timeStamp")
+//        NSUserDefaults.standardUserDefaults().removeObjectForKey("maxValue")
+//        return
+//      }
+//      
+//      self.maxValue = userInfo["maxValue"] as! Int
+//      self.endDate = NSDate(timeIntervalSince1970: timeStamp)
+//      self.currentBackgroundImageNumber = 0
+//      
+//      NSUserDefaults.standardUserDefaults().setDouble(timeStamp, forKey: "timeStamp")
+//      NSUserDefaults.standardUserDefaults().setInteger(self.maxValue, forKey: "maxValue")
+//      NSUserDefaults.standardUserDefaults().synchronize()
+//    }
+//  }
+  func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
     dispatch_async(dispatch_get_main_queue()) { () -> Void in
-      let timeStamp = userInfo["date"]! as! Double
-      self.maxValue = userInfo["maxValue"] as! Int
+      let timeStamp = applicationContext["date"]! as! Double
+      guard timeStamp > 0 else {
+        self.timer?.invalidate()
+        self.timerInterface.stop()
+        self.timerInterface.setDate(NSDate())
+        self.backgroundGroup.setBackgroundImageNamed(nil)
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("timeStamp")
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("maxValue")
+        return
+      }
+      
+      let server = CLKComplicationServer.sharedInstance()
+      for complication in server.activeComplications {
+        server.reloadTimelineForComplication(complication)
+      }
+      
+      self.maxValue = applicationContext["maxValue"] as! Int
       self.endDate = NSDate(timeIntervalSince1970: timeStamp)
       self.currentBackgroundImageNumber = 0
       
       NSUserDefaults.standardUserDefaults().setDouble(timeStamp, forKey: "timeStamp")
       NSUserDefaults.standardUserDefaults().setInteger(self.maxValue, forKey: "maxValue")
       NSUserDefaults.standardUserDefaults().synchronize()
+    }
+  }
+}
+
+extension InterfaceController {
+  @IBAction func startWork() {
+    sendAction("work")
+  }
+  
+  @IBAction func startBreak() {
+    sendAction("break")
+  }
+  
+  @IBAction func stopCurrent() {
+    sendAction("stop")
+  }
+  
+  func sendAction(actionSting: String) {
+    let session = WCSession.defaultSession()
+    session.delegate = self
+    session.activateSession()
+//    session.transferUserInfo(["action": actionSting])
+    do {
+      try session.updateApplicationContext(["action": actionSting])
+    } catch {
+      print("Error")
     }
   }
 }

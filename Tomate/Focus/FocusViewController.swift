@@ -24,9 +24,11 @@ class FocusViewController: UIViewController {
   private let kLastDurationKey = "kLastDurationKey"
   private let kLastEndDateKey = "kLastEndDateKey"
   
-  //MARK: - view cycle
+  var session: WCSession?
+
+    //MARK: - view cycle
   override func loadView() {
-    view = FocusView(frame: CGRectZero)
+    view = FocusView(frame: .zero)
   }
   
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -132,7 +134,7 @@ class FocusViewController: UIViewController {
 //MARK: - timer methods
 extension FocusViewController {
   
-  private func startTimerWithType(timerType: TimerType) {
+  func startTimerWithType(timerType: TimerType) {
     
     focusView.setDuration(0, maxValue: 1)
     var typeName: String
@@ -162,16 +164,21 @@ extension FocusViewController {
     let seconds = NSUserDefaults.standardUserDefaults().integerForKey(timerType.rawValue)
     endDate = NSDate(timeIntervalSinceNow: Double(seconds))
     
+    let endTimeStamp = floor(endDate!.timeIntervalSince1970)
+    
     if let sharedDefaults = NSUserDefaults(suiteName: "group.de.dasdom.Tomate") {
-      sharedDefaults.setDouble(endDate!.timeIntervalSince1970, forKey: "date")
+      sharedDefaults.setDouble(endTimeStamp, forKey: "date")
       sharedDefaults.setInteger(seconds, forKey: "maxValue")
       sharedDefaults.synchronize()
     }
     
-    let session = WCSession.defaultSession()
-    session.delegate = self
-    session.activateSession()
-    session.transferUserInfo(["date": endDate!.timeIntervalSince1970, "maxValue": seconds])
+    if let session = session where session.paired && session.watchAppInstalled {
+      do {
+        try session.updateApplicationContext(["date": endTimeStamp, "maxValue": seconds])
+      } catch {
+        print("Error!")
+      }
+    }
     
     timer?.invalidate()
     timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "updateTimeLabel:", userInfo: ["timerType" : seconds], repeats: true)
@@ -217,6 +224,14 @@ extension FocusViewController {
     currentType = .Idle
     setUIModeForTimerType(.Idle)
     
+    if let session = session where session.paired && session.watchAppInstalled {
+      do {
+        try session.updateApplicationContext(["date": -1.0, "maxValue": -1.0])
+      } catch {
+        print("Error!")
+      }
+    }
+    
     if let sharedDefaults = NSUserDefaults(suiteName: "group.de.dasdom.Tomate") {
       sharedDefaults.removeObjectForKey("date")
       sharedDefaults.synchronize()
@@ -224,9 +239,40 @@ extension FocusViewController {
   }
 }
 
-extension FocusViewController: WCSessionDelegate {
-  
-}
+//extension FocusViewController: WCSessionDelegate {
+//  func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
+//    print(userInfo)
+//    guard let actionString = userInfo["action"] as? String else { return }
+//    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//      switch actionString {
+//      case "work":
+//        self.startTimerWithType(.Work)
+//      case "break":
+//        self.startTimerWithType(.Break)
+//      case "stop":
+//        self.startTimerWithType(.Idle)
+//      default:
+//        break
+//      }
+//    })
+//  }
+//  func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
+//        print(applicationContext)
+//        guard let actionString = applicationContext["action"] as? String else { return }
+//        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//          switch actionString {
+//          case "work":
+//            self.startTimerWithType(.Work)
+//          case "break":
+//            self.startTimerWithType(.Break)
+//          case "stop":
+//            self.startTimerWithType(.Idle)
+//          default:
+//            break
+//          }
+//        })
+//  }
+//}
 
 //MARK: - alert
 private extension FocusViewController {

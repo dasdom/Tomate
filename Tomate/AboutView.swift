@@ -24,7 +24,7 @@ class AboutView: UIView {
     avatarImageView.layer.cornerRadius = avatarWidth/2.0
     avatarImageView.clipsToBounds = true
     
-    let handleLabel = UILabel(frame: CGRect.zeroRect)
+    let handleLabel = UILabel(frame: .zero)
     handleLabel.text = "@fojusiapp"
     handleLabel.textColor = TimerStyleKit.timerColor
     
