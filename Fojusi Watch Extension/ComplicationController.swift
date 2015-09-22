@@ -37,44 +37,67 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     // Call the handler with the current timeline entry
     
     let timestamp = NSUserDefaults.standardUserDefaults().doubleForKey("timeStamp")
+    let maxValue = NSUserDefaults.standardUserDefaults().integerForKey("maxValue")
     let date = NSDate(timeIntervalSince1970: timestamp)
     
     var entry: CLKComplicationTimelineEntry?
     switch complication.family {
     case .ModularSmall:
       print("ModularSmall")
-      let template = CLKComplicationTemplateModularSmallRingText()
-      template.textProvider = CLKRelativeDateTextProvider(date: date, style: .Timer, units: [.Minute])
-      template.fillFraction = 0.85
-      template.ringStyle = CLKComplicationRingStyle.Closed
+      let template = CLKComplicationTemplateModularSmallSimpleText()
+      if timestamp < 1 {
+        template.textProvider = CLKSimpleTextProvider(text: "-:--")
+      } else {
+        template.textProvider = CLKRelativeDateTextProvider(date: date, style: .Timer, units: [.Minute])
+      }
+//      template.fillFraction = 0.85
+//      template.ringStyle = CLKComplicationRingStyle.Closed
       
       entry = CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: template)
     case .ModularLarge:
       print("ModularLarge")
       let template = CLKComplicationTemplateModularLargeTallBody()
       template.headerTextProvider = CLKSimpleTextProvider(text: "Remaining")
-      template.bodyTextProvider = CLKRelativeDateTextProvider(date: date, style: .Timer, units: [.Minute, .Second])
+      if timestamp < 1 {
+        template.bodyTextProvider = CLKSimpleTextProvider(text: "-:--")
+      } else {
+        template.bodyTextProvider = CLKRelativeDateTextProvider(date: date, style: .Timer, units: [.Minute, .Second])
+      }
       
       entry = CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: template)
     case .CircularSmall:
       print("CircularSmall")
-      let template = CLKComplicationTemplateCircularSmallRingText()
-      template.textProvider = CLKRelativeDateTextProvider(date: date, style: .Timer, units: [.Minute])
-      template.fillFraction = 0.85
-      template.ringStyle = CLKComplicationRingStyle.Closed
+      let template = CLKComplicationTemplateCircularSmallSimpleText()
+      if timestamp < 1 {
+        template.textProvider = CLKSimpleTextProvider(text: "-:--")
+      } else {
+        template.textProvider = CLKRelativeDateTextProvider(date: date, style: .Timer, units: [.Minute])
+      }
+//      template.fillFraction = 0.85
+//      template.ringStyle = CLKComplicationRingStyle.Closed
       
       entry = CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: template)
     case .UtilitarianLarge:
       print("UtilitarianLarge")
       let template = CLKComplicationTemplateUtilitarianLargeFlat()
-      template.textProvider = CLKRelativeDateTextProvider(date: date, style: .Timer, units: [.Minute, .Second])
+      if timestamp < 1 {
+        template.textProvider = CLKSimpleTextProvider(text: "-:--")
+      } else {
+        template.textProvider = CLKRelativeDateTextProvider(date: date, style: .Timer, units: [.Minute, .Second])
+      }
+      
       entry = CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: template)
     case .UtilitarianSmall:
       print("UtilitarianSmall")
-      let template = CLKComplicationTemplateUtilitarianSmallRingText()
-      template.textProvider = CLKRelativeDateTextProvider(date: date, style: .Timer, units: [.Minute])
-      template.fillFraction = 0.85
-      template.ringStyle = CLKComplicationRingStyle.Closed
+      let template = CLKComplicationTemplateUtilitarianSmallFlat()
+      if timestamp < 1 {
+        template.textProvider = CLKSimpleTextProvider(text: "-:--")
+      } else {
+        template.textProvider = CLKRelativeDateTextProvider(date: date, style: .Timer, units: [.Minute])
+      }
+      
+//      template.fillFraction = 0.85
+//      template.ringStyle = CLKComplicationRingStyle.Closed
       
       entry = CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: template)
     }

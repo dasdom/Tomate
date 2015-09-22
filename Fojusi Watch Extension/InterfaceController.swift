@@ -20,6 +20,8 @@ class InterfaceController: WKInterfaceController {
   var currentBackgroundImageNumber = 0
   var maxValue = 1
   
+  var session: WCSession?
+  
   var endDate: NSDate? {
     didSet {
       if let date = endDate where endDate?.compare(NSDate()) == NSComparisonResult.OrderedDescending {
@@ -37,9 +39,9 @@ class InterfaceController: WKInterfaceController {
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
     
-    let session = WCSession.defaultSession()
-    session.delegate = self
-    session.activateSession()
+    session = WCSession.defaultSession()
+    session?.delegate = self
+    session?.activateSession()
   }
   
   override func willActivate() {
@@ -124,11 +126,6 @@ extension InterfaceController: WCSessionDelegate {
         return
       }
       
-      let server = CLKComplicationServer.sharedInstance()
-      for complication in server.activeComplications {
-        server.reloadTimelineForComplication(complication)
-      }
-      
       self.maxValue = applicationContext["maxValue"] as! Int
       self.endDate = NSDate(timeIntervalSince1970: timeStamp)
       self.currentBackgroundImageNumber = 0
@@ -136,6 +133,13 @@ extension InterfaceController: WCSessionDelegate {
       NSUserDefaults.standardUserDefaults().setDouble(timeStamp, forKey: "timeStamp")
       NSUserDefaults.standardUserDefaults().setInteger(self.maxValue, forKey: "maxValue")
       NSUserDefaults.standardUserDefaults().synchronize()
+    }
+  }
+  
+  func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
+    let server = CLKComplicationServer.sharedInstance()
+    for complication in server.activeComplications {
+      server.reloadTimelineForComplication(complication)
     }
   }
 }
@@ -154,14 +158,13 @@ extension InterfaceController {
   }
   
   func sendAction(actionSting: String) {
-    let session = WCSession.defaultSession()
-    session.delegate = self
-    session.activateSession()
-//    session.transferUserInfo(["action": actionSting])
-    do {
-      try session.updateApplicationContext(["action": actionSting])
-    } catch {
-      print("Error")
+//    do {
+//      try session.updateApplicationContext(["action": actionSting])
+//    } catch {
+//      print("Error")
+//    }
+    if let session = session where session.reachable {
+      session.sendMessage(["action": actionSting], replyHandler: nil, errorHandler: nil)
     }
   }
 }

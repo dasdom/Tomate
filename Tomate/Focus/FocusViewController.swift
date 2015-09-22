@@ -178,6 +178,9 @@ extension FocusViewController {
       } catch {
         print("Error!")
       }
+//      if session.complicationEnabled {
+        session.transferCurrentComplicationUserInfo(["date": endTimeStamp, "maxValue": seconds])
+//      }
     }
     
     timer?.invalidate()
@@ -230,6 +233,7 @@ extension FocusViewController {
       } catch {
         print("Error!")
       }
+      session.transferCurrentComplicationUserInfo(["date": -1.0, "maxValue": -1.0])
     }
     
     if let sharedDefaults = NSUserDefaults(suiteName: "group.de.dasdom.Tomate") {

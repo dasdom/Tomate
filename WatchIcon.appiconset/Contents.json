@@ -1,20 +1,20 @@
 {
   "images" : [
     {
-      "size" : "24x24",
-      "idiom" : "watch",
-      "filename" : "Icon38mm@2x.png",
-      "scale" : "2x",
       "role" : "notificationCenter",
-      "subtype" : "38mm"
+      "idiom" : "watch",
+      "size" : "24x24",
+      "filename" : "Icon38mm@2x.png",
+      "subtype" : "38mm",
+      "scale" : "2x"
     },
     {
-      "size" : "27.5x27.5",
-      "idiom" : "watch",
-      "filename" : "Icon42mm@2x.png",
-      "scale" : "2x",
       "role" : "notificationCenter",
-      "subtype" : "42mm"
+      "idiom" : "watch",
+      "size" : "27.5x27.5",
+      "filename" : "Icon42mm@2x.png",
+      "subtype" : "42mm",
+      "scale" : "2x"
     },
     {
       "size" : "29x29",
@@ -31,36 +31,36 @@
       "scale" : "3x"
     },
     {
-      "size" : "40x40",
-      "idiom" : "watch",
-      "filename" : "IconLauncher@2x.png",
-      "scale" : "2x",
       "role" : "appLauncher",
-      "subtype" : "38mm"
+      "idiom" : "watch",
+      "size" : "40x40",
+      "filename" : "IconLauncher@2x.png",
+      "subtype" : "38mm",
+      "scale" : "2x"
     },
     {
-      "size" : "44x44",
-      "idiom" : "watch",
-      "filename" : "LongLook@2x.png",
-      "scale" : "2x",
       "role" : "longLook",
-      "subtype" : "42mm"
+      "idiom" : "watch",
+      "size" : "44x44",
+      "filename" : "LongLook@2x.png",
+      "subtype" : "42mm",
+      "scale" : "2x"
     },
     {
+      "role" : "quickLook",
+      "idiom" : "watch",
       "size" : "86x86",
-      "idiom" : "watch",
       "filename" : "IconQuickLook38mm@2x.png",
-      "scale" : "2x",
-      "role" : "quickLook",
-      "subtype" : "38mm"
+      "subtype" : "38mm",
+      "scale" : "2x"
     },
     {
-      "size" : "98x98",
-      "idiom" : "watch",
-      "filename" : "IconQuickLook42mm@2x.png",
-      "scale" : "2x",
       "role" : "quickLook",
-      "subtype" : "42mm"
+      "idiom" : "watch",
+      "size" : "98x98",
+      "filename" : "IconQuickLook42mm@2x.png",
+      "subtype" : "42mm",
+      "scale" : "2x"
     }
   ],
   "info" : {

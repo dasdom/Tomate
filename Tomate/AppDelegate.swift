@@ -73,9 +73,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: WCSessionDelegate {
-  func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
-    print(applicationContext)
-    guard let actionString = applicationContext["action"] as? String else { return }
+//  func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
+//    print(applicationContext)
+//    guard let actionString = applicationContext["action"] as? String else { return }
+//    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//      switch actionString {
+//      case "work":
+//        self.focusViewController?.startTimerWithType(.Work)
+//      case "break":
+//        self.focusViewController?.startTimerWithType(.Break)
+//      case "stop":
+//        self.focusViewController?.startTimerWithType(.Idle)
+//      default:
+//        break
+//      }
+//    })
+//  }
+  
+  func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
+    print(message)
+    guard let actionString = message["action"] as? String else { return }
     dispatch_async(dispatch_get_main_queue(), { () -> Void in
       switch actionString {
       case "work":
