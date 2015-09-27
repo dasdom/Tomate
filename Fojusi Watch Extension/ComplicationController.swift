@@ -11,7 +11,7 @@ import ClockKit
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
   
-//  var nextDate = NSDate(timeIntervalSinceNow: 10)
+    var nextDate: NSDate?
   
   // MARK: - Timeline Configuration
   
@@ -37,8 +37,9 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     // Call the handler with the current timeline entry
     
     let timestamp = NSUserDefaults.standardUserDefaults().doubleForKey("timeStamp")
-    let maxValue = NSUserDefaults.standardUserDefaults().integerForKey("maxValue")
+//    let maxValue = NSUserDefaults.standardUserDefaults().integerForKey("maxValue")
     let date = NSDate(timeIntervalSince1970: timestamp)
+    nextDate = date
     
     var entry: CLKComplicationTimelineEntry?
     switch complication.family {
@@ -119,7 +120,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
   
   func getNextRequestedUpdateDateWithHandler(handler: (NSDate?) -> Void) {
     // Call the handler with the date when you would next like to be given the opportunity to update your complication content
-    handler(nil);
+    handler(nextDate);
   }
   
   // MARK: - Placeholder Templates

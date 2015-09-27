@@ -38,6 +38,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window!.rootViewController = focusViewController
     window!.makeKeyAndVisible()
     
+    // Override point for customization after application launch.
+    var shouldPerformAdditionalDelegateHandling = true
+    
+    // If a shortcut was launched, display its information and take the appropriate action
+    if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsShortcutItemKey] as? UIApplicationShortcutItem {
+        
+        handleShortcut(shortcutItem.type)
+        
+        // This will block "performActionForShortcutItem:completionHandler" from being called.
+        shouldPerformAdditionalDelegateHandling = false
+    }
+    
     return true
   }
   
@@ -64,6 +76,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     completionHandler()
+  }
+    
+  func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+    
+    let handledShortCut = handleShortcut(shortcutItem.type)
+    
+    completionHandler(handledShortCut)
+  }
+    
+  func handleShortcut(shortCut: String) -> Bool {
+    guard let last = shortCut.componentsSeparatedByString(".").last else { return false }
+
+    switch last {
+    case "Work":
+      self.focusViewController?.startTimerWithType(.Work)
+    case "Break":
+      self.focusViewController?.startTimerWithType(.Break)
+    default:
+      return false
+    }
+    return true
   }
   
   func customizeAppearance() {
