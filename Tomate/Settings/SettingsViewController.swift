@@ -8,9 +8,9 @@
 
 import UIKit
 
-let kNumberOfWorkPeriodsKey = "kNumberOfWorkPeriodsKey"
+//let kNumberOfWorkPeriodsKey = "kNumberOfWorkPeriodsKey"
 
-class SettingsViewController: UIViewController {
+final class SettingsViewController: UIViewController {
   
   var settingsView: SettingsView {return view as! SettingsView}
   var workTimes = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
@@ -21,10 +21,6 @@ class SettingsViewController: UIViewController {
   
   override func loadView() {
     view = SettingsView(frame: CGRectZero)
-  }
-  
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return UIStatusBarStyle.LightContent
   }
   
   override func viewDidLoad() {
@@ -39,6 +35,7 @@ class SettingsViewController: UIViewController {
     let breakGestureRecognizer = UITapGestureRecognizer(target: self, action: "moveMarker:")
     settingsView.breakInputHostView.addGestureRecognizer(breakGestureRecognizer)
     
+    title = "Settings"
   }
   
   override func viewWillAppear(animated: Bool) {

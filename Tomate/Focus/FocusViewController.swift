@@ -10,7 +10,7 @@ import UIKit
 import AudioToolbox
 import WatchConnectivity
 
-class FocusViewController: UIViewController {
+final class FocusViewController: UIViewController {
   
   private var focusView: FocusView! { return self.view as! FocusView }
   private var timer: NSTimer?
@@ -82,7 +82,7 @@ class FocusViewController: UIViewController {
   }
   
   func showSettings() {
-    presentViewController(UINavigationController(rootViewController: SettingsViewController()), animated: true, completion: nil)
+    presentViewController(DHNavigationController(rootViewController: SettingsViewController()), animated: true, completion: nil)
   }
   
   func showSettingsFromLongPross(sender: UILongPressGestureRecognizer) {
@@ -92,7 +92,7 @@ class FocusViewController: UIViewController {
   }
   
   func showAbout() {
-    presentViewController(UINavigationController(rootViewController: AboutViewController()), animated: true, completion: nil)
+    presentViewController(DHNavigationController(rootViewController: AboutViewController()), animated: true, completion: nil)
   }
   
   func setUIModeForTimerType(timerType: TimerType) {

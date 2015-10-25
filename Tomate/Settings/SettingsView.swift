@@ -9,7 +9,7 @@
 import UIKit
 import QuartzCore
 
-class SettingsView: UIView {
+final class SettingsView: UIView {
   
   private let markerView: UIView
   let workInputHostView: InputHostView
@@ -88,8 +88,8 @@ class SettingsView: UIView {
     NSLayoutConstraint.activateConstraints(constraints)
   }
   
-  convenience required init(coder aDecoder: NSCoder) {
-    self.init(frame: CGRectZero)
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
   
   func setDurationString(string: String) -> TimerType {
@@ -125,7 +125,7 @@ class SettingsView: UIView {
       }, completion: nil)
   }
   
-  class InputHostView: UIView {
+  final class InputHostView: UIView {
     let nameLabel: UILabel
     let durationLabel: UILabel
     
@@ -133,7 +133,6 @@ class SettingsView: UIView {
       let makeLabel = { () -> UILabel in
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        //                label.backgroundColor = UIColor.whiteColor()
         label.textColor = TimerStyleKit.timerColor
         label.text = "-"
         return label
@@ -161,8 +160,8 @@ class SettingsView: UIView {
       
     }
     
-    required convenience init(coder aDecoder: NSCoder) {
-      self.init(frame: CGRectZero)
+    required init?(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
     }
   }
 }

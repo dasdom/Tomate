@@ -8,10 +8,9 @@
 
 import UIKit
 
-class AboutView: UIView {
+final class AboutView: UIView {
   
   let twitterButton: UIButton
-//  let adnButton: UIButton
   let githubButton: UIButton
   let rateButton: UIButton
   let stackView: UIStackView
@@ -39,30 +38,26 @@ class AboutView: UIView {
     }
     
     twitterButton = buttonWithTitle("Twitter")
-//    adnButton = buttonWithTitle("App.net")
     githubButton = buttonWithTitle("Github")
     rateButton = buttonWithTitle("Rate me")
     
     stackView = UIStackView(arrangedSubviews: [avatarImageView, handleLabel, twitterButton, githubButton, rateButton])
     stackView.translatesAutoresizingMaskIntoConstraints = false
-//    stackView.distribution = UIStackViewDistribution.EqualSpacing
     stackView.axis = .Vertical
     stackView.alignment = .Center
     stackView.spacing = 10
     
     super.init(frame: frame)
     
-    tintColor = UIColor.yellowColor()
+    tintColor = .yellowColor()
     backgroundColor = TimerStyleKit.backgroundColor
     
     addSubview(stackView)
     
     var layoutConstraints = [NSLayoutConstraint]()
-//    layoutConstraints.append(stackView.topAnchor.constraintEqualToAnchor(topAnchor, constant: 80))
     layoutConstraints.append(stackView.centerXAnchor.constraintEqualToAnchor(centerXAnchor))
     layoutConstraints.append(avatarImageView.widthAnchor.constraintEqualToConstant(avatarWidth))
     layoutConstraints.append(avatarImageView.heightAnchor.constraintEqualToConstant(avatarWidth))
-//    layoutConstraints.append(twitterButton.widthAnchor.constraintEqualToConstant(120))
     NSLayoutConstraint.activateConstraints(layoutConstraints)
   }
 

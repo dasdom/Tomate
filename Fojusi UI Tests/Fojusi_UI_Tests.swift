@@ -36,7 +36,7 @@ class Fojusi_UI_Tests: XCTestCase {
     super.tearDown()
   }
   
-  func testSelectingBreakDisablesOtherButtons() {
+  func testSelectingBreak_DisablesOtherButtons() {
     XCTAssertTrue(procrastinateButton.enabled)
     XCTAssertTrue(workButton.enabled)
     XCTAssertTrue(breakButton.enabled)
@@ -51,7 +51,7 @@ class Fojusi_UI_Tests: XCTestCase {
     app.alerts["Stop?"].collectionViews.buttons["Stop"].tap()
   }
   
-  func testSelectingWorkDisablesOtherButtons() {
+  func testSelectingWork_DisablesOtherButtons() {
     XCTAssertTrue(procrastinateButton.enabled)
     XCTAssertTrue(workButton.enabled)
     XCTAssertTrue(breakButton.enabled)
@@ -66,7 +66,7 @@ class Fojusi_UI_Tests: XCTestCase {
     app.alerts["Stop?"].collectionViews.buttons["Stop"].tap()
   }
   
-  func testSelectingProcrastinateDisablesOtherButtons() {
+  func testSelectingProcrastinate_DisablesOtherButtons() {
     XCTAssertTrue(procrastinateButton.enabled)
     XCTAssertTrue(workButton.enabled)
     XCTAssertTrue(breakButton.enabled)
@@ -79,6 +79,47 @@ class Fojusi_UI_Tests: XCTestCase {
     XCTAssertTrue(procrastinateButton.enabled)
     procrastinateButton.tap()
     app.alerts["Stop?"].collectionViews.buttons["Stop"].tap()
+  }
+  
+  func testTimerValues_CanBeChangedInSettings() {
+    
+    app.buttons["Settings"].tap()
+    
+    app.pickerWheels.element.adjustToPickerWheelValue("55 min")
+    XCTAssertTrue(app.staticTexts["55 min"].exists)
+    app.pickerWheels.element.adjustToPickerWheelValue("10 min")
+    XCTAssertTrue(app.staticTexts["10 min"].exists)
+    app.pickerWheels.element.adjustToPickerWheelValue("25 min")
+    XCTAssertTrue(app.staticTexts["25 min"].exists)
+
+    app.staticTexts["Break duration"].tap()
+    app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.tap()
+    app.pickerWheels.element.adjustToPickerWheelValue("1 min")
+    XCTAssertTrue(app.staticTexts["1 min"].exists)
+    app.pickerWheels.element.adjustToPickerWheelValue("10 min")
+    XCTAssertTrue(app.staticTexts["10 min"].exists)
+    app.pickerWheels.element.adjustToPickerWheelValue("5 min")
+    XCTAssertTrue(app.staticTexts["5 min"].exists)
+
+    app.navigationBars["Settings"].buttons["Done"].tap()
+  }
+  
+  func testCanShowTwitter_InAbout() {
+    
+    app.buttons["About"].tap()
+    app.buttons["Twitter"].tap()
+    XCTAssertTrue(app.toolbars.buttons["OpenInSafari"].exists)
+    XCTAssertTrue(app.toolbars.buttons["Share"].exists)
+    app.buttons["Done"].tap()
+  }
+  
+  func testCanShowGithub_InAbout() {
+    
+    app.buttons["About"].tap()
+    app.buttons["Github"].tap()
+    XCTAssertTrue(app.toolbars.buttons["OpenInSafari"].exists)
+    XCTAssertTrue(app.toolbars.buttons["Share"].exists)
+    app.buttons["Done"].tap()
   }
   
 }

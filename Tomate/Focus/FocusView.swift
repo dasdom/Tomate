@@ -9,7 +9,7 @@
 import UIKit
 import QuartzCore
 
-class FocusView: UIView {
+final class FocusView: UIView {
   let timerView: TimerView
   let workButton: UIButton
   let breakButton: UIButton
@@ -55,6 +55,7 @@ class FocusView: UIView {
 //        button.setImage(templateImage, forState: .Normal)
 //      }
       button.setImage(TimerStyleKit.imageOfSettings, forState: .Normal)
+      button.accessibilityLabel = NSLocalizedString("Settings", comment: "")
       return button
       }()
     
@@ -66,6 +67,7 @@ class FocusView: UIView {
 //        button.setImage(templateImage, forState: .Normal)
 //      }
       button.setImage(TimerStyleKit.imageOfInfo, forState: .Normal)
+      button.accessibilityLabel = NSLocalizedString("About", comment: "")
       return button
       }()
     
@@ -128,8 +130,8 @@ class FocusView: UIView {
 //    timerView.timeLabel.font = timerView.timeLabel.font.fontWithSize((frame.size.width-2*CGFloat(metrics["sidePadding"]!))*0.9/3.0-10.0)
   }
   
-  required convenience init(coder aDecoder: NSCoder) {
-    self.init(frame: CGRectZero)
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
   
   func setDuration(duration: CGFloat, maxValue: CGFloat) {

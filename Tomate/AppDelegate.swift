@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window!.makeKeyAndVisible()
     
     // Override point for customization after application launch.
-    var shouldPerformAdditionalDelegateHandling = true
+//    var shouldPerformAdditionalDelegateHandling = true
     
     // If a shortcut was launched, display its information and take the appropriate action
     if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsShortcutItemKey] as? UIApplicationShortcutItem {
@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         handleShortcut(shortcutItem.type)
         
         // This will block "performActionForShortcutItem:completionHandler" from being called.
-        shouldPerformAdditionalDelegateHandling = false
+//        shouldPerformAdditionalDelegateHandling = false
     }
     
     return true
@@ -102,6 +102,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func customizeAppearance() {
     UINavigationBar.appearance().tintColor = UIColor.yellowColor()
     UINavigationBar.appearance().barTintColor = TimerStyleKit.backgroundColor
+    
+    let titleAttributes = [NSForegroundColorAttributeName: TimerStyleKit.timerColor]
+    UINavigationBar.appearance().titleTextAttributes = titleAttributes
   }
 }
 

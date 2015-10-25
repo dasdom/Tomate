@@ -9,7 +9,7 @@
 import UIKit
 import QuartzCore
 
-class TimerView: UIView {
+final class TimerView: UIView {
   
   var durationInSeconds: CGFloat = 0.0
   var maxValue: CGFloat = 60.0

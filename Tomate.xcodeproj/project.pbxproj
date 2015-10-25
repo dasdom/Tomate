@@ -29,6 +29,7 @@
 		F2AB30B819600A4000D8D989 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB30B719600A4000D8D989 /* AppDelegate.swift */; };
 		F2AB30BA19600A4000D8D989 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2AB30B919600A4000D8D989 /* Images.xcassets */; };
 		F2AB30D4196016B800D8D989 /* TimerStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB30D3196016B800D8D989 /* TimerStyleKit.swift */; };
+		F2AC01411BDCC68300D50C4E /* DHNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AC01401BDCC68300D50C4E /* DHNavigationController.swift */; };
 		F2BB35F319F38FB700CD9CA5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2BB35F219F38FB700CD9CA5 /* LaunchScreen.storyboard */; };
 		F2EB866B1B2A1E4D009EF689 /* TimerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EB866A1B2A1E4D009EF689 /* TimerType.swift */; };
 		F2FC44021B2CCCCC00851923 /* Fojusi_UI_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FC44011B2CCCCC00851923 /* Fojusi_UI_Tests.swift */; };
@@ -141,6 +142,7 @@
 		F2AB30BF19600A4000D8D989 /* TomateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TomateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2AB30C419600A4000D8D989 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2AB30D3196016B800D8D989 /* TimerStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerStyleKit.swift; sourceTree = "<group>"; };
+		F2AC01401BDCC68300D50C4E /* DHNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DHNavigationController.swift; sourceTree = "<group>"; };
 		F2BB35F219F38FB700CD9CA5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F2EB866A1B2A1E4D009EF689 /* TimerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerType.swift; sourceTree = "<group>"; };
 		F2FB4E1A198D0BD000B5474E /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -281,6 +283,7 @@
 				F2FF2C841AB0A4D90017BF04 /* Fojusi.entitlements */,
 				F2AB30B719600A4000D8D989 /* AppDelegate.swift */,
 				F20425221961F91100A132D6 /* Int+Extensions.swift */,
+				F2AC01401BDCC68300D50C4E /* DHNavigationController.swift */,
 				F273B4C71B56233B00CDF081 /* About */,
 				F23462371960798900AB11A5 /* Focus */,
 				F21D3F4E198D4BC50036D4BA /* Settings */,
@@ -622,6 +625,7 @@
 				F234623D1960798900AB11A5 /* TimerView.swift in Sources */,
 				F2AB30B819600A4000D8D989 /* AppDelegate.swift in Sources */,
 				F273B4C91B56235600CDF081 /* AboutView.swift in Sources */,
+				F2AC01411BDCC68300D50C4E /* DHNavigationController.swift in Sources */,
 				F2AB30D4196016B800D8D989 /* TimerStyleKit.swift in Sources */,
 				F20425231961F91100A132D6 /* Int+Extensions.swift in Sources */,
 				F21D3F50198D4BE30036D4BA /* SettingsView.swift in Sources */,
