@@ -35,4 +35,4 @@ Dominik Hauser
 
 MIT. For more info see licence file.
 
-*To be clear: I'm totally ok if you put your own version to the app store. Even if you just change the colors or so. But please let me know if you do and add a link to my github or twitter page. Thanks.*
+**To be clear: I'm totally ok if you put your own version to the app store. Even if you just change the colors or so. But please let me know if you do and add a link to my github or twitter page. Thanks.**
