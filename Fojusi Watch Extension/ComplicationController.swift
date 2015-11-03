@@ -8,8 +8,7 @@
 
 import ClockKit
 
-
-class ComplicationController: NSObject, CLKComplicationDataSource {
+final class ComplicationController: NSObject, CLKComplicationDataSource {
   
     var nextDate: NSDate?
   
@@ -37,7 +36,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     // Call the handler with the current timeline entry
     
     let timestamp = NSUserDefaults.standardUserDefaults().doubleForKey("timeStamp")
-//    let maxValue = NSUserDefaults.standardUserDefaults().integerForKey("maxValue")
     let date = NSDate(timeIntervalSince1970: timestamp)
     nextDate = date
     
@@ -51,9 +49,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
       } else {
         template.textProvider = CLKRelativeDateTextProvider(date: date, style: .Timer, units: [.Minute])
       }
-//      template.fillFraction = 0.85
-//      template.ringStyle = CLKComplicationRingStyle.Closed
-      
       entry = CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: template)
     case .ModularLarge:
       print("ModularLarge")
@@ -74,9 +69,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
       } else {
         template.textProvider = CLKRelativeDateTextProvider(date: date, style: .Timer, units: [.Minute])
       }
-//      template.fillFraction = 0.85
-//      template.ringStyle = CLKComplicationRingStyle.Closed
-      
       entry = CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: template)
     case .UtilitarianLarge:
       print("UtilitarianLarge")
@@ -96,10 +88,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
       } else {
         template.textProvider = CLKRelativeDateTextProvider(date: date, style: .Timer, units: [.Minute])
       }
-      
-//      template.fillFraction = 0.85
-//      template.ringStyle = CLKComplicationRingStyle.Closed
-      
       entry = CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: template)
     }
     handler(entry)

@@ -15,9 +15,22 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.3</string>
+	<string>1.4</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>de.dasdom.Fojusi</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fojusi</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>7</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -25,12 +38,16 @@
 	<key>UIApplicationShortcutItems</key>
 	<array>
 		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>work</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Work</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER).Work</string>
 		</dict>
 		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>breakTime</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Break</string>
 			<key>UIApplicationShortcutItemType</key>

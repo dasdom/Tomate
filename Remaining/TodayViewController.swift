@@ -9,7 +9,7 @@
 import UIKit
 import NotificationCenter
 
-class TodayViewController: UIViewController, NCWidgetProviding {
+final class TodayViewController: UIViewController, NCWidgetProviding {
   
   var endDate: NSDate?
   var timer: NSTimer?
@@ -20,45 +20,30 @@ class TodayViewController: UIViewController, NCWidgetProviding {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-//    preferredContentSize = CGSize(width: view.frame.size.width, height: 120)
     timerView = TimerView(frame: .zero)
     timerView.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(timerView)
+    
+    let button = UIButton(type: .Custom)
+    button.translatesAutoresizingMaskIntoConstraints = false
+    button.addTarget(self, action: "openApp", forControlEvents: .TouchUpInside)
+    view.addSubview(button)
     
     var constraints = [NSLayoutConstraint]()
     constraints.append(timerView.widthAnchor.constraintEqualToConstant(100))
     constraints.append(timerView.heightAnchor.constraintEqualToConstant(100))
     constraints.append(timerView.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor))
     constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[timer]-10@999-|", options: [], metrics: nil, views: ["timer": timerView])
+    constraints += NSLayoutConstraint.constraintsWithVisualFormat("|[button]|", options: [], metrics: nil, views: ["button": button])
+    constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:|[button]-0@999-|", options: [], metrics: nil, views: ["button": button])
     NSLayoutConstraint.activateConstraints(constraints)
     
     timerView.timeLabel.font = timerView.timeLabel.font.fontWithSize(CGFloat(100.0*0.9/3.0-10.0))
-    
-//    self.view.backgroundColor = UIColor.brownColor()
   }
   
   func widgetMarginInsetsForProposedMarginInsets
     (defaultMarginInsets: UIEdgeInsets) -> (UIEdgeInsets) {
       return UIEdgeInsetsZero
-  }
-  
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
-  }
-  
-  override func viewWillAppear(animated: Bool) {
-    super.viewWillAppear(animated)
-    
-    //        if let defaults = NSUserDefaults(suiteName: "group.de.dasdom.Tomate") {
-    //            let startDateAsTimeStamp = defaults.doubleForKey("date")
-    //            println("startDate: \(startDateAsTimeStamp)")
-    //            endDate = NSDate(timeIntervalSince1970: startDateAsTimeStamp)
-    //        }
-    //        println("endDate \(endDate)")
-    //
-    //        timer?.invalidate()
-    //        timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "updateLabel", userInfo: nil, repeats: true)
   }
   
   func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
@@ -90,22 +75,23 @@ class TodayViewController: UIViewController, NCWidgetProviding {
   func updateLabel() {
     let durationInSeconds = endDate!.timeIntervalSinceNow
     if durationInSeconds > 0 {
-//      let seconds = Int(durationInSeconds % 60)
-//      let minutes = Int(durationInSeconds / 60.0)
-//      let format = "02"
-//      let labelText = "\(minutes.format(format))" + ":" + "\(seconds.format(format)) min"
-      
-//      label.text = labelText
-      
       timerView.durationInSeconds = CGFloat(durationInSeconds)
       timerView.maxValue = CGFloat(maxValue!)
       timerView.setNeedsDisplay()
-//      print(timerView)
     } else {
       timer?.invalidate()
-//      label.text = "-"
     }
   }
+    
+  func openApp() {
+    let myAppUrl = NSURL(string: "fojusi://")!
+    extensionContext?.openURL(myAppUrl, completionHandler: { (success) in
+      if (!success) {
+        // let the user know it failed
+      }
+    })
+  }
+  
 }
 
 extension Int {
