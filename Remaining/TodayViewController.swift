@@ -77,7 +77,8 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
     if durationInSeconds > 0 {
       timerView.durationInSeconds = CGFloat(durationInSeconds)
       timerView.maxValue = CGFloat(maxValue!)
-      timerView.setNeedsDisplay()
+//      timerView.setNeedsDisplay()
+        timerView.updateTimer()
     } else {
       timer?.invalidate()
     }
@@ -95,7 +96,8 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
 }
 
 extension Int {
-  func format(f: String) -> String {
-    return NSString(format: "%\(f)d", self) as String
-  }
+    func format(f: String) -> String {
+        //        return NSString(format: "%\(f)d", self) as String
+        return String(format: "%\(f)d", self)
+    }
 }

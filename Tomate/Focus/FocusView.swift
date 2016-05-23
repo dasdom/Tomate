@@ -137,7 +137,8 @@ final class FocusView: UIView {
   func setDuration(duration: CGFloat, maxValue: CGFloat) {
     timerView.durationInSeconds = duration
     timerView.maxValue = maxValue
-    timerView.setNeedsDisplay()
+//    timerView.setNeedsDisplay()
+    timerView.updateTimer()
   }
   
 }
