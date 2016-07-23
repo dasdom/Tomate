@@ -29,10 +29,10 @@ final class SettingsViewController: UIViewController {
     settingsView.pickerView.dataSource = self
     settingsView.pickerView.delegate = self
     
-    let workGestureRecognizer = UITapGestureRecognizer(target: self, action: "moveMarker:")
+    let workGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SettingsViewController.moveMarker(_:)))
     settingsView.workInputHostView.addGestureRecognizer(workGestureRecognizer)
     
-    let breakGestureRecognizer = UITapGestureRecognizer(target: self, action: "moveMarker:")
+    let breakGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SettingsViewController.moveMarker(_:)))
     settingsView.breakInputHostView.addGestureRecognizer(breakGestureRecognizer)
     
     title = "Settings"
@@ -44,7 +44,7 @@ final class SettingsViewController: UIViewController {
     let views = ["topLayoutGuide" : topLayoutGuide, "workInputHostView" : settingsView.workInputHostView] as [String: AnyObject]
     view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[topLayoutGuide]-10-[workInputHostView]", options: [], metrics: nil, views: views))
     
-    let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "dismissSettings")
+    let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: #selector(SettingsViewController.dismissSettings))
     navigationItem.rightBarButtonItem = doneButton
     
     settingsView.setWorkDurationString("\(currentWorkDurationInMinutes) min")

@@ -21,9 +21,9 @@ final class AboutViewController: UIViewController {
     title = NSLocalizedString("About", comment: "About")
 //    UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: TimerStyleKit.timerColor]
     
-    contentView.twitterButton.addTarget(self, action: "openTwitter", forControlEvents: .TouchUpInside)
-    contentView.githubButton.addTarget(self, action: "openGithub", forControlEvents: .TouchUpInside)
-    contentView.rateButton.addTarget(self, action: "openRating", forControlEvents: .TouchUpInside)
+    contentView.twitterButton.addTarget(self, action: #selector(AboutViewController.openTwitter), forControlEvents: .TouchUpInside)
+    contentView.githubButton.addTarget(self, action: #selector(AboutViewController.openGithub), forControlEvents: .TouchUpInside)
+    contentView.rateButton.addTarget(self, action: #selector(AboutViewController.openRating), forControlEvents: .TouchUpInside)
 
     view = contentView
   }
@@ -33,7 +33,7 @@ final class AboutViewController: UIViewController {
     
     aboutView.stackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 20).active = true
     
-    let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "dismissAbout")
+    let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: #selector(AboutViewController.dismissAbout))
     navigationItem.rightBarButtonItem = doneButton
   }
   

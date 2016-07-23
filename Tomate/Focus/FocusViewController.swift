@@ -38,11 +38,11 @@ final class FocusViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    focusView.workButton.addTarget(self, action: "startWork:", forControlEvents: .TouchUpInside)
-    focusView.breakButton.addTarget(self, action: "startBreak:", forControlEvents: .TouchUpInside)
-    focusView.procrastinateButton.addTarget(self, action: "startProcrastination:", forControlEvents: .TouchUpInside)
-    focusView.settingsButton.addTarget(self, action: "showSettings", forControlEvents: .TouchUpInside)
-    focusView.aboutButton.addTarget(self, action: "showAbout", forControlEvents: .TouchUpInside)
+    focusView.workButton.addTarget(self, action: #selector(FocusViewController.startWork(_:)), forControlEvents: .TouchUpInside)
+    focusView.breakButton.addTarget(self, action: #selector(FocusViewController.startBreak(_:)), forControlEvents: .TouchUpInside)
+    focusView.procrastinateButton.addTarget(self, action: #selector(FocusViewController.startProcrastination(_:)), forControlEvents: .TouchUpInside)
+    focusView.settingsButton.addTarget(self, action: #selector(FocusViewController.showSettings), forControlEvents: .TouchUpInside)
+    focusView.aboutButton.addTarget(self, action: #selector(FocusViewController.showAbout), forControlEvents: .TouchUpInside)
     
 //    let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "showSettingsFromLongPross:")
 //    focusView.addGestureRecognizer(longPressRecognizer)
@@ -184,7 +184,7 @@ extension FocusViewController {
     }
     
     timer?.invalidate()
-    timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "updateTimeLabel:", userInfo: ["timerType" : seconds], repeats: true)
+    timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(FocusViewController.updateTimeLabel(_:)), userInfo: ["timerType" : seconds], repeats: true)
     
     UIApplication.sharedApplication().cancelAllLocalNotifications()
     

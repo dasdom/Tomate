@@ -26,7 +26,7 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
     
     let button = UIButton(type: .Custom)
     button.translatesAutoresizingMaskIntoConstraints = false
-    button.addTarget(self, action: "openApp", forControlEvents: .TouchUpInside)
+    button.addTarget(self, action: #selector(TodayViewController.openApp), forControlEvents: .TouchUpInside)
     view.addSubview(button)
     
     var constraints = [NSLayoutConstraint]()
@@ -66,7 +66,7 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
 
     timer?.invalidate()
     if endDate != nil {
-      timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "updateLabel", userInfo: nil, repeats: true)
+      timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: #selector(TodayViewController.updateLabel), userInfo: nil, repeats: true)
     }
     
     completionHandler(NCUpdateResult.NewData)

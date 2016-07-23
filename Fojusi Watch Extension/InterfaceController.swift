@@ -28,7 +28,7 @@ final class InterfaceController: WKInterfaceController {
         timerInterface.setDate(date)
         timerInterface.start()
         timer?.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "updateUserInterface", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: #selector(InterfaceController.updateUserInterface), userInfo: nil, repeats: true)
       } else {
         timerInterface.stop()
         timer?.invalidate()
@@ -100,7 +100,7 @@ extension InterfaceController: WCSessionDelegate {
   
   func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
     let server = CLKComplicationServer.sharedInstance()
-    for complication in server.activeComplications {
+    for complication in server.activeComplications! {
       server.reloadTimelineForComplication(complication)
     }
   }
