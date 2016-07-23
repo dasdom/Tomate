@@ -39,7 +39,8 @@ final class FocusViewController: UIViewController {
     super.viewDidLoad()
     
     focusView.workButton.addTarget(self, action: #selector(FocusViewController.startWork(_:)), forControlEvents: .TouchUpInside)
-    focusView.breakButton.addTarget(self, action: #selector(FocusViewController.startBreak(_:)), forControlEvents: .TouchUpInside)
+    focusView.breakButton.addTarget(self, action: #selector(FocusViewController.startBreak(_:)),
+        forControlEvents: .TouchUpInside)
     focusView.procrastinateButton.addTarget(self, action: #selector(FocusViewController.startProcrastination(_:)), forControlEvents: .TouchUpInside)
     focusView.settingsButton.addTarget(self, action: #selector(FocusViewController.showSettings), forControlEvents: .TouchUpInside)
     focusView.aboutButton.addTarget(self, action: #selector(FocusViewController.showAbout), forControlEvents: .TouchUpInside)
