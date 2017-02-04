@@ -9,13 +9,21 @@
 import ClockKit
 
 final class ComplicationController: NSObject, CLKComplicationDataSource {
+    public func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
+        //TODO
+    }
+
+    public func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void) {
+        //TODO
+    }
+
   
-    var nextDate: NSDate?
+    var nextDate: Date?
   
   // MARK: - Timeline Configuration
   
   func getSupportedTimeTravelDirectionsForComplication(complication: CLKComplication, withHandler handler: (CLKComplicationTimeTravelDirections) -> Void) {
-    handler([.None])
+    handler([])
   }
   
   func getTimelineStartDateForComplication(complication: CLKComplication, withHandler handler: (NSDate?) -> Void) {
@@ -27,7 +35,7 @@ final class ComplicationController: NSObject, CLKComplicationDataSource {
   }
   
   func getPrivacyBehaviorForComplication(complication: CLKComplication, withHandler handler: (CLKComplicationPrivacyBehavior) -> Void) {
-    handler(.ShowOnLockScreen)
+    handler(.showOnLockScreen)
   }
   
   // MARK: - Timeline Population
@@ -35,60 +43,66 @@ final class ComplicationController: NSObject, CLKComplicationDataSource {
   func getCurrentTimelineEntryForComplication(complication: CLKComplication, withHandler handler: ((CLKComplicationTimelineEntry?) -> Void)) {
     // Call the handler with the current timeline entry
     
-    let timestamp = NSUserDefaults.standardUserDefaults().doubleForKey("timeStamp")
-    let date = NSDate(timeIntervalSince1970: timestamp)
+    let timestamp = UserDefaults.standard.double(forKey: "timeStamp")
+    let date = Date(timeIntervalSince1970: timestamp)
     nextDate = date
     
     var entry: CLKComplicationTimelineEntry?
     switch complication.family {
-    case .ModularSmall:
-      print("ModularSmall")
+    case .modularSmall:
+      print("modularSmall")
       let template = CLKComplicationTemplateModularSmallSimpleText()
       if timestamp < 1 {
         template.textProvider = CLKSimpleTextProvider(text: "-:--")
       } else {
-        template.textProvider = CLKRelativeDateTextProvider(date: date, style: .Timer, units: [.Minute])
+        template.textProvider = CLKRelativeDateTextProvider(date: date, style: .timer, units: [.minute])
       }
-      entry = CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: template)
-    case .ModularLarge:
-      print("ModularLarge")
+      entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
+    case .modularLarge:
+      print("modularLarge")
       let template = CLKComplicationTemplateModularLargeTallBody()
       template.headerTextProvider = CLKSimpleTextProvider(text: "Remaining")
       if timestamp < 1 {
         template.bodyTextProvider = CLKSimpleTextProvider(text: "-:--")
       } else {
-        template.bodyTextProvider = CLKRelativeDateTextProvider(date: date, style: .Timer, units: [.Minute, .Second])
+        template.bodyTextProvider = CLKRelativeDateTextProvider(date: date, style: .timer, units: [.minute, .second])
       }
       
-      entry = CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: template)
-    case .CircularSmall:
-      print("CircularSmall")
+      entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
+    case .circularSmall:
+      print("circularSmall")
       let template = CLKComplicationTemplateCircularSmallSimpleText()
       if timestamp < 1 {
         template.textProvider = CLKSimpleTextProvider(text: "-:--")
       } else {
-        template.textProvider = CLKRelativeDateTextProvider(date: date, style: .Timer, units: [.Minute])
+        template.textProvider = CLKRelativeDateTextProvider(date: date, style: .timer, units: [.minute])
       }
-      entry = CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: template)
-    case .UtilitarianLarge:
-      print("UtilitarianLarge")
+      entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
+    case .utilitarianLarge:
+      print("utilitarianLarge")
       let template = CLKComplicationTemplateUtilitarianLargeFlat()
       if timestamp < 1 {
         template.textProvider = CLKSimpleTextProvider(text: "-:--")
       } else {
-        template.textProvider = CLKRelativeDateTextProvider(date: date, style: .Timer, units: [.Minute, .Second])
+        template.textProvider = CLKRelativeDateTextProvider(date: date, style: .timer, units: [.minute, .second])
       }
       
-      entry = CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: template)
-    case .UtilitarianSmall:
-      print("UtilitarianSmall")
+      entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
+    case .utilitarianSmall:
+      print("utilitarianSmall")
       let template = CLKComplicationTemplateUtilitarianSmallFlat()
       if timestamp < 1 {
         template.textProvider = CLKSimpleTextProvider(text: "-:--")
       } else {
-        template.textProvider = CLKRelativeDateTextProvider(date: date, style: .Timer, units: [.Minute])
+        template.textProvider = CLKRelativeDateTextProvider(date: date, style: .timer, units: [.minute])
       }
-      entry = CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: template)
+      entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
+    case .utilitarianSmallFlat:
+      //TODO
+      break
+    case .extraLarge:
+      //TODO
+      break
     }
     handler(entry)
   }
@@ -106,7 +120,7 @@ final class ComplicationController: NSObject, CLKComplicationDataSource {
   
   // MARK: - Update Scheduling
   
-  func getNextRequestedUpdateDateWithHandler(handler: (NSDate?) -> Void) {
+  func getNextRequestedUpdateDateWithHandler(handler: (Date?) -> Void) {
     // Call the handler with the date when you would next like to be given the opportunity to update your complication content
     handler(nextDate);
   }
@@ -117,41 +131,47 @@ final class ComplicationController: NSObject, CLKComplicationDataSource {
     // This method will be called once per supported complication, and the results will be cached
     var template: CLKComplicationTemplate?
     switch complication.family {
-    case .ModularSmall:
-      print("ModularSmall")
+    case .modularSmall:
+      print("modularSmall")
       let modularSmallTemplate = CLKComplicationTemplateModularSmallRingText()
       modularSmallTemplate.textProvider = CLKSimpleTextProvider(text: "25")
       modularSmallTemplate.fillFraction = 1.00
-      modularSmallTemplate.ringStyle = CLKComplicationRingStyle.Closed
+      modularSmallTemplate.ringStyle = CLKComplicationRingStyle.closed
 
       template = modularSmallTemplate
-    case .ModularLarge:
-      print("ModularLarge")
+    case .modularLarge:
+      print("modularLarge")
       let modularLargeTemplate = CLKComplicationTemplateModularLargeTallBody()
       modularLargeTemplate.headerTextProvider = CLKSimpleTextProvider(text: "Remaining")
       modularLargeTemplate.bodyTextProvider = CLKSimpleTextProvider(text: "25.00")
       
       template = modularLargeTemplate
-    case .CircularSmall:
-      print("CircularSmall")
+    case .circularSmall:
+      print("mircularSmall")
       let circularSmallTemplate = CLKComplicationTemplateCircularSmallRingText()
       circularSmallTemplate.textProvider = CLKSimpleTextProvider(text: "25")
       circularSmallTemplate.fillFraction = 1.00
-      circularSmallTemplate.ringStyle = CLKComplicationRingStyle.Closed
+      circularSmallTemplate.ringStyle = CLKComplicationRingStyle.closed
       
       template = circularSmallTemplate
-    case .UtilitarianLarge:
-      print("UtilitarianLarge")
+    case .utilitarianLarge:
+      print("utilitarianLarge")
       let unitarianLargeTemplate = CLKComplicationTemplateUtilitarianLargeFlat()
       unitarianLargeTemplate.textProvider = CLKSimpleTextProvider(text: "25:00")
       template = unitarianLargeTemplate
-    case .UtilitarianSmall:
-      print("UtilitarianSmall")
+    case .utilitarianSmall:
+      print("utilitarianSmall")
       let unitarianSmallTemplate = CLKComplicationTemplateUtilitarianSmallRingText()
       unitarianSmallTemplate.textProvider = CLKSimpleTextProvider(text: "25")
       unitarianSmallTemplate.fillFraction = 1.00
-      unitarianSmallTemplate.ringStyle = CLKComplicationRingStyle.Closed
+      unitarianSmallTemplate.ringStyle = CLKComplicationRingStyle.closed
       template = unitarianSmallTemplate
+    case .utilitarianSmallFlat:
+      //TODO
+      break
+    case .extraLarge:
+      //TODO
+      break
     }
     handler(template)
   }

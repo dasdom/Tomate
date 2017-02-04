@@ -40,14 +40,14 @@ final class TimerView: UIView {
       //            label.font = UIFont(name: "HiraKakuProN-W3", size: 80)
       label.font = UIFont(name: "HelveticaNeue-Thin", size: 80)
 //      label.adjustsFontSizeToFitWidth = true
-      label.textAlignment = .Center
+      label.textAlignment = .center
       label.textColor = TimerStyleKit.timerColor
 //      label.backgroundColor = UIColor.yellowColor()
       return label
       }()
     
     super.init(frame: frame)
-    backgroundColor = UIColor.clearColor()
+    backgroundColor = UIColor.clear
     
     addSubview(timeLabel)
     
@@ -56,9 +56,9 @@ final class TimerView: UIView {
     layer.addSublayer(secondsShapeLayer)
     
     var constraints = [NSLayoutConstraint]()
-    constraints.append(timeLabel.centerXAnchor.constraintEqualToAnchor(centerXAnchor))
-    constraints.append(timeLabel.centerYAnchor.constraintEqualToAnchor(centerYAnchor))
-    NSLayoutConstraint.activateConstraints(constraints)
+    constraints.append(timeLabel.centerXAnchor.constraint(equalTo: centerXAnchor))
+    constraints.append(timeLabel.centerYAnchor.constraint(equalTo: centerYAnchor))
+    NSLayoutConstraint.activate(constraints)
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -67,7 +67,7 @@ final class TimerView: UIView {
   
   // Only override drawRect: if you perform custom drawing.
   // An empty implementation adversely affects performance during animation.
-  override func drawRect(rect: CGRect)
+  override func draw(_ rect: CGRect)
   {
     //        TimerStyleKit.drawTimer(durationInSeconds, maxValue: maxValue, showRemaining: showRemaining)
     
@@ -84,7 +84,7 @@ final class TimerView: UIView {
     
 //    let timerCenter = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect))
 //    let radius = rect.size.width / 2 - 10
-    timerCenter = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect))
+    timerCenter = CGPoint(x: rect.midX, y: rect.midY)
     radius = rect.size.width / 2 - 10
     
     initTimerState()
@@ -179,25 +179,26 @@ final class TimerView: UIView {
         
         var secondsPercentage: CGFloat
         if showRemaining {
-            secondsPercentage = (durationInSeconds-1) % 60.0
+            secondsPercentage = (durationInSeconds-1).truncatingRemainder(dividingBy: 60.0)
         } else {
-            secondsPercentage = 60.0 - (durationInSeconds-1) % 60.0
+            secondsPercentage = 60.0 - (durationInSeconds-1).truncatingRemainder(dividingBy: 60.0)
             
         }
         
         if !showRemaining {
             durationInSeconds = maxValue - durationInSeconds
         }
-        let seconds = Int(durationInSeconds % 60)
+        let seconds = Int(durationInSeconds.truncatingRemainder(dividingBy: 60))
         let minutes = Int(durationInSeconds / 60.0)
         let format = "02"
-        let labelText = "\(minutes.format(format))" + ":" + "\(seconds.format(format))"
+        let labelText = "\(minutes.format(f: format))" + ":" + "\(seconds.format(f: format))"
         
         timeLabel.text = labelText
         
         let totalMinutes = (maxValue-1) / 60
-        let dashLength = 2*radius*CGFloat(M_PI)/totalMinutes;
-        timerShapeLayer.lineDashPattern = [dashLength-2, 2]
+        let dashLength = 2*radius*CGFloat(M_PI)/totalMinutes
+        let lineDashPatternFirstLength = (dashLength-CGFloat(2)) as NSNumber  //TODO: Maybe not too beautiful
+        timerShapeLayer.lineDashPattern = [lineDashPatternFirstLength, 2]
         
         timerShapeLayer.strokeEnd = percentage
         secondsShapeLayer.strokeEnd = CGFloat(secondsPercentage) / 60.0
@@ -210,19 +211,19 @@ final class TimerView: UIView {
     
     private func settingTimerRingStyle() {
         timerRingPath = UIBezierPath(arcCenter: timerCenter, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
-        timerShapeLayer.path = timerRingPath.CGPath
+        timerShapeLayer.path = timerRingPath.cgPath
         
-        timerShapeLayer.fillColor = UIColor.clearColor().CGColor
-        timerShapeLayer.strokeColor = TimerStyleKit.timerColor.CGColor
+        timerShapeLayer.fillColor = UIColor.clear.cgColor
+        timerShapeLayer.strokeColor = TimerStyleKit.timerColor.cgColor
         timerShapeLayer.lineWidth = 3
     }
     
     private func settingSecondsRingStyle() {
         secondsRingPath = UIBezierPath(arcCenter: timerCenter, radius: radius-4, startAngle: startAngle, endAngle: endAngle, clockwise: true)
-        secondsShapeLayer.path = secondsRingPath.CGPath
+        secondsShapeLayer.path = secondsRingPath.cgPath
         
-        secondsShapeLayer.fillColor = UIColor.clearColor().CGColor
-        secondsShapeLayer.strokeColor = TimerStyleKit.timerColor.CGColor
+        secondsShapeLayer.fillColor = UIColor.clear.cgColor
+        secondsShapeLayer.strokeColor = TimerStyleKit.timerColor.cgColor
         secondsShapeLayer.lineWidth = 1.0
         //secondsShapeLayer.strokeEnd = CGFloat(secondsPercentage)/60.0
     }
@@ -236,7 +237,7 @@ final class TimerView: UIView {
         fullRingPath.stroke()
     }
     
-  override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
     showRemaining = !showRemaining
 //    setNeedsDisplay()
     updateTimer()
