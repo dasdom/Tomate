@@ -82,7 +82,7 @@ extension InterfaceController: WCSessionDelegate {
     }
 
   private func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
-    DispatchQueue.main.async {
+    DispatchQueue.main.async {  //TODO: Not sure if this is the correct way to update to Swift 3
       let timeStamp = applicationContext["date"]! as! Double
       guard timeStamp > 0 else {
         self.timer?.invalidate()

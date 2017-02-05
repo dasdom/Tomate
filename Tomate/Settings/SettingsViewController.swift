@@ -16,11 +16,11 @@ final class SettingsViewController: UIViewController {
   var workTimes = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
   var breakTimes = [1, 2, 5, 10]
   
-  private var currentWorkDurationInMinutes = NSUserDefaults.standardUserDefaults().integerForKey(TimerType.Work.rawValue) / 60
-  private var currentBreakDurationInMinutes = NSUserDefaults.standardUserDefaults().integerForKey(TimerType.Break.rawValue) / 60
+  private var currentWorkDurationInMinutes = UserDefaults.standardUserDefaults.integerForKey(TimerType.Work.rawValue) / 60
+  private var currentBreakDurationInMinutes = UserDefaults.standardUserDefaults.integerForKey(TimerType.Break.rawValue) / 60
   
   override func loadView() {
-    view = SettingsView(frame: CGRectZero)
+    view = SettingsView(frame: CGRect.zero)
   }
   
   override func viewDidLoad() {
@@ -28,7 +28,6 @@ final class SettingsViewController: UIViewController {
     
     settingsView.pickerView.dataSource = self
     settingsView.pickerView.delegate = self
-    
     let workGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SettingsViewController.moveMarker(_:)))
     settingsView.workInputHostView.addGestureRecognizer(workGestureRecognizer)
     
@@ -42,16 +41,16 @@ final class SettingsViewController: UIViewController {
     super.viewWillAppear(animated)
     
     let views = ["topLayoutGuide" : topLayoutGuide, "workInputHostView" : settingsView.workInputHostView] as [String: AnyObject]
-    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[topLayoutGuide]-10-[workInputHostView]", options: [], metrics: nil, views: views))
+    view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[topLayoutGuide]-10-[workInputHostView]", options: [], metrics: nil, views: views))
     
-    let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: #selector(SettingsViewController.dismissSettings))
+    let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(SettingsViewController.dismissSettings))
     navigationItem.rightBarButtonItem = doneButton
     
     settingsView.setWorkDurationString("\(currentWorkDurationInMinutes) min")
-    settingsView.setBreakDurationString("\(currentBreakDurationInMinutes) min")
+    settingsView.setBreakDurationString(string: "\(currentBreakDurationInMinutes) min")
     
     var row = 0
-    for (index, minutes) in workTimes.enumerate() {
+    for (index, minutes) in workTimes.enumerated() {
       if minutes == currentWorkDurationInMinutes {
         row = index
         break
@@ -68,7 +67,7 @@ final class SettingsViewController: UIViewController {
   }
   
   func dismissSettings() {
-    dismissViewControllerAnimated(true, completion: nil)
+    dismiss(animated: true, completion: nil)
   }
   
 }
@@ -114,8 +113,8 @@ extension SettingsViewController : UIPickerViewDelegate, UIPickerViewDataSource 
     
     let timerType = settingsView.setDurationString("\(minutes) min")
     let seconds = minutes*60+1
-    NSUserDefaults.standardUserDefaults().setInteger(seconds, forKey: timerType.rawValue)
-    NSUserDefaults.standardUserDefaults().synchronize()
+    UserDefaults.standardUserDefaults().setInteger(seconds, forKey: timerType.rawValue)
+    UserDefaults.standardUserDefaults().synchronize()
   }
   
   func moveMarker(sender: UITapGestureRecognizer) {
@@ -134,7 +133,7 @@ extension SettingsViewController : UIPickerViewDelegate, UIPickerViewDataSource 
     }
     
     var row = 0
-    for (index, minutes) in times.enumerate() {
+    for (index, minutes) in times.enumerated() {
       if minutes == currentDuration {
         row = index
         break

@@ -12,7 +12,7 @@ import WatchConnectivity
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   
-  var window: UIWindow? = UIWindow(frame: UIScreen.mainScreen().bounds)
+  var window: UIWindow? = UIWindow(frame: UIScreen.main.bounds)
   var focusViewController: FocusViewController?
   
   let kAlreadyStartedKey = "alreadyStarted"
@@ -29,9 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     focusViewController = FocusViewController(nibName: nil, bundle: nil)
     
     if (WCSession.isSupported()) {
-      session = WCSession.defaultSession()
+      session = WCSession.default()
       session?.delegate = self
-      session?.activateSession()
+      session?.activate()
       focusViewController?.session = session
     }
 
@@ -62,16 +62,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     if let identifier = identifier {
       if identifier == "BREAK_ACTION" {
-        focusViewController!.startBreak(nil)
+        focusViewController!.startBreak(sender: nil)
       } else if identifier == "WORK_ACTION" {
-        focusViewController!.startWork(nil)
+        focusViewController!.startWork(sender: nil)
       }
     }
     
     if (WCSession.isSupported()) {
-      session = WCSession.defaultSession()
+      session = WCSession.default()
       session?.delegate = self
-      session?.activateSession()
+      session?.activate()
       focusViewController?.session = session
     }
     
@@ -80,19 +80,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
   func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
     
-    let handledShortCut = handleShortcut(shortcutItem.type)
+    let handledShortCut = handleShortcut(shortCut: shortcutItem.type)
     
     completionHandler(handledShortCut)
   }
     
   func handleShortcut(shortCut: String) -> Bool {
-    guard let last = shortCut.componentsSeparatedByString(".").last else { return false }
+    guard let last = shortCut.componentsSeparated(by: ".").last else { return false }
 
     switch last {
     case "Work":
-      self.focusViewController?.startTimerWithType(.Work)
+      self.focusViewController?.startTimerWithType(timerType: .Work)
     case "Break":
-      self.focusViewController?.startTimerWithType(.Break)
+      self.focusViewController?.startTimerWithType(timerType: .Break)
     default:
       return false
     }
@@ -100,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
   
   func customizeAppearance() {
-    UINavigationBar.appearance().tintColor = UIColor.yellowColor()
+    UINavigationBar.appearance().tintColor = UIColor.yellow
     UINavigationBar.appearance().barTintColor = TimerStyleKit.backgroundColor
     
     let titleAttributes = [NSForegroundColorAttributeName: TimerStyleKit.timerColor]
@@ -129,40 +129,40 @@ extension AppDelegate: WCSessionDelegate {
   func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
     print(message)
     guard let actionString = message["action"] as? String else { return }
-    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+    DispatchQueue.main.async {  //TODO: Not sure if this is the correct way to update to Swift 3
       switch actionString {
       case "work":
-        self.focusViewController?.startTimerWithType(.Work)
+        self.focusViewController?.startTimerWithType(timerType: .Work)
       case "break":
-        self.focusViewController?.startTimerWithType(.Break)
+        self.focusViewController?.startTimerWithType(timerType: .Break)
       case "stop":
-        self.focusViewController?.startTimerWithType(.Idle)
+        self.focusViewController?.startTimerWithType(timerType: .Idle)
       default:
         break
       }
-    })
+    }
   }
 }
 
 extension AppDelegate {
   func registerDefaultUserDefaults() {
     let defaultPreferences = [kRegisterNotificationSettings : true, TimerType.Work.rawValue : 1501, TimerType.Break.rawValue : 301, TimerType.Procrastination.rawValue: 601]
-    NSUserDefaults.standardUserDefaults().registerDefaults(defaultPreferences)
-    NSUserDefaults.standardUserDefaults().synchronize()
+    UserDefaults.standard.register(defaults: defaultPreferences)
+    UserDefaults.standard.synchronize()
     
-    if NSUserDefaults.standardUserDefaults().boolForKey(kRegisterNotificationSettings) {
+    if UserDefaults.standard.bool(forKey: kRegisterNotificationSettings) {
       let restAction = UIMutableUserNotificationAction()
       restAction.identifier = "BREAK_ACTION"
       restAction.title = "Start Break"
-      restAction.activationMode = .Background
+      restAction.activationMode = .background
       
       let workAction = UIMutableUserNotificationAction()
       workAction.identifier = "WORK_ACTION"
       workAction.title = "Start Work"
-      workAction.activationMode = .Background
+      workAction.activationMode = .background
       
       let category = UIMutableUserNotificationCategory()
-      category.setActions([workAction, restAction], forContext: .Default)
+      category.setActions([workAction, restAction], for: .default)
       category.identifier = "START_CATEGORY"
       
       let categories = Set([category])
@@ -170,8 +170,8 @@ extension AppDelegate {
       let notificationSettings = UIUserNotificationSettings(forTypes: [UIUserNotificationType.Alert, UIUserNotificationType.Sound], categories: categories)
       UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
       
-      NSUserDefaults.standardUserDefaults().setBool(false, forKey: kRegisterNotificationSettings)
-      NSUserDefaults.standardUserDefaults().synchronize()
+      UserDefaults.standard.set(false, forKey: kRegisterNotificationSettings)
+      UserDefaults.standard.synchronize()
     }
   }
 }
