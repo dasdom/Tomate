@@ -28,12 +28,12 @@ final class AboutView: UIView {
     handleLabel.textColor = TimerStyleKit.timerColor
     
     let buttonWithTitle = { (title: String) -> UIButton in
-      let button = UIButton(type: .System)
-      button.setTitle(title, forState: .Normal)
+      let button = UIButton(type: .system)
+      button.setTitle(title, for: .normal)
       button.layer.borderWidth = 1
-      button.layer.borderColor = UIColor.yellowColor().CGColor
+      button.layer.borderColor = UIColor.yellow.cgColor
       button.layer.cornerRadius = 5
-      button.widthAnchor.constraintEqualToConstant(120).active = true
+      button.widthAnchor.constraint(equalToConstant: 120).isActive = true
       return button
     }
     
@@ -43,22 +43,22 @@ final class AboutView: UIView {
     
     stackView = UIStackView(arrangedSubviews: [avatarImageView, handleLabel, twitterButton, githubButton, rateButton])
     stackView.translatesAutoresizingMaskIntoConstraints = false
-    stackView.axis = .Vertical
-    stackView.alignment = .Center
+    stackView.axis = .vertical
+    stackView.alignment = .center
     stackView.spacing = 10
     
     super.init(frame: frame)
     
-    tintColor = .yellowColor()
+    tintColor = .yellow
     backgroundColor = TimerStyleKit.backgroundColor
     
     addSubview(stackView)
     
     var layoutConstraints = [NSLayoutConstraint]()
-    layoutConstraints.append(stackView.centerXAnchor.constraintEqualToAnchor(centerXAnchor))
-    layoutConstraints.append(avatarImageView.widthAnchor.constraintEqualToConstant(avatarWidth))
-    layoutConstraints.append(avatarImageView.heightAnchor.constraintEqualToConstant(avatarWidth))
-    NSLayoutConstraint.activateConstraints(layoutConstraints)
+    layoutConstraints.append(stackView.centerXAnchor.constraint(equalTo: centerXAnchor))
+    layoutConstraints.append(avatarImageView.widthAnchor.constraint(equalToConstant: avatarWidth))
+    layoutConstraints.append(avatarImageView.heightAnchor.constraint(equalToConstant: avatarWidth))
+    NSLayoutConstraint.activate(layoutConstraints)
   }
 
   required init?(coder aDecoder: NSCoder) {

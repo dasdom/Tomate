@@ -19,8 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   let kRegisterNotificationSettings = "kRegisterNotificationSettings"
   
   var session: WCSession?
-  
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
+    
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
     
     customizeAppearance()
     
@@ -42,9 +42,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //    var shouldPerformAdditionalDelegateHandling = true
     
     // If a shortcut was launched, display its information and take the appropriate action
-    if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsShortcutItemKey] as? UIApplicationShortcutItem {
+    if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem {
         
-        handleShortcut(shortcutItem.type)
+        _ = handleShortcut(shortcutItem.type)
         
         // This will block "performActionForShortcutItem:completionHandler" from being called.
 //        shouldPerformAdditionalDelegateHandling = false
@@ -53,12 +53,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     return true
   }
   
-  func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+  func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
     print("\(notificationSettings)")
   }
-  
-  func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: (() -> Void)) {
-    print(identifier)
+    
+  func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, for notification: UILocalNotification, withResponseInfo responseInfo: [AnyHashable : Any], completionHandler: @escaping () -> Void) {
+    
+    print(identifier ?? "No action identifier")
     
     if let identifier = identifier {
       if identifier == "BREAK_ACTION" {
@@ -78,15 +79,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     completionHandler()
   }
     
-  func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+  func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
     
-    let handledShortCut = handleShortcut(shortCut: shortcutItem.type)
+    let handledShortCut = handleShortcut(shortcutItem.type)
     
     completionHandler(handledShortCut)
   }
     
-  func handleShortcut(shortCut: String) -> Bool {
-    guard let last = shortCut.componentsSeparated(by: ".").last else { return false }
+  func handleShortcut(_ shortCut: String) -> Bool {
+    guard let last = shortCut.components(separatedBy: ".").last else { return false }
 
     switch last {
     case "Work":
@@ -125,8 +126,19 @@ extension AppDelegate: WCSessionDelegate {
 //      }
 //    })
 //  }
+    
+  //TODO: Apps must implement the session(_:activationDidCompleteWith:error:) method, supporting asynchronous activation. On iOS, you must also implement the sessionDidBecomeInactive(_:) and sessionDidDeactivate(_:) methods, supporting multiple Apple Watches.
+  func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+      //TODO
+  }
+  func sessionDidBecomeInactive(_ session: WCSession) {
+      //TODO
+  }
+  func sessionDidDeactivate(_ session: WCSession) {
+      //TODO
+  }
   
-  func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
+  func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
     print(message)
     guard let actionString = message["action"] as? String else { return }
     DispatchQueue.main.async {  //TODO: Not sure if this is the correct way to update to Swift 3
@@ -146,7 +158,7 @@ extension AppDelegate: WCSessionDelegate {
 
 extension AppDelegate {
   func registerDefaultUserDefaults() {
-    let defaultPreferences = [kRegisterNotificationSettings : true, TimerType.Work.rawValue : 1501, TimerType.Break.rawValue : 301, TimerType.Procrastination.rawValue: 601]
+    let defaultPreferences = [kRegisterNotificationSettings : true, TimerType.Work.rawValue : 1501, TimerType.Break.rawValue : 301, TimerType.Procrastination.rawValue: 601] as [String : Any]  //TODO: Is this correct?
     UserDefaults.standard.register(defaults: defaultPreferences)
     UserDefaults.standard.synchronize()
     
@@ -167,8 +179,8 @@ extension AppDelegate {
       
       let categories = Set([category])
       //      let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Sound], categories: NSSet(object: category) as Set<NSObject>)
-      let notificationSettings = UIUserNotificationSettings(forTypes: [UIUserNotificationType.Alert, UIUserNotificationType.Sound], categories: categories)
-      UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
+      let notificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: categories)
+      UIApplication.shared.registerUserNotificationSettings(notificationSettings)
       
       UserDefaults.standard.set(false, forKey: kRegisterNotificationSettings)
       UserDefaults.standard.synchronize()

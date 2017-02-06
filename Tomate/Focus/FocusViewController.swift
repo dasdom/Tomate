@@ -12,11 +12,11 @@ import WatchConnectivity
 
 final class FocusViewController: UIViewController {
   
-  private var focusView: FocusView! { return self.view as! FocusView }
-  private var timer: Timer?
-  private var endDate: NSDate?
-  private var localNotification: UILocalNotification?
-  private var currentType = TimerType.Idle
+  fileprivate var focusView: FocusView! { return self.view as! FocusView }
+  fileprivate var timer: Timer?
+  fileprivate var endDate: Date?
+  fileprivate var localNotification: UILocalNotification?
+  fileprivate var currentType = TimerType.Idle
 //  private var workPeriods = [NSDate]()
 //  private var numberOfWorkPeriods = 10
   private var totalMinutes = 0
@@ -58,7 +58,7 @@ final class FocusViewController: UIViewController {
     super.viewWillAppear(animated)
     
     if timer == nil {
-      focusView.setDuration(duration: 0, maxValue: 1)
+      focusView.setDuration(0, maxValue: 1)
     }
     
     let duration = UserDefaults.standard.integer(forKey: TimerType.Work.rawValue)
@@ -96,7 +96,7 @@ final class FocusViewController: UIViewController {
     present(DHNavigationController(rootViewController: AboutViewController()), animated: true, completion: nil)
   }
   
-  func setUIModeForTimerType(timerType: TimerType) {
+  func setUIMode(forTimerType timerType: TimerType) {
     UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: [], animations: {
       switch timerType {
       case .Work:
@@ -155,21 +155,21 @@ extension FocusViewController {
       currentType = .Idle
       resetTimer()
 //      focusView.numberOfWorkPeriodsLabel.text = "\(workPeriods.count)/\(numberOfWorkPeriods)"
-      UIApplication.sharedApplication.cancelAllLocalNotifications()
+      UIApplication.shared.cancelAllLocalNotifications()
       return
     }
-    setUIModeForTimerType(currentType)
+    setUIMode(forTimerType: currentType)
     
 //    focusView.numberOfWorkPeriodsLabel.text = "\(workPeriods.count)/\(numberOfWorkPeriods)"
     
-    let seconds = UserDefaults.standardUserDefaults.integerForKey(timerType.rawValue)
+    let seconds = UserDefaults.standard.integer(forKey: timerType.rawValue)
     endDate = Date(timeIntervalSinceNow: Double(seconds))
     
     let endTimeStamp = floor(endDate!.timeIntervalSince1970)
     
     if let sharedDefaults = UserDefaults(suiteName: "group.de.dasdom.Tomate") {
-      sharedDefaults.setDouble(endTimeStamp, forKey: "date")
-      sharedDefaults.setInteger(seconds, forKey: "maxValue")
+      sharedDefaults.set(endTimeStamp, forKey: "date")
+      sharedDefaults.set(seconds, forKey: "maxValue")
       sharedDefaults.synchronize()
     }
     
@@ -185,7 +185,7 @@ extension FocusViewController {
     }
     
     timer?.invalidate()
-    timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(FocusViewController.updateTimeLabel(_:)), userInfo: ["timerType" : seconds], repeats: true)
+    timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(FocusViewController.updateTimeLabel(sender:)), userInfo: ["timerType" : seconds], repeats: true)
     
     UIApplication.shared.cancelAllLocalNotifications()
     
@@ -194,7 +194,7 @@ extension FocusViewController {
     localNotification!.alertBody = "Time for " + typeName + " is up!";
     localNotification!.soundName = UILocalNotificationDefaultSoundName
     localNotification!.category = "START_CATEGORY"
-    UIApplication.sharedApplication().scheduleLocalNotification(localNotification!)
+    UIApplication.shared.scheduleLocalNotification(localNotification!)
     
   }
   
@@ -226,7 +226,7 @@ extension FocusViewController {
     timer = nil
     
     currentType = .Idle
-    setUIModeForTimerType(timerType: .Idle)
+    setUIMode(forTimerType: .Idle)
     
     if let session = session, session.isPaired && session.isWatchAppInstalled {
       do {
