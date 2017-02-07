@@ -49,8 +49,8 @@ final class FocusViewController: UIViewController {
   }
   
   override func viewDidLayoutSubviews() {
-    let minSizeDimension = min(view.frame.size.width, view.frame.size.height)
-    focusView.timerView.timeLabel.font = focusView.timerView.timeLabel.font.fontWithSize((minSizeDimension-2*focusView.sidePadding)*0.9/3.0-10.0)
+    let fontSize = (focusView.timerView.frame.size.width)*0.9/3.0-10.0
+    focusView.timerView.timeLabel.font = focusView.timerView.timeLabel.font.fontWithSize(fontSize)
   }
   
   override func viewWillAppear(animated: Bool) {

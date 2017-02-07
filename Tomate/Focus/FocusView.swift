@@ -107,10 +107,10 @@ final class FocusView: UIView {
     constraints += NSLayoutConstraint.constraintsWithVisualFormat("|-(>=sidePadding)-[timerView]-(>=sidePadding)-|", options: [], metrics: metrics, views: views)
     constraints += NSLayoutConstraint.constraintsWithVisualFormat("|-(==sidePadding@751)-[timerView]-(==sidePadding@751)-|", options: [], metrics: metrics, views: views)
     constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:|-(>=sidePadding)-[timerView]-(>=sidePadding)-|", options: [], metrics: metrics, views: views)
-    constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:|-(==sidePadding@750)-[timerView]-(==sidePadding@750)-|", options: [], metrics: metrics, views: views)
+//    constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:|-(==sidePadding@750)-[timerView]", options: [], metrics: metrics, views: views)
     constraints.append(timerView.widthAnchor.constraintEqualToAnchor(timerView.heightAnchor))
     
-    constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:[timerView]-40-[procrastinateButton(workWidth,breakButton,workButton)]", options: .AlignAllCenterX, metrics: metrics, views: views)
+    constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:[timerView]-20-[procrastinateButton(workWidth,breakButton,workButton)]", options: .AlignAllCenterX, metrics: metrics, views: views)
     
     constraints.append(timerView.centerYAnchor.constraintEqualToAnchor(centerYAnchor, constant: -50))
     

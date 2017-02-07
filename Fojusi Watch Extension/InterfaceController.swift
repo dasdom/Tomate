@@ -24,7 +24,7 @@ final class InterfaceController: WKInterfaceController {
   
   var endDate: NSDate? {
     didSet {
-      if let date = endDate where endDate?.compare(NSDate()) == NSComparisonResult.OrderedDescending {
+      if let date = endDate , endDate?.compare(NSDate()) == NSComparisonResult.OrderedDescending {
         timerInterface.setDate(date)
         timerInterface.start()
         timer?.invalidate()
@@ -100,7 +100,7 @@ extension InterfaceController: WCSessionDelegate {
   
   func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
     let server = CLKComplicationServer.sharedInstance()
-    for complication in server.activeComplications {
+    for complication in server.activeComplications! {
       server.reloadTimelineForComplication(complication)
     }
   }
@@ -120,7 +120,7 @@ extension InterfaceController {
   }
   
   func sendAction(actionSting: String) {
-    if let session = session where session.reachable {
+    if let session = session , session.reachable {
       session.sendMessage(["action": actionSting], replyHandler: nil, errorHandler: nil)
     }
   }

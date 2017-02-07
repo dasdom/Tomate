@@ -21,19 +21,14 @@ final class TimerView: UIView {
   override init(frame: CGRect) {
     
     timerShapeLayer = CAShapeLayer()
-    //        fullShapeLayer = CAShapeLayer()
     secondsShapeLayer = CAShapeLayer()
     
     timeLabel = {
       let label = UILabel()
       label.translatesAutoresizingMaskIntoConstraints = false
-      //            label.font = UIFont.systemFontOfSize(80)
-      //            label.font = UIFont(name: "HiraKakuProN-W3", size: 80)
       label.font = UIFont(name: "HelveticaNeue-Thin", size: 80)
-//      label.adjustsFontSizeToFitWidth = true
       label.textAlignment = .Center
       label.textColor = TimerStyleKit.timerColor
-//      label.backgroundColor = UIColor.yellowColor()
       return label
       }()
     
@@ -43,7 +38,6 @@ final class TimerView: UIView {
     addSubview(timeLabel)
     
     layer.addSublayer(timerShapeLayer)
-    //        layer.addSublayer(fullShapeLayer)
     layer.addSublayer(secondsShapeLayer)
     
     var constraints = [NSLayoutConstraint]()
