@@ -48,11 +48,11 @@ final class SettingsView: UIView {
     workPeriodsSettingsHostView.addSubview(workPeriodsStepper)
     
     
-    workInputHostView = InputHostView(frame: CGRectZero)
+    workInputHostView = InputHostView(frame: CGRect.zero)
     workInputHostView.nameLabel.text = NSLocalizedString("Work duration", comment: "Settings name for the work duration")
     workInputHostView.tag = 0
     
-    breakInputHostView = InputHostView(frame: CGRectZero)
+    breakInputHostView = InputHostView(frame: CGRect.zero)
     breakInputHostView.nameLabel.text = NSLocalizedString("Break duration", comment: "Settings name for the break duration")
     breakInputHostView.tag = 1
     
@@ -68,7 +68,7 @@ final class SettingsView: UIView {
     super.init(frame: frame)
     
     backgroundColor = TimerStyleKit.backgroundColor
-    markerView.backgroundColor = UIColor.yellowColor()
+    markerView.backgroundColor = UIColor.yellow
     
     addSubview(markerView)
     addSubview(workInputHostView)
@@ -79,22 +79,22 @@ final class SettingsView: UIView {
     let views = ["markerView" : markerView, "workHostView" : workInputHostView, "breakHostView" : breakInputHostView, "picker" : pickerView]
     var constraints = [NSLayoutConstraint]()
     
-    constraints += NSLayoutConstraint.constraintsWithVisualFormat("|-5-[workHostView]-5-|", options: [], metrics: nil, views: views)
-    constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:[workHostView(hostHeight,breakHostView)]-hostViewGap-[breakHostView]", options: [.AlignAllLeft, .AlignAllRight], metrics: metrics, views: views)
+    constraints += NSLayoutConstraint.constraints(withVisualFormat: "|-5-[workHostView]-5-|", options: [], metrics: nil, views: views)
+    constraints += NSLayoutConstraint.constraints(withVisualFormat: "V:[workHostView(hostHeight,breakHostView)]-hostViewGap-[breakHostView]", options: [.alignAllLeft, .alignAllRight], metrics: metrics, views: views)
     
-    constraints += NSLayoutConstraint.constraintsWithVisualFormat("|[picker]|", options: [], metrics: nil, views: views)
-    constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:[breakHostView][picker]", options: [], metrics: nil, views: views)
+    constraints += NSLayoutConstraint.constraints(withVisualFormat: "|[picker]|", options: [], metrics: nil, views: views)
+    constraints += NSLayoutConstraint.constraints(withVisualFormat: "V:[breakHostView][picker]", options: [], metrics: nil, views: views)
     
-    NSLayoutConstraint.activateConstraints(constraints)
+    NSLayoutConstraint.activate(constraints)
   }
   
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func setDurationString(string: String) -> TimerType {
+  func setDurationString(_ string: String) -> TimerType {
     var timerType = TimerType.Idle
-    if CGRectContainsPoint(workInputHostView.frame, markerView.center) {
+    if workInputHostView.frame.contains(markerView.center) {
       setWorkDurationString(string)
       timerType = TimerType.Work
     } else {
@@ -104,24 +104,23 @@ final class SettingsView: UIView {
     return timerType
   }
   
-  func setWorkDurationString(string: String) {
+  func setWorkDurationString(_ string: String) {
     workInputHostView.durationLabel.text = string
   }
   
-  func setBreakDurationString(string: String) {
+  func setBreakDurationString(_ string: String) {
     breakInputHostView.durationLabel.text = string
   }
   
-  
-  func moveMarkerToView(view: UIView) {
-    if CGRectContainsPoint(workInputHostView.frame, view.center) {
+  func moveMarker(toView view: UIView) {
+    if workInputHostView.frame.contains(view.center) {
       selectedTimerType = .Work
     } else {
       selectedTimerType = .Break
     }
     
-    UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 5.0, options: [], animations: {
-      self.markerView.frame = CGRectInset(view.frame, -3, -3)
+    UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 5.0, options: [], animations: {
+      self.markerView.frame = view.frame.insetBy(dx: -3, dy: -3)
       }, completion: nil)
   }
   
@@ -153,10 +152,10 @@ final class SettingsView: UIView {
       let views = ["nameLabel" : nameLabel, "durationLabel" : durationLabel]
       var constraints = [NSLayoutConstraint]()
       
-      constraints += NSLayoutConstraint.constraintsWithVisualFormat("|-[nameLabel]-(>=10)-[durationLabel]-|", options: .AlignAllBaseline, metrics: nil, views: views)
-      constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:|-[nameLabel(durationLabel)]-|", options: .AlignAllBaseline, metrics: nil, views: views)
+      constraints += NSLayoutConstraint.constraints(withVisualFormat: "|-[nameLabel]-(>=10)-[durationLabel]-|", options: .alignAllLastBaseline, metrics: nil, views: views)   //TODO: Is alignAllLastBaseline the correct replacement for alignAllBaseline here?
+      constraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-[nameLabel(durationLabel)]-|", options: .alignAllLastBaseline, metrics: nil, views: views)   //TODO: Is alignAllLastBaseline the correct replacement for alignAllBaseline here?
       
-      NSLayoutConstraint.activateConstraints(constraints)
+      NSLayoutConstraint.activate(constraints)
       
     }
     

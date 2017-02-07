@@ -16,19 +16,19 @@ final class InterfaceController: WKInterfaceController {
   @IBOutlet var timerInterface: WKInterfaceTimer!
   @IBOutlet var backgroundGroup: WKInterfaceGroup!
   
-  var timer: NSTimer?
+  var timer: Timer?
   var currentBackgroundImageNumber = 0
   var maxValue = 1
   
   var session: WCSession?
   
-  var endDate: NSDate? {
+  var endDate: Date? {
     didSet {
-      if let date = endDate where endDate?.compare(NSDate()) == NSComparisonResult.OrderedDescending {
-        timerInterface.setDate(date)
+      if let date = endDate, endDate?.compare(Date()) == ComparisonResult.orderedDescending {
+        timerInterface.setDate(date as Date)
         timerInterface.start()
         timer?.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: #selector(InterfaceController.updateUserInterface), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(InterfaceController.updateUserInterface), userInfo: nil, repeats: true)
       } else {
         timerInterface.stop()
         timer?.invalidate()
@@ -36,18 +36,18 @@ final class InterfaceController: WKInterfaceController {
     }
   }
   
-  override func awakeWithContext(context: AnyObject?) {
-    super.awakeWithContext(context)
+  override func awake(withContext context: Any?) {
+    super.awake(withContext: context)
     
-    session = WCSession.defaultSession()
+    session = WCSession.default()
     session?.delegate = self
-    session?.activateSession()
+    session?.activate()
   }
   
   override func willActivate() {
-    let timeStamp = NSUserDefaults.standardUserDefaults().doubleForKey("timeStamp")
-    endDate = NSDate(timeIntervalSince1970: timeStamp)
-    maxValue = NSUserDefaults.standardUserDefaults().integerForKey("maxValue")
+    let timeStamp = UserDefaults.standard.double(forKey: "timeStamp")
+    endDate = Date(timeIntervalSince1970: timeStamp)
+    maxValue = UserDefaults.standard.integer(forKey: "maxValue")
     
     currentBackgroundImageNumber = 0
     
@@ -67,7 +67,7 @@ final class InterfaceController: WKInterfaceController {
       }
         currentBackgroundImageNumber = promillValue
         let formatString = "03"
-        let imageName = "fiveMin\(promillValue.format(formatString))"
+        let imageName = "fiveMin\(promillValue.format(f: formatString))"
         backgroundGroup.setBackgroundImageNamed(imageName)
     }
   }
@@ -75,60 +75,66 @@ final class InterfaceController: WKInterfaceController {
 }
 
 extension InterfaceController: WCSessionDelegate {
-  func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
-    dispatch_async(dispatch_get_main_queue()) { () -> Void in
+    /** Called when the session has completed activation. If session state is WCSessionActivationStateNotActivated there will be an error with more details. */
+    @available(watchOS 2.2, *)
+    public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        //TODO
+    }
+
+  func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+    DispatchQueue.main.async {  //TODO: Not sure if this is the correct way to update to Swift 3
       let timeStamp = applicationContext["date"]! as! Double
       guard timeStamp > 0 else {
         self.timer?.invalidate()
         self.timerInterface.stop()
-        self.timerInterface.setDate(NSDate())
+        self.timerInterface.setDate(Date())
         self.backgroundGroup.setBackgroundImageNamed(nil)
-        NSUserDefaults.standardUserDefaults().removeObjectForKey("timeStamp")
-        NSUserDefaults.standardUserDefaults().removeObjectForKey("maxValue")
+        UserDefaults.standard.removeObject(forKey: "timeStamp")
+        UserDefaults.standard.removeObject(forKey: "maxValue")
         return
       }
       
       self.maxValue = applicationContext["maxValue"] as! Int
-      self.endDate = NSDate(timeIntervalSince1970: timeStamp)
+      self.endDate = Date(timeIntervalSince1970: timeStamp)
       self.currentBackgroundImageNumber = 0
       
-      NSUserDefaults.standardUserDefaults().setDouble(timeStamp, forKey: "timeStamp")
-      NSUserDefaults.standardUserDefaults().setInteger(self.maxValue, forKey: "maxValue")
-      NSUserDefaults.standardUserDefaults().synchronize()
+      UserDefaults.standard.set(timeStamp, forKey: "timeStamp")
+      UserDefaults.standard.set(self.maxValue, forKey: "maxValue")
+      UserDefaults.standard.synchronize()
     }
   }
   
-  func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
+  func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any]) {
     let server = CLKComplicationServer.sharedInstance()
     for complication in server.activeComplications! {
-      server.reloadTimelineForComplication(complication)
+      server.reloadTimeline(for: complication)
     }
   }
 }
 
 extension InterfaceController {
   @IBAction func startWork() {
-    sendAction("work")
+    sendAction(actionString: "work")
   }
   
   @IBAction func startBreak() {
-    sendAction("break")
+    sendAction(actionString: "break")
   }
   
   @IBAction func stopCurrent() {
-    sendAction("stop")
+    sendAction(actionString: "stop")
   }
   
-  func sendAction(actionSting: String) {
-    if let session = session where session.reachable {
-      session.sendMessage(["action": actionSting], replyHandler: nil, errorHandler: nil)
+  func sendAction(actionString: String) {
+    if let session = session, session.isReachable {
+      session.sendMessage(["action": actionString], replyHandler: nil, errorHandler: nil)
     }
   }
 }
 
 extension Int {
   func format(f: String) -> String {
-    return NSString(format: "%\(f)d", self) as String
+    return NSString(format: "%\(f)d" as NSString, self) as String
   }
 }
 
