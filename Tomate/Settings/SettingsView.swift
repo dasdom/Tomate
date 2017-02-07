@@ -112,7 +112,6 @@ final class SettingsView: UIView {
     breakInputHostView.durationLabel.text = string
   }
   
-  
   func moveMarker(toView view: UIView) {
     if workInputHostView.frame.contains(view.center) {
       selectedTimerType = .Work

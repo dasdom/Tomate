@@ -22,7 +22,7 @@ final class InterfaceController: WKInterfaceController {
   
   var session: WCSession?
   
-  var endDate: NSDate? {
+  var endDate: Date? {
     didSet {
       if let date = endDate, endDate?.compare(Date()) == ComparisonResult.orderedDescending {
         timerInterface.setDate(date as Date)
@@ -46,7 +46,7 @@ final class InterfaceController: WKInterfaceController {
   
   override func willActivate() {
     let timeStamp = UserDefaults.standard.double(forKey: "timeStamp")
-    endDate = NSDate(timeIntervalSince1970: timeStamp)
+    endDate = Date(timeIntervalSince1970: timeStamp)
     maxValue = UserDefaults.standard.integer(forKey: "maxValue")
     
     currentBackgroundImageNumber = 0
@@ -81,13 +81,13 @@ extension InterfaceController: WCSessionDelegate {
         //TODO
     }
 
-  private func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
+  func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
     DispatchQueue.main.async {  //TODO: Not sure if this is the correct way to update to Swift 3
       let timeStamp = applicationContext["date"]! as! Double
       guard timeStamp > 0 else {
         self.timer?.invalidate()
         self.timerInterface.stop()
-        self.timerInterface.setDate(NSDate() as Date)
+        self.timerInterface.setDate(Date())
         self.backgroundGroup.setBackgroundImageNamed(nil)
         UserDefaults.standard.removeObject(forKey: "timeStamp")
         UserDefaults.standard.removeObject(forKey: "maxValue")
@@ -95,7 +95,7 @@ extension InterfaceController: WCSessionDelegate {
       }
       
       self.maxValue = applicationContext["maxValue"] as! Int
-      self.endDate = NSDate(timeIntervalSince1970: timeStamp)
+      self.endDate = Date(timeIntervalSince1970: timeStamp)
       self.currentBackgroundImageNumber = 0
       
       UserDefaults.standard.set(timeStamp, forKey: "timeStamp")
@@ -104,7 +104,7 @@ extension InterfaceController: WCSessionDelegate {
     }
   }
   
-  func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
+  func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any]) {
     let server = CLKComplicationServer.sharedInstance()
     for complication in server.activeComplications! {
       server.reloadTimeline(for: complication)
@@ -114,20 +114,20 @@ extension InterfaceController: WCSessionDelegate {
 
 extension InterfaceController {
   @IBAction func startWork() {
-    sendAction(actionSting: "work")
+    sendAction(actionString: "work")
   }
   
   @IBAction func startBreak() {
-    sendAction(actionSting: "break")
+    sendAction(actionString: "break")
   }
   
   @IBAction func stopCurrent() {
-    sendAction(actionSting: "stop")
+    sendAction(actionString: "stop")
   }
   
-  func sendAction(actionSting: String) {
+  func sendAction(actionString: String) {
     if let session = session, session.isReachable {
-      session.sendMessage(["action": actionSting], replyHandler: nil, errorHandler: nil)
+      session.sendMessage(["action": actionString], replyHandler: nil, errorHandler: nil)
     }
   }
 }

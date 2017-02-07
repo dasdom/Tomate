@@ -69,17 +69,17 @@ final class FocusViewController: UIViewController {
   func startWork(sender: UIButton?) {
     print("startWork")
     guard currentType != .Work else { showAlert(); return }
-    startTimerWithType(timerType: .Work)
+    startTimer(withType: .Work)
   }
   
   func startBreak(sender: UIButton?) {
     guard currentType != .Break else { showAlert(); return }
-    startTimerWithType(timerType: .Break)
+    startTimer(withType: .Break)
   }
   
   func startProcrastination(sender: UIButton) {
     guard currentType != .Procrastination else { showAlert(); return }
-    startTimerWithType(timerType: .Procrastination)
+    startTimer(withType: .Procrastination)
   }
   
   func showSettings() {
@@ -135,7 +135,7 @@ final class FocusViewController: UIViewController {
 //MARK: - timer methods
 extension FocusViewController {
   
-  func startTimerWithType(timerType: TimerType) {
+  func startTimer(withType timerType: TimerType) {
     
     focusView.setDuration(0, maxValue: 1)
     var typeName: String
@@ -288,9 +288,9 @@ private extension FocusViewController {
     case .Work:
       alertMessage += NSLocalizedString("work timer?", comment: "second part of alert message")
     case .Break:
-      alertMessage += NSLocalizedString("break timer?", comment: "secont part of alert message")
+      alertMessage += NSLocalizedString("break timer?", comment: "second part of alert message")
     case .Procrastination:
-      alertMessage += NSLocalizedString("procrastination?", comment: "secont part of alert message")
+      alertMessage += NSLocalizedString("procrastination?", comment: "second part of alert message")
     default:
       break
     }
@@ -306,7 +306,7 @@ private extension FocusViewController {
 //      if self.currentType == .Work || self.workPeriods.count > 0 {
 //        self.workPeriods.removeLast()
 //      }
-      self.startTimerWithType(timerType: .Idle)
+      self.startTimer(withType: .Idle)
     })
     alertController.addAction(stopAction)
     

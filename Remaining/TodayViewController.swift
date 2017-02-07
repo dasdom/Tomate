@@ -11,7 +11,7 @@ import NotificationCenter
 
 final class TodayViewController: UIViewController, NCWidgetProviding {
   
-  var endDate: NSDate?
+  var endDate: Date?
   var timer: Timer?
   var maxValue: Int?
   
@@ -46,7 +46,7 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
       return UIEdgeInsets.zero
   }
   
-  func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
+  func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
     // Perform any setup necessary in order to update the view.
     
     // If an error is encountered, use NCUpdateResult.Failed
@@ -56,7 +56,7 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
     if let defaults = UserDefaults(suiteName: "group.de.dasdom.Tomate") {
       let startDateAsTimeStamp = defaults.double(forKey: "date")
       print("startDate: \(startDateAsTimeStamp)")
-      endDate = NSDate(timeIntervalSince1970: startDateAsTimeStamp)
+      endDate = Date(timeIntervalSince1970: startDateAsTimeStamp)
       maxValue = defaults.integer(forKey: "maxValue")
     }
     //        println("endDate \(endDate)")

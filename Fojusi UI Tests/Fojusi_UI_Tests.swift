@@ -37,46 +37,46 @@ class Fojusi_UI_Tests: XCTestCase {
   }
   
   func testSelectingBreak_DisablesOtherButtons() {
-    XCTAssertTrue(procrastinateButton.enabled)
-    XCTAssertTrue(workButton.enabled)
-    XCTAssertTrue(breakButton.enabled)
+    XCTAssertTrue(procrastinateButton.isEnabled)
+    XCTAssertTrue(workButton.isEnabled)
+    XCTAssertTrue(breakButton.isEnabled)
     
     breakButton.tap()
     
-    XCTAssertFalse(procrastinateButton.enabled)
-    XCTAssertFalse(workButton.enabled)
+    XCTAssertFalse(procrastinateButton.isEnabled)
+    XCTAssertFalse(workButton.isEnabled)
     
-    XCTAssertTrue(breakButton.enabled)
+    XCTAssertTrue(breakButton.isEnabled)
     breakButton.tap()
     app.alerts["Stop?"].collectionViews.buttons["Stop"].tap()
   }
   
   func testSelectingWork_DisablesOtherButtons() {
-    XCTAssertTrue(procrastinateButton.enabled)
-    XCTAssertTrue(workButton.enabled)
-    XCTAssertTrue(breakButton.enabled)
+    XCTAssertTrue(procrastinateButton.isEnabled)
+    XCTAssertTrue(workButton.isEnabled)
+    XCTAssertTrue(breakButton.isEnabled)
     
     workButton.tap()
     
-    XCTAssertFalse(procrastinateButton.enabled)
-    XCTAssertFalse(breakButton.enabled)
+    XCTAssertFalse(procrastinateButton.isEnabled)
+    XCTAssertFalse(breakButton.isEnabled)
     
-    XCTAssertTrue(workButton.enabled)
+    XCTAssertTrue(workButton.isEnabled)
     workButton.tap()
     app.alerts["Stop?"].collectionViews.buttons["Stop"].tap()
   }
   
   func testSelectingProcrastinate_DisablesOtherButtons() {
-    XCTAssertTrue(procrastinateButton.enabled)
-    XCTAssertTrue(workButton.enabled)
-    XCTAssertTrue(breakButton.enabled)
+    XCTAssertTrue(procrastinateButton.isEnabled)
+    XCTAssertTrue(workButton.isEnabled)
+    XCTAssertTrue(breakButton.isEnabled)
     
     procrastinateButton.tap()
     
-    XCTAssertFalse(workButton.enabled)
-    XCTAssertFalse(breakButton.enabled)
+    XCTAssertFalse(workButton.isEnabled)
+    XCTAssertFalse(breakButton.isEnabled)
     
-    XCTAssertTrue(procrastinateButton.enabled)
+    XCTAssertTrue(procrastinateButton.isEnabled)
     procrastinateButton.tap()
     app.alerts["Stop?"].collectionViews.buttons["Stop"].tap()
   }
@@ -85,20 +85,20 @@ class Fojusi_UI_Tests: XCTestCase {
     
     app.buttons["Settings"].tap()
     
-    app.pickerWheels.element.adjustToPickerWheelValue("55 min")
+    app.pickerWheels.element.adjust(toPickerWheelValue: "55 min")
     XCTAssertTrue(app.staticTexts["55 min"].exists)
-    app.pickerWheels.element.adjustToPickerWheelValue("10 min")
+    app.pickerWheels.element.adjust(toPickerWheelValue: "10 min")
     XCTAssertTrue(app.staticTexts["10 min"].exists)
-    app.pickerWheels.element.adjustToPickerWheelValue("25 min")
+    app.pickerWheels.element.adjust(toPickerWheelValue: "25 min")
     XCTAssertTrue(app.staticTexts["25 min"].exists)
 
     app.staticTexts["Break duration"].tap()
-    app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.tap()
-    app.pickerWheels.element.adjustToPickerWheelValue("1 min")
+    app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.tap()
+    app.pickerWheels.element.adjust(toPickerWheelValue: "1 min")
     XCTAssertTrue(app.staticTexts["1 min"].exists)
-    app.pickerWheels.element.adjustToPickerWheelValue("10 min")
+    app.pickerWheels.element.adjust(toPickerWheelValue: "10 min")
     XCTAssertTrue(app.staticTexts["10 min"].exists)
-    app.pickerWheels.element.adjustToPickerWheelValue("5 min")
+    app.pickerWheels.element.adjust(toPickerWheelValue: "5 min")
     XCTAssertTrue(app.staticTexts["5 min"].exists)
 
     app.navigationBars["Settings"].buttons["Done"].tap()

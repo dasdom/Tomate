@@ -91,9 +91,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     switch last {
     case "Work":
-      self.focusViewController?.startTimerWithType(timerType: .Work)
+      self.focusViewController?.startTimer(withType: .Work)
     case "Break":
-      self.focusViewController?.startTimerWithType(timerType: .Break)
+      self.focusViewController?.startTimer(withType: .Break)
     default:
       return false
     }
@@ -144,11 +144,11 @@ extension AppDelegate: WCSessionDelegate {
     DispatchQueue.main.async {  //TODO: Not sure if this is the correct way to update to Swift 3
       switch actionString {
       case "work":
-        self.focusViewController?.startTimerWithType(timerType: .Work)
+        self.focusViewController?.startTimer(withType: .Work)
       case "break":
-        self.focusViewController?.startTimerWithType(timerType: .Break)
+        self.focusViewController?.startTimer(withType: .Break)
       case "stop":
-        self.focusViewController?.startTimerWithType(timerType: .Idle)
+        self.focusViewController?.startTimer(withType: .Idle)
       default:
         break
       }
