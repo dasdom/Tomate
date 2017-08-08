@@ -33,4 +33,6 @@ Dominik Hauser
 
 ## Licence
 
-Public domain. Do with it what ever you like.
+CC0
+
+https://creativecommons.org/publicdomain/zero/1.0/
