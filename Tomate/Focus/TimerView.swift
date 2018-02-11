@@ -163,8 +163,6 @@ final class TimerView: UIView {
   
   func updateTimer() {
     
-    //TODO: Fix 1-second-bug (idle timer shows 1 second when not in remaining mode)
-    
     var percentage: CGFloat
     var dummyInt: Int
     if !showRemaining {
@@ -184,7 +182,7 @@ final class TimerView: UIView {
       
     }
     
-    if !showRemaining {
+    if durationInSeconds > 0 && !showRemaining {
       durationInSeconds = maxValue - durationInSeconds
     }
     let seconds = Int(durationInSeconds.truncatingRemainder(dividingBy: 60))
