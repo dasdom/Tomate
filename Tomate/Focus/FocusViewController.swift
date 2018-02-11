@@ -9,14 +9,15 @@
 import UIKit
 import AudioToolbox
 import WatchConnectivity
+import UserNotifications
 
 final class FocusViewController: UIViewController {
   
-  private var focusView: FocusView! { return self.view as! FocusView }
-  private var timer: NSTimer?
-  private var endDate: NSDate?
-  private var localNotification: UILocalNotification?
-  private var currentType = TimerType.Idle
+  fileprivate var focusView: FocusView! { return self.view as! FocusView }
+  fileprivate var timer: Timer?
+  fileprivate var endDate: Date?
+  fileprivate var localNotification: UNNotificationRequest?
+  fileprivate var currentType = TimerType.Idle
 //  private var workPeriods = [NSDate]()
 //  private var numberOfWorkPeriods = 10
   private var totalMinutes = 0
@@ -31,36 +32,37 @@ final class FocusViewController: UIViewController {
     view = FocusView(frame: .zero)
   }
   
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return UIStatusBarStyle.LightContent
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+    return UIStatusBarStyle.lightContent
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    focusView.workButton.addTarget(self, action: "startWork:", forControlEvents: .TouchUpInside)
-    focusView.breakButton.addTarget(self, action: "startBreak:", forControlEvents: .TouchUpInside)
-    focusView.procrastinateButton.addTarget(self, action: "startProcrastination:", forControlEvents: .TouchUpInside)
-    focusView.settingsButton.addTarget(self, action: "showSettings", forControlEvents: .TouchUpInside)
-    focusView.aboutButton.addTarget(self, action: "showAbout", forControlEvents: .TouchUpInside)
+    focusView.workButton.addTarget(self, action: #selector(FocusViewController.startWork(sender:)), for: .touchUpInside)
+    focusView.breakButton.addTarget(self, action: #selector(FocusViewController.startBreak(sender:)),
+        for: .touchUpInside)
+    focusView.procrastinateButton.addTarget(self, action: #selector(FocusViewController.startProcrastination(sender:)), for: .touchUpInside)
+    focusView.settingsButton.addTarget(self, action: #selector(FocusViewController.showSettings), for: .touchUpInside)
+    focusView.aboutButton.addTarget(self, action: #selector(FocusViewController.showAbout), for: .touchUpInside)
     
 //    let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "showSettingsFromLongPross:")
 //    focusView.addGestureRecognizer(longPressRecognizer)
   }
   
   override func viewDidLayoutSubviews() {
-    let fontSize = (focusView.timerView.frame.size.width)*0.9/3.0-10.0
-    focusView.timerView.timeLabel.font = focusView.timerView.timeLabel.font.fontWithSize(fontSize)
+    let minSizeDimension = min(view.frame.size.width, view.frame.size.height)
+    focusView.timerView.timeLabel.font = focusView.timerView.timeLabel.font.withSize((minSizeDimension-2*focusView.sidePadding)*0.9/3.0-10.0)
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
     if timer == nil {
       focusView.setDuration(0, maxValue: 1)
     }
     
-    let duration = NSUserDefaults.standardUserDefaults().integerForKey(TimerType.Work.rawValue)
+    let duration = UserDefaults.standard.integer(forKey: TimerType.Work.rawValue)
     print("duration: \(duration)")
   }
   
@@ -68,52 +70,52 @@ final class FocusViewController: UIViewController {
   func startWork(sender: UIButton?) {
     print("startWork")
     guard currentType != .Work else { showAlert(); return }
-    startTimerWithType(.Work)
+    startTimer(withType: .Work)
   }
   
   func startBreak(sender: UIButton?) {
     guard currentType != .Break else { showAlert(); return }
-    startTimerWithType(.Break)
+    startTimer(withType: .Break)
   }
   
   func startProcrastination(sender: UIButton) {
     guard currentType != .Procrastination else { showAlert(); return }
-    startTimerWithType(.Procrastination)
+    startTimer(withType: .Procrastination)
   }
   
   func showSettings() {
-    presentViewController(DHNavigationController(rootViewController: SettingsViewController()), animated: true, completion: nil)
+    present(DHNavigationController(rootViewController: SettingsViewController()), animated: true, completion: nil)
   }
   
   func showSettingsFromLongPross(sender: UILongPressGestureRecognizer) {
-    if sender.state == .Began {
+    if sender.state == .began {
       showSettings()
     }
   }
   
   func showAbout() {
-    presentViewController(DHNavigationController(rootViewController: AboutViewController()), animated: true, completion: nil)
+    present(DHNavigationController(rootViewController: AboutViewController()), animated: true, completion: nil)
   }
   
-  func setUIModeForTimerType(timerType: TimerType) {
-    UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: [], animations: {
+  func setUIMode(forTimerType timerType: TimerType) {
+    UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: [], animations: {
       switch timerType {
       case .Work:
-        self.set(self.focusView.workButton, enabled: true)
-        self.set(self.focusView.breakButton, enabled: false)
-        self.set(self.focusView.procrastinateButton, enabled: false)
+        self.set(button: self.focusView.workButton, enabled: true)
+        self.set(button: self.focusView.breakButton, enabled: false)
+        self.set(button: self.focusView.procrastinateButton, enabled: false)
       case .Break:
-        self.set(self.focusView.workButton, enabled: false)
-        self.set(self.focusView.breakButton, enabled: true)
-        self.set(self.focusView.procrastinateButton, enabled: false)
+        self.set(button: self.focusView.workButton, enabled: false)
+        self.set(button: self.focusView.breakButton, enabled: true)
+        self.set(button: self.focusView.procrastinateButton, enabled: false)
       case .Procrastination:
-        self.set(self.focusView.workButton, enabled: false)
-        self.set(self.focusView.breakButton, enabled: false)
-        self.set(self.focusView.procrastinateButton, enabled: true)
+        self.set(button: self.focusView.workButton, enabled: false)
+        self.set(button: self.focusView.breakButton, enabled: false)
+        self.set(button: self.focusView.procrastinateButton, enabled: true)
       default:
-        self.set(self.focusView.workButton, enabled: true)
-        self.set(self.focusView.breakButton, enabled: true)
-        self.set(self.focusView.procrastinateButton, enabled: true)
+        self.set(button: self.focusView.workButton, enabled: true)
+        self.set(button: self.focusView.breakButton, enabled: true)
+        self.set(button: self.focusView.procrastinateButton, enabled: true)
       }
       
       }, completion: nil)
@@ -121,10 +123,10 @@ final class FocusViewController: UIViewController {
   
   func set(button: UIButton, enabled: Bool) {
     if enabled {
-      button.enabled = true
+      button.isEnabled = true
       button.alpha = 1.0
     } else {
-      button.enabled = false
+      button.isEnabled = false
       button.alpha = 0.3
     }
   }
@@ -134,7 +136,7 @@ final class FocusViewController: UIViewController {
 //MARK: - timer methods
 extension FocusViewController {
   
-  func startTimerWithType(timerType: TimerType) {
+  func startTimer(withType timerType: TimerType) {
     
     focusView.setDuration(0, maxValue: 1)
     var typeName: String
@@ -154,25 +156,25 @@ extension FocusViewController {
       currentType = .Idle
       resetTimer()
 //      focusView.numberOfWorkPeriodsLabel.text = "\(workPeriods.count)/\(numberOfWorkPeriods)"
-      UIApplication.sharedApplication().cancelAllLocalNotifications()
+      UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
       return
     }
-    setUIModeForTimerType(currentType)
+    setUIMode(forTimerType: currentType)
     
 //    focusView.numberOfWorkPeriodsLabel.text = "\(workPeriods.count)/\(numberOfWorkPeriods)"
     
-    let seconds = NSUserDefaults.standardUserDefaults().integerForKey(timerType.rawValue)
-    endDate = NSDate(timeIntervalSinceNow: Double(seconds))
+    let seconds = UserDefaults.standard.integer(forKey: timerType.rawValue)
+    endDate = Date(timeIntervalSinceNow: Double(seconds))
     
     let endTimeStamp = floor(endDate!.timeIntervalSince1970)
     
-    if let sharedDefaults = NSUserDefaults(suiteName: "group.de.dasdom.Tomate") {
-      sharedDefaults.setDouble(endTimeStamp, forKey: "date")
-      sharedDefaults.setInteger(seconds, forKey: "maxValue")
+    if let sharedDefaults = UserDefaults(suiteName: "group.de.dasdom.Tomate") {
+      sharedDefaults.set(endTimeStamp, forKey: "date")
+      sharedDefaults.set(seconds, forKey: "maxValue")
       sharedDefaults.synchronize()
     }
     
-    if let session = session where session.paired && session.watchAppInstalled {
+    if let session = session, session.isPaired && session.isWatchAppInstalled {
       do {
         try session.updateApplicationContext(["date": endTimeStamp, "maxValue": seconds])
       } catch {
@@ -184,20 +186,30 @@ extension FocusViewController {
     }
     
     timer?.invalidate()
-    timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "updateTimeLabel:", userInfo: ["timerType" : seconds], repeats: true)
+    timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(FocusViewController.updateTimeLabel(sender:)), userInfo: ["timerType" : seconds], repeats: true)
     
-    UIApplication.sharedApplication().cancelAllLocalNotifications()
+    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     
-    localNotification = UILocalNotification()
-    localNotification!.fireDate = endDate
-    localNotification!.alertBody = "Time for " + typeName + " is up!";
-    localNotification!.soundName = UILocalNotificationDefaultSoundName
-    localNotification!.category = "START_CATEGORY"
-    UIApplication.sharedApplication().scheduleLocalNotification(localNotification!)
+    let notificationContent = UNMutableNotificationContent()
+    notificationContent.body = "Time for \(typeName) is up!"
+    notificationContent.sound = UNNotificationSound.default()
+    notificationContent.categoryIdentifier = "START_CATEGORY"
+    
+    localNotification = UNNotificationRequest(identifier: "TimeIsUp", content: notificationContent, trigger: nil)
+    
+//    localNotification!.fireDate = endDate
+//    localNotification!.alertBody = "Time for " + typeName + " is up!";
+//    localNotification!.soundName = UILocalNotificationDefaultSoundName
+//    localNotification!.category = "START_CATEGORY"
+//    UIApplication.shared.scheduleLocalNotification(localNotification!)
+
+    if let notification = localNotification {
+        UNUserNotificationCenter.current().add(notification, withCompletionHandler: nil)
+    }
     
   }
   
-  func updateTimeLabel(sender: NSTimer) {
+  func updateTimeLabel(sender: Timer) {
     
     var totalNumberOfSeconds: CGFloat
     if let type = (sender.userInfo as! NSDictionary!)["timerType"] as? Int {
@@ -225,9 +237,9 @@ extension FocusViewController {
     timer = nil
     
     currentType = .Idle
-    setUIModeForTimerType(.Idle)
+    setUIMode(forTimerType: .Idle)
     
-    if let session = session where session.paired && session.watchAppInstalled {
+    if let session = session, session.isPaired && session.isWatchAppInstalled {
       do {
         try session.updateApplicationContext(["date": -1.0, "maxValue": -1.0])
       } catch {
@@ -236,8 +248,8 @@ extension FocusViewController {
       session.transferCurrentComplicationUserInfo(["date": -1.0, "maxValue": -1.0])
     }
     
-    if let sharedDefaults = NSUserDefaults(suiteName: "group.de.dasdom.Tomate") {
-      sharedDefaults.removeObjectForKey("date")
+    if let sharedDefaults = UserDefaults(suiteName: "group.de.dasdom.Tomate") {
+      sharedDefaults.removeObject(forKey: "date")
       sharedDefaults.synchronize()
     }
   }
@@ -287,29 +299,29 @@ private extension FocusViewController {
     case .Work:
       alertMessage += NSLocalizedString("work timer?", comment: "second part of alert message")
     case .Break:
-      alertMessage += NSLocalizedString("break timer?", comment: "secont part of alert message")
+      alertMessage += NSLocalizedString("break timer?", comment: "second part of alert message")
     case .Procrastination:
-      alertMessage += NSLocalizedString("procrastination?", comment: "secont part of alert message")
+      alertMessage += NSLocalizedString("procrastination?", comment: "second part of alert message")
     default:
       break
     }
-    let alertController = UIAlertController(title: "Stop?", message: alertMessage, preferredStyle: .Alert)
+    let alertController = UIAlertController(title: "Stop?", message: alertMessage, preferredStyle: .alert)
     
-    let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: { action in
+    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
       print("\(action)")
     })
     alertController.addAction(cancelAction)
     
-    let stopAction = UIAlertAction(title: "Stop", style: .Default, handler: { action in
+    let stopAction = UIAlertAction(title: "Stop", style: .default, handler: { action in
       print("\(action)")
 //      if self.currentType == .Work || self.workPeriods.count > 0 {
 //        self.workPeriods.removeLast()
 //      }
-      self.startTimerWithType(.Idle)
+      self.startTimer(withType: .Idle)
     })
     alertController.addAction(stopAction)
     
-    presentViewController(alertController, animated: true, completion: nil)
+    present(alertController, animated: true, completion: nil)
   }
   
 }

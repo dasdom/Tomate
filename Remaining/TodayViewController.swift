@@ -11,8 +11,8 @@ import NotificationCenter
 
 final class TodayViewController: UIViewController, NCWidgetProviding {
   
-  var endDate: NSDate?
-  var timer: NSTimer?
+  var endDate: Date?
+  var timer: Timer?
   var maxValue: Int?
   
   var timerView: TimerView!
@@ -24,40 +24,40 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
     timerView.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(timerView)
     
-    let button = UIButton(type: .Custom)
+    let button = UIButton(type: .custom)
     button.translatesAutoresizingMaskIntoConstraints = false
-    button.addTarget(self, action: "openApp", forControlEvents: .TouchUpInside)
+    button.addTarget(self, action: #selector(TodayViewController.openApp), for: .touchUpInside)
     view.addSubview(button)
     
     var constraints = [NSLayoutConstraint]()
-    constraints.append(timerView.widthAnchor.constraintEqualToConstant(100))
-    constraints.append(timerView.heightAnchor.constraintEqualToConstant(100))
-    constraints.append(timerView.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor))
-    constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[timer]-10@999-|", options: [], metrics: nil, views: ["timer": timerView])
-    constraints += NSLayoutConstraint.constraintsWithVisualFormat("|[button]|", options: [], metrics: nil, views: ["button": button])
-    constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:|[button]-0@999-|", options: [], metrics: nil, views: ["button": button])
-    NSLayoutConstraint.activateConstraints(constraints)
+    constraints.append(timerView.widthAnchor.constraint(equalToConstant: 100))
+    constraints.append(timerView.heightAnchor.constraint(equalToConstant: 100))
+    constraints.append(timerView.centerXAnchor.constraint(equalTo: view.centerXAnchor))
+    constraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[timer]-10@999-|", options: [], metrics: nil, views: ["timer": timerView])
+    constraints += NSLayoutConstraint.constraints(withVisualFormat: "|[button]|", options: [], metrics: nil, views: ["button": button])
+    constraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|[button]-0@999-|", options: [], metrics: nil, views: ["button": button])
+    NSLayoutConstraint.activate(constraints)
     
-    timerView.timeLabel.font = timerView.timeLabel.font.fontWithSize(CGFloat(100.0*0.9/3.0-10.0))
+    timerView.timeLabel.font = timerView.timeLabel.font.withSize(CGFloat(100.0*0.9/3.0-10.0))
   }
   
   func widgetMarginInsetsForProposedMarginInsets
     (defaultMarginInsets: UIEdgeInsets) -> (UIEdgeInsets) {
-      return UIEdgeInsetsZero
+      return UIEdgeInsets.zero
   }
   
-  func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
+  func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
     // Perform any setup necessary in order to update the view.
     
     // If an error is encountered, use NCUpdateResult.Failed
     // If there's no update required, use NCUpdateResult.NoData
     // If there's an update, use NCUpdateResult.NewData
     
-    if let defaults = NSUserDefaults(suiteName: "group.de.dasdom.Tomate") {
-      let startDateAsTimeStamp = defaults.doubleForKey("date")
+    if let defaults = UserDefaults(suiteName: "group.de.dasdom.Tomate") {
+      let startDateAsTimeStamp = defaults.double(forKey: "date")
       print("startDate: \(startDateAsTimeStamp)")
-      endDate = NSDate(timeIntervalSince1970: startDateAsTimeStamp)
-      maxValue = defaults.integerForKey("maxValue")
+      endDate = Date(timeIntervalSince1970: startDateAsTimeStamp)
+      maxValue = defaults.integer(forKey: "maxValue")
     }
     //        println("endDate \(endDate)")
     
@@ -66,10 +66,10 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
 
     timer?.invalidate()
     if endDate != nil {
-      timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "updateLabel", userInfo: nil, repeats: true)
+      timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(TodayViewController.updateLabel), userInfo: nil, repeats: true)
     }
     
-    completionHandler(NCUpdateResult.NewData)
+    completionHandler(NCUpdateResult.newData)
   }
   
   func updateLabel() {
@@ -77,15 +77,16 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
     if durationInSeconds > 0 {
       timerView.durationInSeconds = CGFloat(durationInSeconds)
       timerView.maxValue = CGFloat(maxValue!)
-      timerView.setNeedsDisplay()
+//      timerView.setNeedsDisplay()
+        timerView.updateTimer()
     } else {
       timer?.invalidate()
     }
   }
     
   func openApp() {
-    let myAppUrl = NSURL(string: "fojusi://")!
-    extensionContext?.openURL(myAppUrl, completionHandler: { (success) in
+    let myAppUrl = URL(string: "fojusi://")!
+    extensionContext?.open(myAppUrl, completionHandler: { (success) in
       if (!success) {
         // let the user know it failed
       }
@@ -95,7 +96,8 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
 }
 
 extension Int {
-  func format(f: String) -> String {
-    return NSString(format: "%\(f)d", self) as String
-  }
+    func format(f: String) -> String {
+        //        return NSString(format: "%\(f)d", self) as String
+        return String(format: "%\(f)d", self)
+    }
 }

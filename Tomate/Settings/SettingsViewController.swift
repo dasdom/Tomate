@@ -13,14 +13,14 @@ import UIKit
 final class SettingsViewController: UIViewController {
   
   var settingsView: SettingsView {return view as! SettingsView}
-  var workTimes = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
-  var breakTimes = [1, 2, 5, 10]
+  var workTimes = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120]
+  var breakTimes = [1, 2, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]
   
-  private var currentWorkDurationInMinutes = NSUserDefaults.standardUserDefaults().integerForKey(TimerType.Work.rawValue) / 60
-  private var currentBreakDurationInMinutes = NSUserDefaults.standardUserDefaults().integerForKey(TimerType.Break.rawValue) / 60
+  fileprivate var currentWorkDurationInMinutes = UserDefaults.standard.integer(forKey: TimerType.Work.rawValue) / 60
+  fileprivate var currentBreakDurationInMinutes = UserDefaults.standard.integer(forKey: TimerType.Break.rawValue) / 60
   
   override func loadView() {
-    view = SettingsView(frame: CGRectZero)
+    view = SettingsView(frame: CGRect.zero)
   }
   
   override func viewDidLoad() {
@@ -28,30 +28,29 @@ final class SettingsViewController: UIViewController {
     
     settingsView.pickerView.dataSource = self
     settingsView.pickerView.delegate = self
-    
-    let workGestureRecognizer = UITapGestureRecognizer(target: self, action: "moveMarker:")
+    let workGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SettingsViewController.moveMarker(sender:)))
     settingsView.workInputHostView.addGestureRecognizer(workGestureRecognizer)
     
-    let breakGestureRecognizer = UITapGestureRecognizer(target: self, action: "moveMarker:")
+    let breakGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SettingsViewController.moveMarker(sender:)))
     settingsView.breakInputHostView.addGestureRecognizer(breakGestureRecognizer)
     
     title = "Settings"
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
     let views = ["topLayoutGuide" : topLayoutGuide, "workInputHostView" : settingsView.workInputHostView] as [String: AnyObject]
-    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[topLayoutGuide]-10-[workInputHostView]", options: [], metrics: nil, views: views))
+    view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[topLayoutGuide]-10-[workInputHostView]", options: [], metrics: nil, views: views))
     
-    let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "dismissSettings")
+    let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(SettingsViewController.dismissSettings))
     navigationItem.rightBarButtonItem = doneButton
     
     settingsView.setWorkDurationString("\(currentWorkDurationInMinutes) min")
     settingsView.setBreakDurationString("\(currentBreakDurationInMinutes) min")
     
     var row = 0
-    for (index, minutes) in workTimes.enumerate() {
+    for (index, minutes) in workTimes.enumerated() {
       if minutes == currentWorkDurationInMinutes {
         row = index
         break
@@ -61,14 +60,14 @@ final class SettingsViewController: UIViewController {
     
   }
   
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     
-    settingsView.moveMarkerToView(settingsView.workInputHostView)
+    settingsView.moveMarker(toView: settingsView.workInputHostView)
   }
   
   func dismissSettings() {
-    dismissViewControllerAnimated(true, completion: nil)
+    dismiss(animated: true, completion: nil)
   }
   
 }
@@ -76,11 +75,11 @@ final class SettingsViewController: UIViewController {
 //MARK: - UIPickerViewDelegate, UIPickerViewDataSource
 extension SettingsViewController : UIPickerViewDelegate, UIPickerViewDataSource {
 
-  func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+  func numberOfComponents(in pickerView: UIPickerView) -> Int {
     return 1
   }
   
-  func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+  func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
     switch settingsView.selectedTimerType {
     case .Work:
       return workTimes.count
@@ -89,7 +88,7 @@ extension SettingsViewController : UIPickerViewDelegate, UIPickerViewDataSource 
     }
   }
   
-  func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+  func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
     var minutes = 0
     switch settingsView.selectedTimerType {
     case .Work:
@@ -97,11 +96,11 @@ extension SettingsViewController : UIPickerViewDelegate, UIPickerViewDataSource 
     default:
       minutes = breakTimes[row]
     }
-    let attributedTitle = NSAttributedString(string: "\(minutes) min", attributes: [NSForegroundColorAttributeName : UIColor.yellowColor()])
+    let attributedTitle = NSAttributedString(string: "\(minutes) min", attributes: [NSForegroundColorAttributeName : UIColor.yellow])
     return attributedTitle
   }
   
-  func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+  func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
     var minutes = 0
     switch settingsView.selectedTimerType {
     case .Work:
@@ -114,12 +113,12 @@ extension SettingsViewController : UIPickerViewDelegate, UIPickerViewDataSource 
     
     let timerType = settingsView.setDurationString("\(minutes) min")
     let seconds = minutes*60+1
-    NSUserDefaults.standardUserDefaults().setInteger(seconds, forKey: timerType.rawValue)
-    NSUserDefaults.standardUserDefaults().synchronize()
+    UserDefaults.standard.set(seconds, forKey: timerType.rawValue)
+    UserDefaults.standard.synchronize()
   }
   
   func moveMarker(sender: UITapGestureRecognizer) {
-    settingsView.moveMarkerToView(sender.view!)
+    settingsView.moveMarker(toView: sender.view!)
     settingsView.pickerView.reloadAllComponents()
     
     var times: [Int]
@@ -134,7 +133,7 @@ extension SettingsViewController : UIPickerViewDelegate, UIPickerViewDataSource 
     }
     
     var row = 0
-    for (index, minutes) in times.enumerate() {
+    for (index, minutes) in times.enumerated() {
       if minutes == currentDuration {
         row = index
         break

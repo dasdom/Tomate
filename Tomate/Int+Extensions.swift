@@ -10,6 +10,7 @@ import Foundation
 
 extension Int {
     func format(f: String) -> String {
-        return NSString(format: "%\(f)d", self) as String
+//        return NSString(format: "%\(f)d", self) as String
+        return String(format: "%\(f)d", self)
     }
 }
