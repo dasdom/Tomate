@@ -72,7 +72,7 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
     completionHandler(NCUpdateResult.newData)
   }
   
-  func updateLabel() {
+  @objc func updateLabel() {
     let durationInSeconds = endDate!.timeIntervalSinceNow
     if durationInSeconds > 0 {
       timerView.durationInSeconds = CGFloat(durationInSeconds)
@@ -84,7 +84,7 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
     }
   }
     
-  func openApp() {
+  @objc func openApp() {
     let myAppUrl = URL(string: "fojusi://")!
     extensionContext?.open(myAppUrl, completionHandler: { (success) in
       if (!success) {

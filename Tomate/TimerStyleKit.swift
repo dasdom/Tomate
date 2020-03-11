@@ -303,7 +303,7 @@ public class TimerStyleKit : NSObject {
     UIGraphicsBeginImageContextWithOptions(CGSize(width: 44, height: 44), false, 0)
     TimerStyleKit.drawSettings()
     
-    Cache.imageOfSettings = UIGraphicsGetImageFromCurrentImageContext()?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+    Cache.imageOfSettings = UIGraphicsGetImageFromCurrentImageContext()?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
     UIGraphicsEndImageContext()
     
     return Cache.imageOfSettings!
@@ -317,7 +317,7 @@ public class TimerStyleKit : NSObject {
     UIGraphicsBeginImageContextWithOptions(CGSize(width: 44, height: 44), false, 0)
     TimerStyleKit.drawInfo()
     
-    Cache.imageOfInfo = UIGraphicsGetImageFromCurrentImageContext()?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+    Cache.imageOfInfo = UIGraphicsGetImageFromCurrentImageContext()?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
     UIGraphicsEndImageContext()
     
     return Cache.imageOfInfo!

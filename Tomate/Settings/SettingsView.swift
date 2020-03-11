@@ -63,7 +63,7 @@ final class SettingsView: UIView {
       return pickerView
       }()
     
-    selectedTimerType = TimerType.Work
+    selectedTimerType = TimerType.work
     
     super.init(frame: frame)
     
@@ -93,13 +93,13 @@ final class SettingsView: UIView {
   }
   
   func setDurationString(_ string: String) -> TimerType {
-    var timerType = TimerType.Idle
+    var timerType = TimerType.idle
     if workInputHostView.frame.contains(markerView.center) {
       setWorkDurationString(string)
-      timerType = TimerType.Work
+      timerType = TimerType.work
     } else {
       setBreakDurationString(string)
-      timerType = TimerType.Break
+      timerType = TimerType.break
     }
     return timerType
   }
@@ -114,9 +114,9 @@ final class SettingsView: UIView {
   
   func moveMarker(toView view: UIView) {
     if workInputHostView.frame.contains(view.center) {
-      selectedTimerType = .Work
+      selectedTimerType = .work
     } else {
-      selectedTimerType = .Break
+      selectedTimerType = .break
     }
     
     UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 5.0, options: [], animations: {

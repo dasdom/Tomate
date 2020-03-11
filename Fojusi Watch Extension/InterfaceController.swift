@@ -39,7 +39,7 @@ final class InterfaceController: WKInterfaceController {
   override func awake(withContext context: Any?) {
     super.awake(withContext: context)
     
-    session = WCSession.default()
+    session = WCSession.default
     session?.delegate = self
     session?.activate()
   }
@@ -54,7 +54,7 @@ final class InterfaceController: WKInterfaceController {
     super.willActivate()
   }
   
-  func updateUserInterface() {
+  @objc func updateUserInterface() {
     if let endDate = endDate {
       let promillValue = Int(endDate.timeIntervalSinceNow*100.0/Double(maxValue))+1
       if promillValue == 0 {

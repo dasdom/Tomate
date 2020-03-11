@@ -93,6 +93,20 @@ final class ComplicationController: NSObject, CLKComplicationDataSource {
     case .extraLarge:
       //TODO
       break
+    case .graphicCorner:
+      //TODO
+      break
+    case .graphicBezel:
+      //TODO
+      break
+    case .graphicCircular:
+      //TODO
+      break
+    case .graphicRectangular:
+      //TODO
+      break
+    @unknown default:
+      break
     }
     handler(entry)
   }
@@ -159,6 +173,20 @@ final class ComplicationController: NSObject, CLKComplicationDataSource {
       break
     case .extraLarge:
       //TODO
+      break
+    case .graphicCorner:
+      //TODO
+      break
+    case .graphicBezel:
+      //TODO
+      break
+    case .graphicCircular:
+      //TODO
+      break
+    case .graphicRectangular:
+      //TODO
+      break
+    @unknown default:
       break
     }
     handler(template)

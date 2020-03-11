@@ -1,7 +1,3 @@
-//
-//  AboutView.swift
-//  Tomate
-//
 //  Created by dasdom on 15.07.15.
 //  Copyright © 2015 Dominik Hauser. All rights reserved.
 //
